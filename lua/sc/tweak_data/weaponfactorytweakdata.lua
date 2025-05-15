@@ -16060,7 +16060,7 @@ end)
 						supported = true,
 						stats = {
 							value = 1, 
-							extra_ammo = 15,
+							extra_ammo = 14,
 							reload = -7, 
 							concealment = -5
 						},
@@ -16617,7 +16617,7 @@ end)
 					}
 					self.parts.wpn_fps_sho_basset_m_extended.stats = {
 						value = 1, 
-						extra_ammo = 5, 
+						extra_ammo = 4, 
 						reload = -4, 
 						concealment = -2
 					}
@@ -16651,7 +16651,7 @@ end)
 
 					self.wpn_fps_sho_x_basset.override.wpn_fps_sho_basset_m_extended = {
 						stats = {
-							extra_ammo = 10, 
+							extra_ammo = 8, 
 							reload = -4, 
 							concealment = -2
 						}
@@ -24907,7 +24907,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				lock = true
 			},
 			info_lock_burst = true,
-			tactical_reload = 0,
+			tactical_reload = 1,
 			falloff_start_mult = 0.5,
 			falloff_end_mult = 0.33333
 		},
@@ -25688,8 +25688,8 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_shot_wmtx_mag_ext.supported = true
 				self.parts.wpn_fps_shot_wmtx_mag_ext.stats = {
 					value = 0,
-					extra_ammo = 6,
-					reload = -5,
+					extra_ammo = 4,
+					reload = -2,
 					concealment = -3
 				}
 				self.parts.wpn_fps_shot_wmtx_mag_ext.custom_stats = {
@@ -27179,6 +27179,17 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					concealment = -2
 				}
 				self.parts.wpn_fps_upg_m60e4_stock_e6.custom_stats = nil
+
+				for i, part_id in pairs(self.wpn_fps_lmg_m60e4.uses_parts) do
+					attachment_list = {
+						"wpn_fps_upg_fl_dbal_laser"
+					}
+					for _, remove_id in ipairs(attachment_list) do
+						if part_id == remove_id then
+							self.wpn_fps_lmg_m60e4.uses_parts[i] = "resmod_dummy"
+						end
+					end
+				end	
 			end
 
 			if self.parts.wpn_fps_smg_aug9mm_irons then
@@ -30382,6 +30393,17 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				translation = Vector3(-1.8, 4, -11.3),
 				rotation = Rotation(-0.02, 0.04, -45)
 			}
+			
+			for i, part_id in pairs(self.wpn_fps_ass_ngsierra.uses_parts) do
+				attachment_list = {
+					"wpn_fps_ass_ngsierra_am_bootleg_fury"
+				}
+				for _, remove_id in ipairs(attachment_list) do
+					if part_id == remove_id then
+						self.wpn_fps_ass_ngsierra.uses_parts[i] = "resmod_dummy"
+					end
+				end
+			end
 		end
 
 		if self.parts.wpn_fps_lmg_pkilo_stock_medium then
@@ -43848,7 +43870,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			value = 2,
 			recoil = 2,
 			concealment = -1
-		}		
+		}
 	end
 
 	--[[😭💢😭💢😭💢😭💢😭💢😭💢😭💢😭💢😭💢😭💢 (soosh's Blue Archive skins)]]
