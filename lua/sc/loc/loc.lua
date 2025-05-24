@@ -1341,6 +1341,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 
 		--Generic Optic Zoom Descriptions--
 		["bm_wp_upg_o_1_1"] = "Red dot sight.\n#{risk}#1.1x magnification.##",
+		["bm_wp_upg_o_1_1_reflex"] = "Reflex sight.\n#{risk}#1.1x magnification.##",
 		["bm_wp_upg_o_1_1_health"] = "Red dot sight that #{skill_color}#displays the health of enemies## while aiming at them.\n#{risk}#1.1x magnification.##",
 		["bm_wp_upg_o_1_1_ammo"] = "Red dot sight that #{skill_color}#displays the weapon's current ammo count##.\n#{risk}#1.1x magnification.##",
 		["bm_wp_upg_o_1_1_generic"] = "#{risk}#1.1x magnification.##",
@@ -1476,6 +1477,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 		["bm_ap25_armor_weapon_sc_desc"] = "#{skill_color}#Weapon deals an additional 25% of its damage through armor.##",
 		["bm_ap_armor_25_weapon_sc_desc"] = "#{skill_color}#Deals 25% of its damage through body armor.##",
 		["bm_ap_armor_50_weapon_sc_desc"] = "#{skill_color}#Deals 50% of its damage through body armor and can pierce enemies.##",
+		["bm_ap_armor_50u_weapon_sc_desc"] = "#{skill_color}#Deals 50% of its damage through body armor and can pierce multiple enemies.##",
 		["bm_ap_armor_75_weapon_sc_desc"] = "#{skill_color}#Deals 75% of its damage through body armor and can pierce multiple enemies and thin walls.##",
 		["bm_pdw_gen_sc_desc"] = "#{skill_color}#Deals 75% of its damage through body armor.##",
 		["bm_heavy_ap_weapon_sc_desc"] = "#{skill_color}#Can pierce multiple enemies, their body armor, shields, titan-shields and thin walls.##",
@@ -2192,6 +2194,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 		["menu_reticle_dmc_dot_4x4"] = "Small Dot",
 		["menu_reticle_dmc_dot_2x2"] = "Tiny Dot",
 		["menu_reticle_dmc_cross_holotherm"] = "SZ Holotherm",
+		["menu_reticle_dmc_okp7"] = "OKP-7",
 
 
 
@@ -2656,6 +2659,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 					["bm_lemon_dmc_desc"] = "Imagine yourself with a concealable, high-powered revolver. Now imagine no futher, as the Investigator is exactly that.\n\n#{skill_color}#Deals double damage when attacking enemies from behind.##",
 					--MW2019 P320
 					["bm_wp_wpn_fps_pis_papa320_magazine_ext2"] = "32 Round Magazine",
+					--SR1M
+					["bm_sr1_sc_desc"] = "#{skill_color}#Deals 75% of its damage through body armor.##",
 
 			--[[ SMGs ]]
 				--Kobus 90
@@ -2761,6 +2766,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 					--MW2019 PKM
 					["bm_wp_wpn_fps_lmg_pkilo_xmag"] = "Brown Ammo Box",
 					["bm_wp_wpn_fps_lmg_pkilo_xmag_large"] = "Black Ammo Box",
+					--MG3
+					["bm_mg3_sc_desc"] = "#{skill_color}#Has improved spread and recoil while hipfired.##",
 
 
 			--[[ SHOTGUNS ]]
@@ -3042,6 +3049,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 					["bm_hmcar_sc_desc"] = "Before being phased out by law-enforcement, you managed to swipe a case full of these conversion kits.\n\nShoots #{stat_maxed}#titan-sniper rounds## capable of #{skill_color}#piercing multiple enemies, their body armor, shields within max damage range and thin walls;## Alt-fire shoots a #{event_color}#full power sniper round## for #{skill_color}#twice the ammo and power## that also adds the abilty to #{skill_color}#pierce titan-shields.##",
 					["bm_wp_hmcar_hd_kit"] = "32bit 8K HD Kit",
 					["bm_wp_hmcar_hd_kit_desc"] = "Application has crashed: C++ exception\nCould not load texture because IDirect3D9::CreateTexture call failed.\nDirect3D could not allocate sufficient memory to complete the call.\n\n\n\n\n\n\n ",
+					["bm_w_arisaka38_desc"] = "This weapon reloads in clips of 5 bullets at a time and #{skill_color}#can pierce body armor, multiple enemies, shields and thin walls.##",
+				
 
 			--[[ SPECIALS ]]
 				--Saw
@@ -3064,6 +3073,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 				["bm_w_china_sc_desc"] = "\"This really is a most horrid neighborhood!\"\n\nPress #{skill_color}#$BTN_GADGET## to toggle the leaf sight; zeroed to #{skill_color}#30## meters.",
 				--COMMANDO 101/M202 FLASH
 				["bm_ray_sc_desc"] = "Become the \"#{risk}#Grim Reaper##\" with this 4-shot #{heat_warm_color}#incendiary## rocket launcher.\n\nRockets leave behind a #{heat_warm_color}#pool of fire## and explosive damage dealt by this weapon #{skill_color}#instantly destroys turrets## and deals an extra #{skill_color}#500%## damage against non-titan Bulldozers.",
+				-- Toy weapons
+				["bm_w_toym16_sc_desc"] = "\"No full-auto in buildings.\"",
+				["bm_w_toy1911_sc_desc"] = "Airsoft pistol modified with a turbo electric motor, allowing you to #{skill_color}#switch to fully automatic fire##.\nRemember, not full-auto in buildings.",
 
 
 	})
