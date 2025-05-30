@@ -25995,7 +25995,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.wpn_fps_snp_amr2_npc.override = deep_clone(self.wpn_fps_snp_amr2.override)
 				self.wpn_fps_snp_amr2_npc.uses_parts = deep_clone(self.wpn_fps_snp_amr2.uses_parts)
 			end
-		
+
 			if self.parts.wpn_fps_upg_tac50_body_bipod then
 				self.parts.wpn_fps_upg_tac50_body_bipod.supported = true
 				self.parts.wpn_fps_upg_tac50_body_bipod.stats = { value = 0 }
@@ -27379,7 +27379,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_upg_mars_grip_pearl.custom_stats = nil
 			end
 
-if self.parts.wpn_fps_upg_sw642_ghostring then
+			if self.parts.wpn_fps_upg_sw642_ghostring then
 				self.parts.wpn_fps_upg_sw642_ghostring.supported = true
 				self.parts.wpn_fps_upg_sw642_ghostring.stats = { value = 0 }
 			end
@@ -27389,7 +27389,7 @@ if self.parts.wpn_fps_upg_sw642_ghostring then
 				self.parts.wpn_fps_upg_unica6_comp.stats = deep_clone(muzzle_device.muzz_acc_r)
 				self.parts.wpn_fps_upg_unica6_comp.custom_stats = deep_clone(muzzle_device.muzz_acc_r)
 			end
-
+			
 			if self.parts.wpn_fps_pis_m1895_cylinder then
 				self.parts.wpn_fps_pis_m1895_cylinder.stats = { value = 0 }
 				self.parts.wpn_fps_pis_m1895_cylinder.custom_stats = nil
@@ -27915,8 +27915,8 @@ if self.parts.wpn_fps_upg_sw642_ghostring then
 				self.parts.wpn_fps_upg_toz66_duckbill.stats = deep_clone(self.parts.wpn_fps_upg_ns_duck.stats)
 				self.parts.wpn_fps_upg_toz66_duckbill.custom_stats = deep_clone(self.parts.wpn_fps_upg_ns_duck.custom_stats)
 			end
-			
-if self.wpn_fps_sho_x_toz66 then
+
+			if self.wpn_fps_sho_x_toz66 then
 				self.wpn_fps_sho_x_toz66.override.wpn_fps_upg_a_custom = {custom_stats = deep_clone(shot_ammo.a_custom_heavy_override.custom_stats)}
 				self.wpn_fps_sho_x_toz66.override.wpn_fps_upg_a_custom.custom_stats.rays = 4
 				self.wpn_fps_sho_x_toz66.override.wpn_fps_upg_a_custom_free = {custom_stats = deep_clone(shot_ammo.a_custom_heavy_override.custom_stats)}
@@ -38435,7 +38435,7 @@ if self.wpn_fps_sho_x_toz66 then
 			}
 		end
 
-if self.parts.wpn_fps_ass_acwr_gl then
+		if self.parts.wpn_fps_ass_acwr_gl then
 			self.parts.wpn_fps_ass_acwr_gl.type = "underbarrel"	-- doesn't work without this, good job
 			self.parts.wpn_fps_ass_acwr_gl.sub_type = "grenade_launcher"
 			self.parts.wpn_fps_ass_acwr_gl.perks = { "underbarrel" }

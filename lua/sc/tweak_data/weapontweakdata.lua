@@ -19865,7 +19865,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.arisaka38.recategorize = { "heavy_snp" }
 				self.arisaka38.damage_type = "sniper"
-self.arisaka38.desc_id = "bm_ap_clip_sc_desc"
+				self.arisaka38.desc_id = "bm_ap_clip_sc_desc"
 				self.arisaka38.uses_clip = true
 				self.arisaka38.clip_capacity = 5
 				self.arisaka38.CLIP_AMMO_MAX = 5
@@ -20056,7 +20056,7 @@ self.arisaka38.desc_id = "bm_ap_clip_sc_desc"
 				self.sw27.can_shoot_through_enemy = true
 				self.sw27.timers = deep_clone(self.chinchilla.timers)
 			end
-			
+
 			if self.sw642 then 
 				self.sw642.recategorize = {"heavy_pis", "handcannon"}
 				self.sw642.has_description = true
@@ -21851,7 +21851,7 @@ self.arisaka38.desc_id = "bm_ap_clip_sc_desc"
 				self.fakedefy.warsaw = true
 				self.fakedefy.recategorize = { "heavy_ar" }	
 				self.fakedefy.damage_type = "assault_rifle"
-self.fakedefy.CLIP_AMMO_MAX = 30
+				self.fakedefy.CLIP_AMMO_MAX = 30
 				self.fakedefy.tactical_reload = 1
 				self.fakedefy.AMMO_MAX = 120
 				self.fakedefy.fire_mode_data.fire_rate = 0.1
@@ -21957,7 +21957,7 @@ self.fakedefy.CLIP_AMMO_MAX = 30
 				self.fsbcustom.warsaw = true
 				self.fsbcustom.is_bullpup = true
 				self.fsbcustom.has_description = false						
-				self.fsbcustom.tactical_reload = 1		
+				self.fsbcustom.tactical_reload = 1
 				self.fsbcustom.CLIP_AMMO_MAX = 30
 				self.fsbcustom.AMMO_MAX = 60
 				self.fsbcustom.fire_mode_data.fire_rate = 0.0923076923
@@ -29241,7 +29241,7 @@ self.fakedefy.CLIP_AMMO_MAX = 30
 			self.spas15.reload_speed_multiplier = 1.1
 			self.spas15.reload_not_empty_speed_multiplier = 1.1
 			self.spas15.timers = deep_clone(self.g36.timers)
-		end	
+		end
 
 		if self.k5 then
 			self.k5.recategorize = { "light_pis" }
