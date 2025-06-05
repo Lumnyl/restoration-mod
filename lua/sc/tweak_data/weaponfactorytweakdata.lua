@@ -25298,8 +25298,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_upg_fl_wml.desc_id = "bm_wp_upg_fl_flashlight"
 			end
 
-			if self.parts.wpn_fps_upg_xm8_barrel_long then --Pawcio's XM8
-
 			if self.parts.wpn_fps_upg_fl_anpeq2 then
 				self.parts.wpn_fps_upg_fl_anpeq2.stats.recoil = 0
 				self.parts.wpn_fps_upg_fl_pis_unimax_inforce.stats.concealment = 0
@@ -25325,7 +25323,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_upg_fl_wml.desc_id = "bm_wp_upg_fl_flashlight"
 			end
 
-			if self.parts.wpn_fps_upg_xm8_barrel_long then
+			if self.parts.wpn_fps_upg_xm8_barrel_long then --Pawcio's XM8
 				self.parts.wpn_fps_upg_xm8_barrel_long.supported = true
 				self.parts.wpn_fps_upg_xm8_barrel_long.stats = deep_clone(barrels.long_b2_stats)
 				self.parts.wpn_fps_upg_xm8_barrel_long.custom_stats = deep_clone(barrels.long_b2_stats)
