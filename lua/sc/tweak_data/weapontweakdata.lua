@@ -12982,8 +12982,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.model70.stats_modifiers = nil
 						self.model70.reload_speed_multiplier = 1.125
 						self.model70.panic_suppression_chance = 0.05
-						self.model70.timers.reload_empty = 3.25
-						self.model70.timers.reload_not_empty = 4.3
+						self.model70.timers.reload_not_empty = 3.25
+						self.model70.timers.reload_empty = 4.3
 						self.model70.timers.reload_exit_empty = 0.8
 						self.model70.timers.reload_exit_not_empty = 1.05
 
@@ -26610,6 +26610,63 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.omni.timers = deep_clone(self.new_m4.timers)
 			end
 
+			if self.dd5 then
+				self.dd5.categories = {
+					"assault_rifle",
+					"dmr_l"
+				}
+				self.dd5.recategorize = { "dmr_ar" }
+				self.dd5.damage_type = "assault_rifle"
+				self.dd5.desc_id = "bm_ap_armor_25_weapon_sc_desc"
+				self.dd5.has_description = true
+				self.dd5.nato = true
+				self.dd5.lock_slide = true
+				self.dd5.sounds.magazine_empty = "wp_rifle_slide_lock"
+				self.dd5.CLIP_AMMO_MAX = 20
+				self.dd5.tactical_reload = 1
+				self.dd5.AMMO_MAX = 80
+				self.dd5.BURST_FIRE = false
+				self.dd5.CAN_TOGGLE_FIREMODE = true
+				self.dd5.FIRE_MODE = "auto"
+				self.dd5.fire_mode_data.fire_rate = 0.07692307
+				self.dd5.muzzleflash = "effects/payday2/particles/weapons/big_762_auto_fps"
+				self.dd5.kick = self.stat_info.kick_tables.even_recoil
+				self.dd5.kick_pattern = {
+					{0, self.stat_info.kick_tables.even_recoil},
+					{4, self.stat_info.kick_tables.left_recoil},
+					{7, self.stat_info.kick_tables.even_recoil},
+					{10, self.stat_info.kick_tables.right_recoil},
+					{16, self.stat_info.kick_tables.left_recoil}
+				}
+				self.dd5.supported = true
+				self.dd5.ads_speed = 0.380
+				self.dd5.damage_falloff = {
+					start_dist = 1800,
+					end_dist = 5000,
+					min_mult = 0.53333
+				}
+				self.dd5.stats = {
+					damage = 45,
+					spread = 81,
+					recoil = 55,
+					zoom = 1,
+					concealment = 24,
+					suppression = 7,
+					alert_size = 2,
+					extra_ammo = 101,
+					total_ammo_mod = 400,
+					value = 9,
+					reload = 20
+				}
+				self.dd5.stats_modifiers = nil
+				self.dd5.can_shoot_through_enemy = false
+				self.dd5.timers.reload_empty = 2.26
+				self.dd5.timers.reload_exit_empty = 0.8
+				self.dd5.timers.reload_exit_not_empty = 0.8
+				self.dd5.armor_piercing_chance = 0.25
+				self.dd5.panic_suppression_chance = 0.05
+			end
+
 			if self.sierra458 then --Tangerine and PlayBONK's FTAC Recon :^)
 				self.sierra458.categories = {
 					"snp",
@@ -26894,63 +26951,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.baller.timers.reload_exit_empty = 0.5
 				self.baller.timers.reload_exit_not_empty = 0.65
 			end
-
-			if self.dd5 then
-				self.dd5.recategorize = { "dmr_ar" }
-				self.dd5.categories = {
-					"assault_rifle",
-					"dmr_l"
-				}
-				self.dd5.desc_id = "bm_ap_armor_25_weapon_sc_desc"
-				self.dd5.damage_type = "assault_rifle"
-				self.dd5.lock_slide = true
-				self.dd5.sounds.magazine_empty = "wp_rifle_slide_lock"
-				self.dd5.has_description = true
-				self.dd5.AMMO_MAX = 80
-				self.dd5.tactical_reload = 1
-				self.dd5.CLIP_AMMO_MAX = 20
-				self.dd5.armor_piercing_chance = 0.25
-				self.dd5.fire_mode_data.fire_rate = 0.07692307
-				self.dd5.FIRE_MODE = "auto"
-				self.dd5.CAN_TOGGLE_FIREMODE = true
-				self.dd5.kick = self.stat_info.kick_tables.moderate_kick
-				self.dd5.kick_pattern = {
-					{0, self.stat_info.kick_tables.even_recoil},
-					{4, self.stat_info.kick_tables.left_recoil},
-					{7, self.stat_info.kick_tables.even_recoil},
-					{10, self.stat_info.kick_tables.right_recoil},
-					{16, self.stat_info.kick_tables.left_recoil}
-				}
-				self.dd5.supported = true
-				self.dd5.ads_speed = 0.380
-				self.dd5.can_shoot_through_enemy = true
-				self.dd5.can_shoot_through_wall = false
-				self.dd5.damage_falloff = {
-					start_dist = 1800,
-					end_dist = 5000,
-					min_mult = 0.53333
-				}
-				self.dd5.stats = {
-					damage = 45,
-					spread = 81,
-					recoil = 55,
-					spread_moving = 6,
-					zoom = 1,
-					concealment = 24,
-					suppression = 20,
-					alert_size = 1,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.dd5.panic_suppression_chance = 0.05
-				self.dd5.stats_modifiers = nil
-				self.baller.reload_speed_multiplier = 0.9
-				self.dd5.timers.reload_exit_empty = 0.85
-				self.dd5.timers.reload_exit_not_empty = 0.75
-			end
-
+		
 		--[[     HYLIE'S MODS     ]]--
 
 			if self.m1918 then --RAID WW2 BAR
