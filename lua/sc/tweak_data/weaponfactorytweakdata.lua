@@ -4038,6 +4038,7 @@ end)
 					self.wpn_fps_pis_rsh12.override.wpn_fps_upg_i_iw_hailstorm = {
 						desc_id = "bm_wp_upg_i_iw_hailstorm_no_pen_desc",
 						custom_stats = {
+							info_lock_burst = true,
 							burst_fire = {
 								count = 3,
 								recoil_mult = 0.33,
@@ -4053,6 +4054,7 @@ end)
 							ammo_pickup_min_mul = 2,
 							alt_ammo_pickup_max_mul = 2,
 							alt_ammo_pickup_min_mul = 2,
+							damage_min_mult = 2,
 							rof_mult = 4.443333
 						},
 						stats = {
@@ -9375,6 +9377,7 @@ end)
 
 				--Unless you rebuy, changing/reverting the "type" of an attachment for a blueprint attached item leads to a freeze, so this is staying as such
 				self.parts.wpn_fps_lmg_mg42_reciever.type = "magazine_extra"
+				self.parts.wpn_fps_lmg_mg42_reciever.bullet_objects = nil
 				self.parts.wpn_fps_lmg_mg42_reciever.visibility = {
 					{
 						objects = {
@@ -11249,7 +11252,6 @@ end)
 				Hooks:PostHook(WeaponFactoryTweakData, "_init_olympic", "resmod_olympic", function(self)
 
 					--Default Handguard
-					self.parts.wpn_fps_smg_olympic_fg_olympic.adds = {"wpn_fps_ass_m4_os_frontsight"}
 					self.parts.wpn_fps_smg_olympic_fg_olympic.forbids = {"wpn_fps_ass_m16_os_frontsight"}
 
 					--(Para) Railed Handguard
@@ -11260,7 +11262,6 @@ end)
 						40
 					}
 					self.parts.wpn_fps_smg_olympic_fg_railed.supported = true
-					self.parts.wpn_fps_smg_olympic_fg_railed.adds = {"wpn_fps_ass_m4_os_frontsight"}
 					self.parts.wpn_fps_smg_olympic_fg_railed.forbids = {"wpn_fps_ass_m16_os_frontsight"}
 					self.parts.wpn_fps_smg_olympic_fg_railed.stats = {
 						value = 2,
@@ -11450,8 +11451,19 @@ end)
 					table.insert(self.wpn_fps_smg_olympic.uses_parts, "wpn_fps_upg_o_northtac_reddot")
 					table.insert(self.wpn_fps_smg_olympic.uses_parts, "wpn_fps_upg_i_og_rof")
 
+					self.wpn_fps_smg_olympic.adds = {}
+
+					for k, used_part_id in ipairs(self.wpn_fps_smg_olympic.uses_parts) do
+						if self.parts[used_part_id] and self.parts[used_part_id].type then
+							if self.parts[used_part_id].type == "foregrip" then
+								self.wpn_fps_smg_olympic.adds[used_part_id] = {"wpn_fps_ass_m4_os_frontsight"}
+							end
+						end
+					end
+
 					self.wpn_fps_smg_olympic_npc.override = deep_clone(self.wpn_fps_smg_olympic.override)
 					self.wpn_fps_smg_olympic_npc.uses_parts = deep_clone(self.wpn_fps_smg_olympic.uses_parts)
+					self.wpn_fps_smg_olympic_npc.adds = deep_clone(self.wpn_fps_smg_olympic.adds)
 
 					self.wpn_fps_smg_olympic_primary = nil
 					self.wpn_fps_smg_olympic_primary_npc = nil
@@ -11812,7 +11824,6 @@ end)
 				Hooks:PostHook(WeaponFactoryTweakData, "_init_m16", "resmod_m16", function(self)
 
 
-					self.parts.wpn_fps_m16_fg_standard.adds = { "wpn_fps_ass_m4_os_frontsight" }
 
 					--(AMR-16) Tactical Handguard
 					self.parts.wpn_fps_m16_fg_railed.pcs = {
@@ -11822,7 +11833,6 @@ end)
 						40
 					}
 					self.parts.wpn_fps_m16_fg_railed.supported = true
-					self.parts.wpn_fps_m16_fg_railed.adds = { "wpn_fps_ass_m4_os_frontsight" }
 					self.parts.wpn_fps_m16_fg_railed.stats = {
 						value = 2,
 						recoil = 2,
@@ -11837,7 +11847,6 @@ end)
 						40
 					}
 					self.parts.wpn_fps_m16_fg_vietnam.supported = true
-					self.parts.wpn_fps_m16_fg_vietnam.adds = { "wpn_fps_ass_m4_os_frontsight" }
 					self.parts.wpn_fps_m16_fg_vietnam.stats = {
 						value = 3,
 						recoil = -4,
@@ -11873,8 +11882,17 @@ end)
 						wpn_fps_smg_olympic = { translation = Vector3(0, -4, 0) }
 					}
 
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_cola_legend")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_m4_uupg_s_fold")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_m4_s_standard")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_m4_s_pts")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_smg_olympic_s_short")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_i_m16a2")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_s_saintvictor_hera")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_o_northtac")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_o_northtac_reddot")
+
 					--Overriding these
-					self.wpn_fps_ass_m16.adds = {}
 					self.wpn_fps_ass_m16.override = {}
 
 					--M16 Default Blueprint, making it use the 30 rounder by default
@@ -11974,21 +11992,27 @@ end)
 						stats = deep_clone(stocks.fixed_to_thumbhole_stats),
 						custom_stats = deep_clone(stocks.fixed_to_thumbhole_stats)
 					}
+					self.wpn_fps_ass_m16.override.wpn_fps_upg_o_eotech = {
+						stats = {
+							zoom = 5,
+							recoil = 4
+						}
+					}
 
-					self.wpn_fps_ass_m16.ad = self.wpn_fps_ass_m16.adds or {}
+					self.wpn_fps_ass_m16.adds = {}
+
+					for k, used_part_id in ipairs(self.wpn_fps_ass_m16.uses_parts) do
+						if self.parts[used_part_id] and self.parts[used_part_id].type then
+							if self.parts[used_part_id].type == "foregrip" then
+								self.wpn_fps_ass_m16.adds[used_part_id] = {"wpn_fps_ass_m4_os_frontsight"}
+							end
+						end
+					end
+
 					self.wpn_fps_ass_m16.adds.wpn_fps_upg_m16_fg_edge = { "wpn_fps_m4_uupg_fg_rail_ext_dummy" }
 
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_cola_legend")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_m4_uupg_s_fold")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_m4_s_standard")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_m4_s_pts")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_smg_olympic_s_short")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_i_m16a2")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_s_saintvictor_hera")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_o_northtac")
-					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_o_northtac_reddot")
-
 					self.wpn_fps_ass_m16_npc.adds = deep_clone(self.wpn_fps_ass_m16.adds)
+					self.wpn_fps_ass_m16_npc.override = deep_clone(self.wpn_fps_ass_m16.override)
 					self.wpn_fps_ass_m16_npc.uses_parts = deep_clone(self.wpn_fps_ass_m16.uses_parts)
 				end)
 
@@ -13509,6 +13533,12 @@ end)
 					stats = deep_clone(stocks.fixed_to_hvy_rec_stats),
 					custom_stats = deep_clone(stocks.fixed_to_hvy_rec_stats)
 				}
+				self.wpn_fps_ass_fal.override.wpn_fps_upg_o_eotech = {
+					custom_stats = {
+						ads_speed_mult = 1.015,
+						damage_min_mult = 1.25
+					}
+				}
 
 				table.insert(self.wpn_fps_ass_fal.uses_parts, "wpn_fps_upg_m4_s_standard")
 				table.insert(self.wpn_fps_ass_fal.uses_parts, "wpn_fps_upg_m4_s_pts")
@@ -13554,10 +13584,10 @@ end)
 					rof_mult = 0.66666,
 					ads_speed_mult = 1.277777,
 					hip_mult = 2,
-					alt_ammo_pickup_min_mul = 0.8636,
-					alt_ammo_pickup_max_mul = 0.8636,
-					ammo_pickup_min_mul = 0.8636,
-					ammo_pickup_max_mul = 0.8636,
+					alt_ammo_pickup_min_mul = 0.7857,
+					alt_ammo_pickup_max_mul = 0.7857,
+					ammo_pickup_min_mul = 0.7857,
+					ammo_pickup_max_mul = 0.7857,
 					sms = 0.6,
 					alt_desc = "bm_shak12_sc_oden_desc",
 					srm = {
@@ -21214,7 +21244,6 @@ end)
 			--Long Ergo Foregrip
 			self.parts.wpn_fps_upg_ass_m16_fg_stag.pcs = {}
 			self.parts.wpn_fps_upg_ass_m16_fg_stag.supported = true
-			self.parts.wpn_fps_upg_ass_m16_fg_stag.adds = { "wpn_fps_ass_m4_os_frontsight" }
 			self.parts.wpn_fps_upg_ass_m16_fg_stag.override.wpn_fps_ass_m4_os_frontsight = { a_obj = "a_os_stag" }
 			self.parts.wpn_fps_upg_ass_m16_fg_stag.stats = {
 				value = 5,
@@ -24053,10 +24082,10 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				{1, 1.3},
 				2
 			},
-			alt_ammo_pickup_min_mul = 0.8636,
-			alt_ammo_pickup_max_mul = 0.8636,
-			ammo_pickup_min_mul = 0.8636,
-			ammo_pickup_max_mul = 0.8636,
+			alt_ammo_pickup_min_mul = 0.7857,
+			alt_ammo_pickup_max_mul = 0.7857,
+			ammo_pickup_min_mul = 0.7857,
+			ammo_pickup_max_mul = 0.7857,
 			falloff_start_mult = 1.30,
 			falloff_end_mult = 1.30
 		},
@@ -24852,6 +24881,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 		supported = true,
 		keep_damage = true,
 		custom_stats = {
+			info_lock_burst = true,
 			burst_fire = {
 				count = 3,
 				recoil_mult = 0.33,
@@ -24867,6 +24897,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			ammo_pickup_min_mul = 2,
 			alt_ammo_pickup_max_mul = 2,
 			alt_ammo_pickup_min_mul = 2,
+			damage_min_mult = 2,
 			rof_mult = 3.3325,
 		},
 		stats = {
@@ -24983,10 +25014,10 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			hip_mult = 1.666666,
 			damage_min_mult = 0.75,
 			sms = 0.6,
-			alt_ammo_pickup_min_mul = 0.5937,
-			alt_ammo_pickup_max_mul = 0.5937,
-			ammo_pickup_min_mul = 0.5937,
-			ammo_pickup_max_mul = 0.5937
+			alt_ammo_pickup_min_mul = 0.5641,
+			alt_ammo_pickup_max_mul = 0.5641,
+			ammo_pickup_min_mul = 0.5641,
+			ammo_pickup_max_mul = 0.5641
 		},
 		perks = { "fire_mode_single" },
 		internal_part = true,
@@ -25277,31 +25308,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			end
 
 			if self.parts.wpn_fps_upg_fl_anpeq2 then --Pawcio's Lost Gadgets
-				self.parts.wpn_fps_upg_fl_anpeq2.stats.recoil = 0
-				self.parts.wpn_fps_upg_fl_pis_unimax_inforce.stats.concealment = 0
-				self.parts.wpn_fps_upg_fl_m600p.stats.recoil = 0
-				self.parts.wpn_fps_upg_fl_unimax_inforce.stats.concealment = 0
-
-				self.parts.wpn_fps_upg_fl_anpeq2.desc_id = "bm_wp_upg_fl_laser"
-				self.parts.wpn_fps_upg_fl_utg.desc_id = "bm_wp_upg_fl_laser"
-				self.parts.wpn_fps_upg_fl_pis_utg.desc_id = "bm_wp_upg_fl_laser"
-				self.parts.wpn_fps_upg_fl_unimax.desc_id = "bm_wp_upg_fl_laser"
-				self.parts.wpn_fps_upg_fl_pis_unimax.desc_id = "bm_wp_upg_fl_laser"
-
-				self.parts.wpn_fps_upg_fl_unimax_inforce.desc_id = "bm_wp_upg_fl_dual"
-				self.parts.wpn_fps_upg_fl_pis_unimax_inforce.desc_id = "bm_wp_upg_fl_dual"
-				self.parts.wpn_fps_upg_fl_dbal_d2.desc_id = "bm_wp_upg_fl_dual"
-
-				self.parts.wpn_fps_upg_fl_m600p.desc_id = "bm_wp_upg_fl_flashlight"
-				self.parts.wpn_fps_upg_fl_pis_inforce_apl.desc_id = "bm_wp_upg_fl_flashlight"
-			end
-
-			if self.parts.wpn_fps_upg_fl_pis_micro90 then
-				self.parts.wpn_fps_upg_fl_pis_micro90.desc_id = "bm_wp_upg_fl_flashlight"
-				self.parts.wpn_fps_upg_fl_wml.desc_id = "bm_wp_upg_fl_flashlight"
-			end
-
-			if self.parts.wpn_fps_upg_fl_anpeq2 then
 				self.parts.wpn_fps_upg_fl_anpeq2.stats.recoil = 0
 				self.parts.wpn_fps_upg_fl_pis_unimax_inforce.stats.concealment = 0
 				self.parts.wpn_fps_upg_fl_m600p.stats.recoil = 0
@@ -35945,7 +35951,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					self.parts.wpn_fps_ass_m4_g_fancy.custom_stats = deep_clone(grips.quickdraw_1)
 					--Aftermarket Marksman Foregrip
 					self.parts.wpn_fps_ass_m16_fg_smooth.supported = true
-					self.parts.wpn_fps_ass_m16_fg_smooth.adds = { "wpn_fps_ass_m4_os_frontsight" }
 					self.parts.wpn_fps_ass_m16_fg_smooth.stats = {
 						value = 5,
 						concealment = 1,
@@ -37204,11 +37209,11 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					alt_desc = "bm_m203_vmp_sc_desc",
 					falloff_start_mult = 1.052631578947,
 					falloff_end_mult = 1.24,
-					damage_min_mult = 0.624414,
-					ammo_pickup_max_mul = 1.607142857,
-					ammo_pickup_min_mul = 1.607142857,
-					alt_ammo_pickup_max_mul = 1.607142857,
-					alt_ammo_pickup_min_mul = 1.607142857,
+					damage_min_mult = 0.75,
+					ammo_pickup_max_mul = 1.6667,
+					ammo_pickup_min_mul = 1.6667,
+					alt_ammo_pickup_max_mul = 1.6667,
+					alt_ammo_pickup_min_mul = 1.6667,
 					can_shoot_through_enemy = false,
 					rof_mult = 1.166667,
 					armor_piercing_override = 0,
@@ -37930,10 +37935,10 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					falloff_start_mult = 0.6842105,
 					falloff_end_mult = 0.96,
 					damage_min_mult = 0.46875,
-					ammo_pickup_max_mul = 2.2,
-					ammo_pickup_min_mul = 2.2,
-					alt_ammo_pickup_max_mul = 2.2,
-					alt_ammo_pickup_min_mul = 2.2,
+					ammo_pickup_max_mul = 2.4358,
+					ammo_pickup_min_mul = 2.4358,
+					alt_ammo_pickup_max_mul = 2.4358,
+					alt_ammo_pickup_min_mul = 2.4358,
 					can_shoot_through_enemy = false,
 					rof_mult = 1.4166666,
 					armor_piercing_override = 0,
@@ -39799,6 +39804,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			table.insert(self.wpn_fps_ass_dd5.uses_parts, "wpn_fps_upg_o_mbus_rear")
 
 			self.wpn_fps_ass_dd5_npc.uses_parts = deep_clone(self.wpn_fps_ass_dd5.uses_parts)
+
 		end
 
 		if self.parts.wpn_fps_shot_omni_m_standard then --Tangerine's .410 AR
@@ -40341,49 +40347,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			}
 		end
 
-		if self.parts.wpn_fps_ass_dd5_fg_standard then --DDR5
-
-			self.parts.wpn_fps_ass_dd5_b_short.supported = true
-			self.parts.wpn_fps_ass_dd5_b_short.stats = deep_clone(barrels.short_b2_stats)
-			self.parts.wpn_fps_ass_dd5_b_short.custom_stats = deep_clone(barrels.short_b2_stats)
-
-			self.parts.wpn_fps_ass_dd5_fg_msr.supported = true
-			self.parts.wpn_fps_ass_dd5_fg_msr.stats = {
-				recoil = -4,
-				spread = 1,
-				concealment = 1
-			}
-
-			self.parts.wpn_fps_ass_dd5_fg_tti.supported = true
-			self.parts.wpn_fps_ass_dd5_fg_tti.stats = {
-				recoil = 2,
-				spread = -1
-			}
-
-			self.parts.wpn_fps_ass_dd5_ns_flash.supported = true
-			self.parts.wpn_fps_ass_dd5_ns_flash.desc_id = "bm_wp_upg_flash_hider"
-			self.parts.wpn_fps_ass_dd5_ns_flash.has_description = true
-			self.parts.wpn_fps_ass_dd5_ns_flash.stats = deep_clone(muzzle_device.muzz_con_a)
-			self.parts.wpn_fps_ass_dd5_ns_flash.custom_stats = deep_clone(muzzle_device.muzz_con_a)
-			self.parts.wpn_fps_ass_dd5_ns_flash.custom_stats.muzzleflash = "effects/payday2/particles/weapons/9mm_auto_silence_fps"
-
-			self.parts.wpn_fps_ass_dd5_m_quick.supported = true
-			self.parts.wpn_fps_ass_dd5_m_quick.stats = {
-				value = 6,
-				spread = -1,
-				reload = 3,
-				concealment = -1
-			}
-			self.parts.wpn_fps_ass_dd5_m_quick.custom_stats = nil
-
-			self.wpn_fps_ass_dd5.override.wpn_fps_upg_o_dd_rear.stance_mod = {
-				wpn_fps_ass_dd5 = {
-					translation = Vector3(0.03,-9.3,-0.1),
-					rotation = Rotation(0.015,0,0)
-				}
-			}
-		end
-
 		if self.parts.wpn_fps_upg_m4_hera_lower then --Tangerine's AK/AR Mod Pack
 
 			--Hera parts
@@ -40464,7 +40427,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 
 			--M4/M16 parts
 			self.parts.wpn_fps_ass_m16_fg_s552.supported = true
-			self.parts.wpn_fps_ass_m16_fg_s552.adds = { "wpn_fps_ass_m4_os_frontsight" }
 			self.parts.wpn_fps_ass_m16_fg_s552.stats = {
 				value = 3,
 				recoil = -2,
@@ -49394,6 +49356,10 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 		texture_bundle_folder = "boost_in_lootdrop",
 		has_description = true,
 		override = {
+			wpn_fps_ass_m4_os_frontsight = {
+				unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+				third_unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+			},
 			wpn_fps_m4_uupg_b_medium_vanilla = {
 				unit = "units/payday2_cash/safes/cola/weapons/wpn_fps_ass_m16_legendary/wpn_fps_ass_m16_b_legend",
 				third_unit = "units/payday2_cash/safes/cola/weapons/wpn_fps_ass_m16_legendary/wpn_third_ass_m16_b_legend",

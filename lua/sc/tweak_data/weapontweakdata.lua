@@ -5640,7 +5640,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 	self.ching.uses_clip = true
 	self.c96.clip_capacity = 10
 	self.mosin.clip_capacity = 5
-	self.ching.clip_capacity = 8
 	self.x_c96.uses_clip = true
 	self.x_c96.clip_capacity = 20
 	--End of Tac reloading shit--
@@ -8873,6 +8872,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.tec9.fire_mode_data.fire_rate = 0.06
 						self.tec9.CAN_TOGGLE_FIREMODE = true
 						self.tec9.auto = {}
+						self.tec9.has_description = true
+						self.tec9.desc_id = "bm_tec9_sc_desc"
 						self.tec9.auto.fire_rate = 0.06
 						self.tec9.kick = self.stat_info.kick_tables.left_recoil
 						self.tec9.kick_pattern = {
@@ -10322,7 +10323,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.mg42.spin_up_shoot = true
 						self.mg42.spin_up_t = 0.09
 						self.mg42.spin_down_t = 0.00000001
-						self.mg42.reload_speed_multiplier = 1
+						self.mg42.reload_speed_multiplier = 1.1
 						self.mg42.timers.reload_exit_empty = 1.65
 						self.mg42.timers.reload_exit_not_empty = 1.65
 
@@ -10482,7 +10483,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m60.stats_modifiers = nil
 						self.m60.bipod_req_scope = true
 						self.m60.panic_suppression_chance = 0.05
-						self.m60.reload_speed_multiplier = 0.75
+						self.m60.reload_speed_multiplier = 0.77
 						self.m60.sounds.spin_start = "wp_m60_reload_lever_release"
 						self.m60.spin_up_shoot = true
 						self.m60.spin_up_t = 0.1
@@ -10638,6 +10639,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.shuno.stats_modifiers = nil
 					self.shuno.ads_spool = true
 					self.shuno.spin_up_anims = true
+					self.shuno.spin_up_t = 0.35
+					self.shuno.spin_down_t = 0.35
 					self.shuno.timers.equip = 2.35
 					self.shuno.timers.reload_exit_empty = 5
 					self.shuno.timers.reload_exit_not_empty = 5
@@ -10698,6 +10701,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m134.jab_range = 50
 					self.m134.ads_spool = true
 					self.m134.spin_up_anims = true
+					self.m134.spin_up_t = 0.65
+					self.m134.spin_down_t = 0.65
 					self.m134.timers.reload_empty = 7
 					self.m134.timers.reload_not_empty = 7
 					self.m134.timers.reload_exit_empty = 2
@@ -12033,11 +12038,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.fal.has_description = true
 						self.fal.desc_id = "bm_fal_sc_desc"
 						self.fal.CLIP_AMMO_MAX = 20
-						self.fal.fire_mode_data.fire_rate = 0.0923076923
+						self.fal.fire_mode_data.fire_rate = 0.085714285
 						self.fal.CAN_TOGGLE_FIREMODE = true
 						self.fal.FIRE_MODE = "auto"
 						self.fal.auto = {}
-						self.fal.auto.fire_rate = 0.0923076923
+						self.fal.auto.fire_rate = 0.085714285
 						self.fal.kick = self.stat_info.kick_tables.moderate_right_kick
 						self.fal.kick_pattern = {
 							{0, self.stat_info.kick_tables.moderate_kick},
@@ -12311,12 +12316,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							"dmr_h"
 						}
 						self.ching.FIRE_MODE = "single"
-						self.ching.fire_mode_data.fire_rate = 0.12
+						self.ching.fire_mode_data.fire_rate = 0.125
 						self.ching.CAN_TOGGLE_FIREMODE = false
 						self.ching.has_description = true
 						self.ching.desc_id = "bm_galant_sc_desc"
 						self.ching.CLIP_AMMO_MAX = 8
-						self.ching.AMMO_MAX = 60
+						self.ching.AMMO_MAX = 40
 						self.ching.CAN_TOGGLE_FIREMODE = false
 						self.ching.kick = self.stat_info.kick_tables.vertical_kick
 						self.ching.kick_pattern = {
@@ -12329,12 +12334,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.ching.supported = true
 						self.ching.ads_speed = 0.300
 						self.ching.damage_falloff = {
-							start_dist = 3800,
+							start_dist = 2800,
 							end_dist = 8800,
-							min_mult = 0.5
+							min_mult = 0.3333
 						}
 						self.ching.stats = {
-							damage = 60,
+							damage = 90,
 							spread = 86,
 							recoil = 61,
 							spread_moving = 6,
@@ -12715,7 +12720,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.victor.damage_falloff = {
 							start_dist = 2000,
 							end_dist = 6000,
-							min_mult = 0.33333
+							min_mult = 0.4
 						}
 						self.victor.stats = {
 							damage = 30,
@@ -17000,7 +17005,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.acwr2.reload_speed_multiplier = 1.05
 				self.acwr2.sounds.magazine_empty = "wp_rifle_slide_lock"
 				self.acwr2.timers = deep_clone(self.new_m4.timers)
-
 			end
 
 			if self.mr96 then
@@ -17083,296 +17087,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.x_mr96.armor_piercing_chance = 0.5
 				self.x_mr96.can_shoot_through_enemy = true
 				self.x_mr96.timers = deep_clone(self.x_rage.timers)
-			end
-
-			if self.virtus then
-				self.virtus.nato = true
-				self.virtus.recategorize = { "light_ar" }
-				self.virtus.damage_type = "assault_rifle"
-				self.virtus.has_description = false
-				self.virtus.tactical_reload = 1
-				self.virtus.AMMO_MAX = 150
-				self.virtus.fire_mode_data.fire_rate = 0.075
-				self.virtus.kick = self.stat_info.kick_tables.moderate_kick
-				self.virtus.kick_pattern = {
-					{0, self.stat_info.kick_tables.moderate_kick},
-					{5, self.stat_info.kick_tables.pattern_r1},
-					{6, self.stat_info.kick_tables.moderate_left_kick},
-					{10, self.stat_info.kick_tables.right_kick},
-					{12, self.stat_info.kick_tables.moderate_kick},
-					{19, self.stat_info.kick_tables.moderate_right_kick}
-				}
-				self.virtus.supported = true
-				self.virtus.ads_speed = 0.280
-				self.virtus.damage_falloff = {
-					start_dist = 1800,
-					end_dist = 5500,
-					min_mult = 0.5
-				}
-				self.virtus.stats = {
-					damage = 24,
-					spread = 75,
-					recoil = 85,
-					spread_moving = 6,
-					zoom = 1,
-					concealment = 27,
-					suppression = 8,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.virtus.stats_modifiers = nil
-				self.virtus.panic_suppression_chance = 0.05
-				self.virtus.keep_ammo = 1
-				self.virtus.lock_slide = true
-				self.virtus.reload_speed_multiplier = 0.9
-				self.virtus.timers = deep_clone(self.s552.timers)
-				self.virtus.sounds.magazine_empty = "wp_rifle_slide_lock"
-				self.virtus.weapon_hold = "ak47"
-			end
-
-			if self.sonny then
-				self.sonny.recategorize = { "heavy_pis" }
-				self.sonny.damage_type = "heavy_pistol"
-				self.sonny.fire_mode_data.fire_rate = 0.1263157894
-				self.sonny.CLIP_AMMO_MAX = 10
-				self.sonny.AMMO_MAX = 40
-				self.sonny.kick = self.stat_info.kick_tables.right_recoil
-				self.sonny.kick_pattern = {
-					{0, self.stat_info.kick_tables.vertical_kick},
-					{3, self.stat_info.kick_tables.right_kick},
-					{6, self.stat_info.kick_tables.right_recoil}
-				}
-				self.sonny.supported = true
-				self.sonny.armor_piercing_chance = 0
-				self.sonny.ads_speed = 0.200
-				self.sonny.damage_falloff = {
-					start_dist = 1300,
-					end_dist = 4000,
-					min_mult = 0.333333
-				}
-				self.sonny.stats = {
-					damage = 45,
-					spread = 56,
-					recoil = 71,
-					spread_moving = 5,
-					zoom = 1,
-					concealment = 28,
-					suppression = 9,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.sonny.stats_modifiers = nil
-				self.sonny.reload_speed_multiplier = 1.05
-				self.sonny.panic_suppression_chance = 0.05
-				self.sonny.timers = deep_clone(self.packrat.timers)
-
-					self.x_sonny.recategorize = { "heavy_pis" }
-					self.x_sonny.damage_type = "heavy_pistol"
-					self.x_sonny.fire_mode_data.fire_rate = 0.1263157894
-					self.x_sonny.BURST_FIRE = {
-						count = 2,
-						delay = 0.15,
-						rof_mult = 4,
-						recoil_mult = 0.25,
-						last_recoil_mult = 1.05,
-					}
-					self.x_sonny.AMMO_MAX = 80
-					self.x_sonny.CLIP_AMMO_MAX = 20
-					self.x_sonny.tactical_reload = 2
-					self.x_sonny.lock_slide = true
-					self.x_sonny.kick = self.stat_info.kick_tables.right_recoil
-					self.x_sonny.kick_pattern = {
-						{0, self.stat_info.kick_tables.vertical_kick},
-						{3, self.stat_info.kick_tables.right_kick},
-						{6, self.stat_info.kick_tables.right_recoil}
-					}
-					self.x_sonny.supported = true
-					self.x_sonny.ads_speed = 0.200
-					self.x_sonny.damage_falloff = {
-						start_dist = 1300,
-						end_dist = 4000,
-						min_mult = 0.333333
-					}
-					self.x_sonny.stats = {
-						damage = 45,
-						spread = 46,
-						recoil = 61,
-						spread_moving = 5,
-						zoom = 1,
-						concealment = 28,
-						suppression = 9,
-						alert_size = 2,
-						extra_ammo = 101,
-						total_ammo_mod = 400,
-						value = 1,
-						reload = 20
-					}
-					self.x_sonny.stats_modifiers = nil
-					self.x_sonny.panic_suppression_chance = 0.05
-					self.x_sonny.timers = deep_clone(self.x_b92fs.timers)
-			end
-
-			if self.qsz92 then
-				self.qsz92.recategorize = { "light_pis" }
-				self.qsz92.damage_type = "light_pistol"
-				self.qsz92.categories = {
-					"pistol",
-					"pistol_pdw"
-				}
-				self.qsz92.fire_mode_data.fire_rate = 0.1
-				self.qsz92.CLIP_AMMO_MAX = 20
-				self.qsz92.AMMO_MAX = 90
-				self.qsz92.shell_ejection = "effects/payday2/particles/weapons/shells/shell_556"
-				self.qsz92.kick = self.stat_info.kick_tables.moderate_kick
-				self.qsz92.kick_pattern = {
-					{0, self.stat_info.kick_tables.even_recoil},
-					{5, self.stat_info.kick_tables.left_kick},
-					{9, self.stat_info.kick_tables.moderate_right_kick},
-					{14, self.stat_info.kick_tables.right_kick},
-					{20, self.stat_info.kick_tables.moderate_kick}
-				}
-				self.qsz92.supported = true
-				self.qsz92.armor_piercing_chance = 0.75
-				self.qsz92.hs_mult = 1.33333
-				self.qsz92.ads_speed = 0.140
-				self.qsz92.damage_falloff = {
-					start_dist = 2500,
-					end_dist = 4800,
-					min_mult = 0.555555
-				}
-				self.qsz92.stats = {
-					damage = 18,
-					spread = 66,
-					recoil = 89,
-					spread_moving = 9,
-					zoom = 1,
-					concealment = 28,
-					suppression = 13,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.qsz92.stats_modifiers = nil
-				self.qsz92.panic_suppression_chance = 0.05
-				self.qsz92.timers = deep_clone(self.usp.timers)
-
-					self.x_qsz92.recategorize = {"light_pis"}
-					self.x_qsz92.damage_type = "light_pistol"
-					self.x_qsz92.categories = {
-						"akimbo",
-						"pistol",
-						"pistol_pdw"
-					}
-					self.x_qsz92.BURST_FIRE = {
-						count = 2,
-						delay = 0.15,
-						rof_mult = 4,
-						recoil_mult = 0.25,
-						last_recoil_mult = 1.05,
-					}
-					self.x_qsz92.tactical_reload = 2
-					self.x_qsz92.CLIP_AMMO_MAX = 40
-					self.x_qsz92.AMMO_MAX = 180
-					self.x_qsz92.fire_mode_data.fire_rate = 0.1
-					self.x_qsz92.kick = self.stat_info.kick_tables.moderate_kick
-					self.x_qsz92.kick_pattern = {
-						{0, self.stat_info.kick_tables.even_recoil},
-						{5, self.stat_info.kick_tables.left_kick},
-						{9, self.stat_info.kick_tables.moderate_right_kick},
-						{14, self.stat_info.kick_tables.right_kick},
-						{20, self.stat_info.kick_tables.moderate_kick}
-					}
-					self.x_qsz92.shell_ejection = "effects/payday2/particles/weapons/shells/shell_556"
-					self.x_qsz92.panic_suppression_chance = 0.05
-					self.x_qsz92.armor_piercing_chance = 0.75
-					self.x_qsz92.hs_mult = 1.33333
-					self.x_qsz92.supported = true
-					self.x_qsz92.ads_speed = 0.140
-					self.x_qsz92.damage_falloff = {
-						start_dist = 2500,
-						end_dist = 4800,
-						min_mult = 0.555555
-					}
-					self.x_qsz92.stats = {
-						damage = 18,
-						spread = 56,
-						recoil = 79,
-						spread_moving = 9,
-						zoom = 1,
-						concealment = 28,
-						suppression = 13,
-						alert_size = 2,
-						extra_ammo = 101,
-						total_ammo_mod = 400,
-						value = 1,
-						reload = 20
-					}
-					self.x_qsz92.stats_modifiers = nil
-					self.x_qsz92.timers.reload_exit_empty = 0.55
-					self.x_qsz92.timers.reload_exit_not_empty = 0.65
-			end
-
-			if self.bulldoge then
-				self.bulldoge.categories = {
-					"assault_rifle",
-					"dmr_h",
-				}
-				self.bulldoge.recategorize = {"dmr_ar"}
-				self.bulldoge.nato = true
-				self.bulldoge.damage_type = "sniper"
-				self.bulldoge.has_description = true
-				self.bulldoge.desc_id = "bm_ap_armor_50_weapon_sc_desc"
-				self.bulldoge.AMMO_MAX = 60
-				self.bulldoge.CLIP_AMMO_MAX = 20
-				self.bulldoge.tactical_reload = 1
-				self.bulldoge.FIRE_MODE = "single"
-				self.bulldoge.fire_mode_data = {}
-				self.bulldoge.fire_mode_data.fire_rate = 0.08571428571
-				self.bulldoge.CAN_TOGGLE_FIREMODE = true
-				self.bulldoge.kick = self.stat_info.kick_tables.moderate_kick
-				self.bulldoge.kick_pattern = {
-					{0, self.stat_info.kick_tables.right_kick},
-					{3, self.stat_info.kick_tables.moderate_right_kick},
-					{7, self.stat_info.kick_tables.moderate_kick},
-					{10, self.stat_info.kick_tables.moderate_left_kick},
-					{16, self.stat_info.kick_tables.moderate_kick}
-				}
-				self.bulldoge.supported = true
-				self.bulldoge.ads_speed = 0.340
-				self.bulldoge.damage_falloff = {
-					start_dist = 2200,
-					end_dist = 5500,
-					min_mult = 0.4
-				}
-				self.bulldoge.stats = {
-					damage = 60,
-					spread = 82,
-					recoil = 67,
-					spread_moving = 6,
-					zoom = 1,
-					concealment = 25,
-					suppression = 20,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.bulldoge.stats_modifiers = nil
-				self.bulldoge.can_shoot_through_enemy = true
-				self.bulldoge.can_shoot_through_wall = false
-				self.bulldoge.armor_piercing_chance = 0.5
-				self.bulldoge.reload_speed_multiplier = 1.1
-				self.bulldoge.timers = deep_clone(self.l85a2.timers)
-				self.bulldoge.panic_suppression_chance = 0.05
 			end
 
 		--[[     ZDANN'S MODS     ]]--
@@ -22053,303 +21767,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.cbjms.timers = deep_clone(self.mp9.timers)
 			end
 
-			if self.svu then
-				self.svu.recategorize = { "heavy_snp" }
-				self.svu.categories = {
-					"snp",
-					"semi_snp"
-				}
-				self.svu.upgrade_blocks = nil
-				self.svu.has_description = true
-				self.svu.desc_id = "bm_ap_weapon_sc_desc"
-				self.svu.rays = 1
-				self.svu.tactical_reload = 1
-				self.svu.CLIP_AMMO_MAX = 10
-				self.svu.AMMO_MAX = 20
-				self.svu.fire_mode_data.fire_rate = 0.3157894
-				self.svu.sms = sms_preset.semi_snp_heavy
-				self.svu.kick = self.stat_info.kick_tables.right_kick
-				self.svu.kick_pattern = {
-					{0, self.stat_info.kick_tables.right_kick},
-					{3, self.stat_info.kick_tables.vertical_kick},
-					{4, self.stat_info.kick_tables.right_kick},
-					{7, self.stat_info.kick_tables.left_recoil},
-					{8, self.stat_info.kick_tables.vertical_kick}
-				}
-				self.svu.muzzleflash = "effects/payday2/particles/weapons/9mm_auto_silence_fps"
-				self.svu.supported = true
-				self.svu.ads_speed = 0.500
-				self.svu.damage_falloff = {
-					start_dist = 1800,
-					end_dist = 5200,
-					min_mult = 0.5
-				}
-				self.svu.stats = {
-					damage = 90,
-					spread = 91,
-					recoil = 29,
-					spread_moving = 8,
-					zoom = 1,
-					concealment = 20,
-					suppression = 17,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 9,
-					reload = 20
-				}
-				self.svu.reload_speed_multiplier = 0.65
-				self.svu.armor_piercing_chance = 1
-				self.svu.stats_modifiers = nil
-				self.svu.panic_suppression_chance = 0.05
-				self.svu.timers = deep_clone(self.basset.timers)
-			end
-
-			if self.sg510 then
-				self.sg510.categories = {
-					"assault_rifle",
-					"dmr_h",
-				}
-				self.sg510.recategorize = {"dmr_ar"}
-				self.sg510.nato = true
-				self.sg510.damage_type = "sniper"
-				self.sg510.has_description = true
-				self.sg510.desc_id = "bm_ap_armor_50_weapon_sc_desc"
-				self.sg510.AMMO_MAX = 60
-				self.sg510.CLIP_AMMO_MAX = 20
-				self.sg510.tactical_reload = 1
-				self.sg510.FIRE_MODE = "single"
-				self.sg510.fire_mode_data = {}
-				self.sg510.fire_mode_data.fire_rate = 0.1
-				self.sg510.CAN_TOGGLE_FIREMODE = true
-				self.sg510.kick = self.stat_info.kick_tables.moderate_kick
-				self.sg510.kick_pattern = {
-					{0, self.stat_info.kick_tables.right_kick},
-					{3, self.stat_info.kick_tables.moderate_right_kick},
-					{7, self.stat_info.kick_tables.moderate_kick},
-					{10, self.stat_info.kick_tables.moderate_left_kick},
-					{16, self.stat_info.kick_tables.moderate_kick}
-				}
-				self.sg510.supported = true
-				self.sg510.ads_speed = 0.380
-				self.sg510.damage_falloff = {
-					start_dist = 3000,
-					end_dist = 6000,
-					min_mult = 0.4
-				}
-				self.sg510.stats = {
-					damage = 60,
-					spread = 87,
-					recoil = 59,
-					spread_moving = 6,
-					zoom = 1,
-					concealment = 23,
-					suppression = 20,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.sg510.stats_modifiers = nil
-				self.sg510.can_shoot_through_enemy = true
-				self.sg510.can_shoot_through_wall = false
-				self.sg510.armor_piercing_chance = 0.5
-				self.sg510.reload_speed_multiplier = 1.1
-				self.sg510.timers = deep_clone(self.galil.timers)
-				self.sg510.panic_suppression_chance = 0.05
-			end
-
-			if self.swmp40 then
-				self.swmp40.recategorize = {"light_pis"}
-				self.swmp40.damage_type = "pistol"
-				self.swmp40.lock_slide = true
-				self.swmp40.fire_mode_data.fire_rate = 0.1
-				self.swmp40.single.fire_rate = 0.1
-				self.swmp40.tactical_reload = 1
-				self.swmp40.CLIP_AMMO_MAX = 15
-				self.swmp40.AMMO_MAX = 60
-				self.swmp40.kick = self.stat_info.kick_tables.even_recoil
-				self.swmp40.kick_pattern = {
-					{0, self.stat_info.kick_tables.right_kick},
-					{3, self.stat_info.kick_tables.vertical_kick},
-					{4, self.stat_info.kick_tables.left_kick},
-					{8, self.stat_info.kick_tables.moderate_right_kick},
-					{12, self.stat_info.kick_tables.even_recoil},
-				}
-				self.swmp40.supported = true
-				self.swmp40.ads_speed = 0.160
-				self.swmp40.damage_falloff = {
-					start_dist = 1800,
-					end_dist = 3800,
-					min_mult = 0.3
-				}
-				self.swmp40.stats = {
-					damage = 30,
-					spread = 59,
-					recoil = 85,
-					spread_moving = 80,
-					zoom = 1,
-					concealment = 29,
-					suppression = 10,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 4,
-					reload = 20
-				}
-				self.swmp40.stats_modifiers = nil
-				self.swmp40.panic_suppression_chance = 0.05
-				self.swmp40.timers = deep_clone(self.sparrow.timers)
-			end
-
-			if self.rugermk3 then
-				self.rugermk3.recategorize = {"light_pis"}
-				self.rugermk3.damage_type = "pistol"
-				self.rugermk3.lock_slide = true
-				self.rugermk3.AMMO_MAX = 90
-				self.rugermk3.CLIP_AMMO_MAX = 10
-				self.rugermk3.tactical_reload = 1
-				self.rugermk3.fire_mode_data.fire_rate = 0.08
-				self.rugermk3.kick = self.stat_info.kick_tables.right_recoil
-				self.rugermk3.kick_pattern = {
-					{0, self.stat_info.kick_tables.even_recoil},
-					{4, self.stat_info.kick_tables.right_recoil}
-				}
-				self.rugermk3.supported = true
-				self.rugermk3.ads_speed = 0.120
-				self.rugermk3.damage_falloff = {
-					start_dist = 2000,
-					end_dist = 3000,
-					min_mult = 0.5
-				}
-				self.rugermk3.stats = {
-					damage = 12,
-					spread = 61,
-					recoil = 95,
-					spread_moving = 9,
-					zoom = 1,
-					concealment = 32,
-					suppression = 14,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 1,
-					reload = 20
-				}
-				self.rugermk3.stats_modifiers = nil
-				self.rugermk3.hs_mult = 2
-				self.rugermk3.panic_suppression_chance = 0.05
-				self.rugermk3.weapon_movement_penalty = 1.08
-				self.rugermk3.reload_speed_multiplier = 1.2
-				self.rugermk3.stats_modifiers = nil
-				self.rugermk3.timers = deep_clone(self.breech.timers)
-			end
-
-			if self.sar21 then
-				self.sar21.categories = { "assault_rifle" }
-				self.sar21.recategorize = {"heavy_ar"}
-				self.sar21.nato = true
-				self.sar21.damage_type = "assault_rifle"
-				self.sar21.AMMO_MAX = 120
-				self.sar21.CLIP_AMMO_MAX = 30
-				self.sar21.tactical_reload = 1
-				self.sar21.fire_mode_data = {}
-				self.sar21.fire_mode_data.fire_rate = 0.12
-				self.sar21.CAN_TOGGLE_FIREMODE = true
-				self.sar21.kick = self.stat_info.kick_tables.moderate_kick
-				self.sar21.kick_pattern = {
-					{0, self.stat_info.kick_tables.vertical_kick},
-					{5, self.stat_info.kick_tables.moderate_right_kick},
-					{9, self.stat_info.kick_tables.pattern_r1},
-					{10, self.stat_info.kick_tables.moderate_kick},
-					{12, self.stat_info.kick_tables.moderate_left_kick},
-					{15, self.stat_info.kick_tables.moderate_right_kick},
-					{21, self.stat_info.kick_tables.moderate_kick}
-				}
-				self.sar21.supported = true
-				self.sar21.ads_speed = 0.360
-				self.sar21.damage_falloff = {
-					start_dist = 2200,
-					end_dist = 7000,
-					min_mult = 0.4
-				}
-				self.sar21.stats = {
-					damage = 30,
-					spread = 85,
-					recoil = 89,
-					spread_moving = 6,
-					zoom = 1,
-					concealment = 24,
-					suppression = 8,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 9,
-					reload = 20
-				}
-				self.sar21.stats_modifiers = nil
-				self.sar21.panic_suppression_chance = 0.05
-				self.sar21.timers = deep_clone(self.corgi.timers)
-			end
-
-			if self.svt40 then
-				self.svt40.warsaw = true
-				self.svt40.categories = {
-					"assault_rifle",
-					"dmr_h"
-				}
-				self.svt40.recategorize = { "dmr_ar" }
-				self.svt40.damage_type = "sniper"
-				self.svt40.upgrade_blocks = nil
-				self.svt40.has_description = true
-				self.svt40.lock_slide = true
-				self.svt40.sounds.magazine_empty = "wp_rifle_slide_lock"
-				self.svt40.desc_id = "bm_ap_armor_75_weapon_sc_desc"
-				self.svt40.CLIP_AMMO_MAX = 10
-				self.svt40.tactical_reload = 1
-				self.svt40.AMMO_MAX = 40
-				self.svt40.FIRE_MODE = "single"
-				self.svt40.fire_mode_data.fire_rate = 0.133333333
-				self.svt40.sms = sms_preset.semi_snp_light
-				self.svt40.kick = self.stat_info.kick_tables.vertical_kick
-				self.svt40.kick_pattern = {
-					{0, self.stat_info.kick_tables.vertical_kick},
-					{3, self.stat_info.kick_tables.right_kick},
-					{5, self.stat_info.kick_tables.vertical_kick},
-					{8, self.stat_info.kick_tables.moderate_right_kick}
-				}
-				self.svt40.can_shoot_through_enemy = true
-				self.svt40.can_shoot_through_enemy_unlim = true
-				self.svt40.can_shoot_through_shield = false
-				self.svt40.can_shoot_through_wall = false
-				self.svt40.supported = true
-				self.svt40.ads_speed = 0.300
-				self.svt40.damage_falloff = {
-					start_dist = 2500,
-					end_dist = 6000,
-					min_mult = 0.5
-				}
-				self.svt40.stats = {
-					damage = 90,
-					spread = 84,
-					recoil = 55,
-					spread_moving = 6,
-					zoom = 1,
-					concealment = 25,
-					suppression = 7,
-					alert_size = 2,
-					extra_ammo = 101,
-					total_ammo_mod = 400,
-					value = 9,
-					reload = 20
-				}
-				self.svt40.armor_piercing_chance = 0.75
-				self.svt40.stats_modifiers = nil
-				self.svt40.panic_suppression_chance = 0.05
-				self.svt40.timers = deep_clone(self.siltstone.timers)
-			end
-
 			--Pawcio's GTAV Pack
 				if self.duskrifle then
 					self.duskrifle.categories = {
@@ -25908,7 +25325,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.rmary2.stats_modifiers = nil
 				self.rmary2.panic_suppression_chance = 0.05
 				self.rmary2.timers.reload_exit_not_empty = 0.6
-				self.rmary2.timers.reload_not_empty = 2.3
 				self.rmary2.timers.reload_exit_empty = 0.4
 				self.rmary2.timers.reload_empty = 3.3
 			end
@@ -32080,15 +31496,15 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				--RIFLES
 				elseif table.contains(weap.categories, "assault_rifle") then
 					if weap.damage_type == "sniper" then
-						weap.object_damage_mult = 1.25
+						weap.object_damage_mult = 1.5
 					end
 				elseif table.contains(weap.categories, "snp") then
 					if weap.damage_type == "anti_materiel" then
 						weap.object_damage_mult = 4
 					elseif weap.damage_type == "sniper" then
-						weap.object_damage_mult = 1.75
+						weap.object_damage_mult = 2
 						if table.contains(weap.categories, "semi_snp") then
-							weap.object_damage_mult = 1.25
+							weap.object_damage_mult = 1.5
 						end
 					end
 				--MGs
@@ -32099,15 +31515,15 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						weap.object_damage_mult = 0.75
 					end
 					if table.contains(weap.categories, "pdw") then
-						weap.object_damage_mult = 1.25
+						weap.object_damage_mult = 1.5
 					end
 				--PISTOLS
 				elseif table.contains(weap.categories, "pistol") then
 					if weap.damage_type == "handcannon" then
-						weap.object_damage_mult = 1.25
+						weap.object_damage_mult = 1.5
 					end
 					if table.contains(weap.categories, "pdw") then
-						weap.object_damage_mult = 1.25
+						weap.object_damage_mult = 1.5
 					end
 				--SHOTGUNS
 				elseif table.contains(weap.categories, "shotgun") then
@@ -32121,9 +31537,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				end
 
 				if weap.damage_type_single_ray == "sniper" then
-					weap.object_damage_mult_single_ray = 1.75
+					weap.object_damage_mult_single_ray = 2
 					if table.contains(weap.recategorize, "light_shot") then
-						weap.object_damage_mult_single_ray = 1.25
+						weap.object_damage_mult_single_ray = 1.5
 					end
 				elseif weap.damage_type_single_ray == "anti_materiel" then
 					weap.object_damage_mult_single_ray = 4
@@ -32169,8 +31585,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				if weap.weapon_movement_penalty then
 					weap.muzzleflash = "_dmc/effects/heavy_muzzle"
 					weap.muzzleflash_silenced = "_dmc/effects/heavy_suppressed"
-					weap.rms = (1 + weap.weapon_movement_penalty) / 1.5
-					if not table.contains(weap.categories, "lmg_moving") and not table.contains(weap.categories, "mmg_moving") and not table.contains(weap.categories, "finn_the_lmg") and not table.contains(weap.categories, "wolf_brigade") and not table.contains(weap.categories, "minigun") then
+					weap.rms = weap.weapon_movement_penalty + ((1 - weap.weapon_movement_penalty) * 0.5)
+					if not table.contains(weap.categories, "lmg_moving") and not table.contains(weap.categories, "mmg_moving") and not table.contains(weap.categories, "finn_the_lmg") and not table.contains(weap.categories, "wolf_brigade") then
 						weap.sms = weap.sms / 1.2
 						weap.rms = weap.weapon_movement_penalty
 						weap.zoom_recoil_reduction = 0.025
@@ -32194,6 +31610,17 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			if table.contains(weap.recategorize, "handcannon") then
 				table.insert(weap.categories, "handcannon")
 			end
+
+			if table.contains(weap.categories, "akimbo") then
+				if table.contains(weap.categories, "smg") then
+					table.insert(weap.categories, "akb_smg") --Weird category names to avoid issues with ACH
+				elseif table.contains(weap.categories, "shotgun") then
+					table.insert(weap.categories, "akb_shot")
+				elseif table.contains(weap.categories, "assault_rifle") then
+					table.insert(weap.categories, "akb_rifle")
+				end
+			end
+			table.insert(weap.categories, "tony")
 
 			if weap.recategorize and not weap.recoil_values then
 				--YandereDev moment (this isn't run every frame though)
@@ -32498,27 +31925,27 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 	--Determine how much to multiply things by.
 	local pickup_multiplier = weapon.AMMO_MAX
 	local category_pickup_muls = { --Different gun categories have different pickup mults to compensate for various factors.
-		akimbo = 1.1,
+		akimbo = 1.05,
 		pistol = 1.25, --Compensate for low range.
 			zippy = 0.15,
 		smg = 1.125,
 			pdw = 0.675,
-			typh = 0.82,
-			lmg = 0.61,
+			typh = 0.8,
+			lmg = 0.575,
 				mmg = 0.95,
 			minigun = 0.55,
-		shotgun = 1.27, --Pickup is increased to compensate for the inconsistency of per-pellet damage
-			flamethrower = 0.7 / 1.3, --flamethrowers do not get the pickup bonus as they are not per-pellet based
-			shotgun_auto = 1.11, --Omni
-			shotgun_light = 0.94, --Auto
-			shotgun_heavy = 0.98, --Light
+		shotgun = 1.275, --Pickup is increased to compensate for the inconsistency of per-pellet damage
+			flamethrower = 0.7 / 1.275, --flamethrowers do not get the pickup bonus as they are not per-pellet based
+			shotgun_auto = 1.10, --Omni
+			shotgun_light = 0.95, --Auto
+			shotgun_heavy = 1.00, --Light
 			shotgun_break = 1.08, --Heavy
 			shotgun_super = 1.11,
-		--assault_rifle = 1,
-			dmr_l = 0.9,
-			dmr_h = 0.9,
-			--snp = 1,
-				semi_snp = 0.75,
+		assault_rifle = 1,
+			dmr_l = 0.98,
+			dmr_h = 0.98,
+			snp = 0.965,
+				semi_snp = 0.8,
 				amr = 0.96,
 		saw = 1.25, --Compensate for jankiness.
 		bow = 0.6, --Compensate for picking arrows back up.

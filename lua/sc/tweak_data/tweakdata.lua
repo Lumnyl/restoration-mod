@@ -80,7 +80,7 @@ tweak_data.crossbow = {
 	shake_mul = 0
 }
 	tweak_data.crossbow_pistol = {
-		ads_move_speed_mult = 1.6,
+		ads_move_speed_mult = 0.8 / tweak_data.crossbow.ads_move_speed_mult,
 		swap_bonus = 3.2
 	}
 
@@ -88,38 +88,35 @@ tweak_data.grenade_launcher = {
 	ads_move_speed_mult = 0.5,
 }
 	tweak_data.gl_pistol = {
-		ads_move_speed_mult = 1.6,
+		ads_move_speed_mult = 0.8 / tweak_data.grenade_launcher.ads_move_speed_mult,
 		swap_bonus = 3.2
 	}
 	tweak_data.rocket_launcher = {
-		ads_move_speed_mult = 0.4, --lowered to 0.2
+		ads_move_speed_mult = 0.25 / tweak_data.grenade_launcher.ads_move_speed_mult,
 		shake_mul = 0
 	}
 
 tweak_data.shotgun = {
 	ads_move_speed_mult = 0.5,
-	ads_moving_spread_mult = 1.15,
+	ads_moving_spread_mult = 1.1,
 	shake_mul = 2
 }
 	tweak_data.shotgun_auto = {
 		hipfire_spread_mult = 0.25,
 	}
 	tweak_data.shotgun_light = {
-		hipfire_spread_mult = 1.3,
-		--ads_multishot_spread_mult = 4,
+		hipfire_spread_mult = 1.25,
 		moving_spread_mult = 1.5
 	}
 		tweak_data.shotgun_light_semi = {
-			hipfire_spread_mult = 0.61538,
-			moving_spread_mult = 0.66667
+			hipfire_spread_mult = 0.8 / tweak_data.shotgun_light.hipfire_spread_mult,
+			moving_spread_mult = 1 / tweak_data.shotgun_light.moving_spread_mult
 		}
 	tweak_data.shotgun_heavy = {
-		hipfire_spread_mult = 0.55,
-		--ads_multishot_spread_mult = 0.9
+		hipfire_spread_mult = 0.65,
 	}
 	tweak_data.shotgun_break = {
-		hipfire_spread_mult = 1.15,
-		--ads_multishot_spread_mult = 1
+		hipfire_spread_mult = 1.25,
 	}
 		tweak_data.shotgun_smasher = {
 			shake_mul = 3
@@ -152,7 +149,7 @@ tweak_data.smg = {
 		ads_move_speed_mult = 0.35 / tweak_data.smg.ads_move_speed_mult,
 		moving_spread_mult = 5 / tweak_data.smg.moving_spread_mult,
 		ads_moving_spread_mult = 2,
-		hipfire_spread_mult = 3 / tweak_data.smg.hipfire_spread_mult,
+		hipfire_spread_mult = 2.5 / tweak_data.smg.hipfire_spread_mult,
 		shake_mul = 1.4
 	}
 		tweak_data.lmg_moving = {
@@ -170,7 +167,7 @@ tweak_data.smg = {
 		tweak_data.mmg = {
 			moving_spread_mult = 6 / (tweak_data.smg.moving_spread_mult * tweak_data.lmg.moving_spread_mult),
 			ads_moving_spread_mult = 3 / tweak_data.lmg.ads_moving_spread_mult,
-			hipfire_spread_mult = 5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult)
+			hipfire_spread_mult = 4 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult)
 		}
 			tweak_data.mmg_moving = {
 				ads_moving_recoil = 1 / tweak_data.lmg.ads_moving_recoil,
@@ -190,10 +187,10 @@ tweak_data.smg = {
 		swap_bonus = 0.83334,
 		ads_move_speed_mult = 0.5, --lowered to 0.35
 		moving_spread_mult = 8.3333,
-		hipfire_spread_mult = 3 / tweak_data.smg.hipfire_spread_mult,
+		hipfire_spread_mult = 2.25 / tweak_data.smg.hipfire_spread_mult,
 	}
 		tweak_data.sasha = {
-			hipfire_spread_mult = 1.75 / (tweak_data.smg.hipfire_spread_mult * tweak_data.minigun.hipfire_spread_mult),
+			hipfire_spread_mult = 1.5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.minigun.hipfire_spread_mult),
 		}
 	tweak_data.bige = {
 		swap_bonus = 1 / tweak_data.smg.swap_bonus,
@@ -219,9 +216,10 @@ tweak_data.snp = {
 		shake_mul = 1.1
 	}
 		tweak_data.s7 = {
-			hipfire_spread_mult = 0.05,
-			hipfire_moving_spread_mult = 0.05,
-			ads_moving_spread_mult = 0.05
+			min_spread_mult = 0.025,
+			hipfire_spread_mult = 0.025,
+			hipfire_moving_spread_mult = 0.025,
+			ads_moving_spread_mult = 0.025
 		}
 	tweak_data.amr = {
 		hipfire_spread_mult = 2,
@@ -234,7 +232,7 @@ tweak_data.assault_rifle = {
 	ads_moving_recoil = 1.05,
 	ads_stationary_spread_mult = 0.9,
 	ads_move_speed_mult = 0.45,
-	hipfire_spread_mult = 1.15,
+	hipfire_spread_mult = 1.25,
 	shake_mul = 1.05
 }
 	tweak_data.crb = {
@@ -258,11 +256,32 @@ tweak_data.assault_rifle = {
 
 tweak_data.akimbo = {
 	swap_bonus = 1,
-	ads_move_speed_mult = 0.75,
-	ads_moving_spread_mult = 2,
-	hipfire_spread_mult = 2,
-	moving_spread_mult = 2
+	ads_move_speed_mult = 0.9,
+	ads_moving_spread_mult = 2.5,
+	hipfire_spread_mult = 2.5,
+	moving_spread_mult = 2.5
 }
+	tweak_data.akb_smg = {
+		swap_bonus = 0.9,
+		ads_move_speed_mult = 0.75 / tweak_data.akimbo.ads_move_speed_mult,
+		ads_moving_spread_mult = 4 / tweak_data.akimbo.ads_moving_spread_mult,
+		hipfire_spread_mult = 4 / tweak_data.akimbo.hipfire_spread_mult,
+		moving_spread_mult = 4 / tweak_data.akimbo.moving_spread_mult
+	}
+	tweak_data.akb_shot = {
+		swap_bonus = 0.9,
+		ads_move_speed_mult = 0.75 / tweak_data.akimbo.ads_move_speed_mult,
+		ads_moving_spread_mult = 3 / tweak_data.akimbo.ads_moving_spread_mult,
+		hipfire_spread_mult = 3 / tweak_data.akimbo.hipfire_spread_mult,
+		moving_spread_mult = 3 / tweak_data.akimbo.moving_spread_mult
+	}
+	tweak_data.akb_rifle = {
+		swap_bonus = 0.9,
+		ads_move_speed_mult = 0.75 / tweak_data.akimbo.ads_move_speed_mult,
+		ads_moving_spread_mult = 3.5 / tweak_data.akimbo.ads_moving_spread_mult,
+		hipfire_spread_mult = 3.5 / tweak_data.akimbo.hipfire_spread_mult,
+		moving_spread_mult = 3.5 / tweak_data.akimbo.moving_spread_mult
+	}
 
 tweak_data.cs_spread = {
 	hipfire_spread_mult = 0.1,
@@ -595,7 +614,7 @@ if tweak_data.projectiles.xmas_snowball then
 	tweak_data.projectiles.xmas_snowball.player_dmg_mul = 0
 	tweak_data.projectiles.xmas_snowball.camera_shake_max_mul = 0
 	tweak_data.projectiles.xmas_snowball.feedback_range = -100
-	tweak_data.projectiles.xmas_snowball.curve_pow = 0.05
+	tweak_data.projectiles.xmas_snowball.curve_pow = 0.5
 	tweak_data.projectiles.xmas_snowball.range = 100
 	tweak_data.projectiles.xmas_snowball.adjust_z = 0
 end
