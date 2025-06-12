@@ -40827,36 +40827,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_upg_ak_m_bakeband.has_description = false
 			self.parts.wpn_fps_upg_ak_m_bakeband.stats = { recoil = 2, concealment = -1}
 			self.parts.wpn_fps_upg_ak_m_bakeband.custom_stats = nil
-
-			attachment_list = {
-				"wpn_fps_upg_o_specter",
-				"wpn_fps_upg_o_aimpoint",
-				"wpn_fps_upg_o_docter",
-				"wpn_fps_upg_o_eotech",
-				"wpn_fps_upg_o_t1micro",
-				"wpn_fps_upg_o_cmore",
-				"wpn_fps_upg_o_aimpoint_2",
-				"wpn_fps_upg_o_cs",
-				"wpn_fps_upg_o_rx30",
-				"wpn_fps_upg_o_rx01",
-				"wpn_fps_upg_o_reflex",
-				"wpn_fps_upg_o_eotech_xps",
-				"wpn_fps_upg_o_uh",
-				"wpn_fps_upg_o_fc1",
-				"wpn_fps_upg_o_tf90",
-				"wpn_fps_upg_o_poe",
-				"wpn_fps_upg_o_health",
-				"wpn_fps_upg_o_northtac",
-				"wpn_fps_upg_o_hamr",
-				"wpn_fps_upg_o_atibal",
-				"wpn_fps_upg_o_spot",
-				"wpn_fps_upg_o_bmg"
-			}
-
-			for i, part_id in ipairs(attachment_list) do
-				table.insert(self.wpn_fps_snp_mptango41.uses_parts, part_id)
-				self.wpn_fps_snp_mptango41.override[part_id] = { a_obj = "a_o_meme"}
-			end
 		end
 
 		if self.parts.wpn_fps_ass_g3_body_hk33 then --Tangerine's Pack of Exclusive Sets
