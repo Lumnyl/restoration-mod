@@ -33,13 +33,6 @@ Hooks:PostHook(NewRaycastWeaponBase, "init", "ResExtraSkills", function(self)
 
 	self._skill_global_ap = (managers.player:has_category_upgrade("player", "ap_bullets") and managers.player:upgrade_value("player", "ap_bullets", 1)) or nil
 
-	for _, category in ipairs(self:categories()) do
-		if managers.player:has_category_upgrade(category, "automatic_kills_to_damage") then
-			self._automatic_kills_to_damage_max_stacks = managers.player:upgrade_value(category, "automatic_kills_to_damage")[1]
-			self._automatic_kills_to_damage_dmg_mult = managers.player:upgrade_value(category, "automatic_kills_to_damage")[2]
-		end
-	end
-
 	local fire_mode_data = self:weapon_tweak_data().fire_mode_data or {}
 	local volley_fire_mode = fire_mode_data.volley
 
@@ -263,22 +256,22 @@ function NewRaycastWeaponBase:conditional_accuracy_multiplier(current_state)
 		if multi_ray then
 			mul = mul * tweak_data.weapon.stat_info.shotgun_spread_increase_ads or 1
 			
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local multishot_spread = tweak_data[category] and tweak_data[category].ads_multishot_spread_mult or 1
 				mul = mul * multishot_spread
 			end
 		end
 		
 		if self:weapon_tweak_data().always_hipfire or self.AKIMBO then
-			mul = mul * ((tweak_data.weapon.stat_info.hipfire_only_spread_increase or 1) * ((self.AKIMBO and 0.8) or 1))
+			mul = mul * ((tweak_data.weapon.stat_info.hipfire_only_spread_increase or 1) * ( (multi_ray and 0.33) or (self.AKIMBO and 1) or 1))
 		end
 
 		if self:second_sight_spread_mult() then
-			mul = mul * (self:second_sight_spread_mult() / ((multi_ray and (tweak_data.weapon.stat_info.shotgun_spread_increase * 3.5)) or 1) )
+			mul = mul * (self:second_sight_spread_mult() / ((multi_ray and (tweak_data.weapon.stat_info.shotgun_spread_increase * 3)) or 1) )
 		end
 
 		if not is_moving then
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local stationary_spread = tweak_data[category] and tweak_data[category].ads_stationary_spread_mult or 1
 				mul = mul * stationary_spread
 			end
@@ -350,6 +343,11 @@ end
 --Simpler spread function. Determines area bullets can hit then converts that to the max degrees by which the rays can fire.
 function NewRaycastWeaponBase:_get_spread(user_unit)
 	local current_state = user_unit:movement()._current_state
+	local is_steelsight = current_state and current_state:full_steelsight()
+	local is_hipfire = current_state and not current_state:full_steelsight()
+	local is_tacstance = self:second_sight_spread_mult()
+	local is_moving = current_state and (current_state._moving or current_state:in_air())
+	local is_bipod = current_state and current_state:_is_using_bipod()
 	
 	if not current_state then
 		return 0, 0
@@ -360,28 +358,28 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 		managers.blackmarket:accuracy_index_addend(self._name_id, self:categories(), self._silencer, current_state, self:fire_mode(), self._blueprint) * tweak_data.weapon.stat_info.spread_per_accuracy, 0.05)
 	
 	--Moving penalty to spread, based on stability stat- added to total area.
-	if current_state._moving or current_state:in_air() then
+	if is_moving then
 		--Get spread area from stability stat.
 		local moving_spread = math.max(self._spread_moving + managers.blackmarket:stability_index_addend(self:categories(), self._silencer) * tweak_data.weapon.stat_info.spread_per_stability, 0)
 		local moving_spread_mult = 1
-		for _, category in ipairs(self:categories()) do
+		for _, category in ipairs(self._tweak_categories) do
 			local ms_mult = tweak_data[category] and tweak_data[category].moving_spread_mult or 1
 			moving_spread_mult = moving_spread_mult * ms_mult
 		end
 		moving_spread = moving_spread * moving_spread_mult
-		if current_state:full_steelsight() and not self:weapon_tweak_data().always_hipfire and not self:second_sight_spread_mult() then
+		if is_steelsight and not self:weapon_tweak_data().always_hipfire and not is_tacstance then
 			local ads_moving_spread_mult = 1
 			if self._ads_moving_mult then
 				ads_moving_spread_mult = ads_moving_spread_mult * self._ads_moving_mult
 			end
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local adsms_mult = tweak_data[category] and tweak_data[category].ads_moving_spread_mult or 1
 				ads_moving_spread_mult = ads_moving_spread_mult * adsms_mult
 			end
 			moving_spread = moving_spread * ads_moving_spread_mult
 		else
 			local hipfire_moving_spread_mult = 1
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local hms_mult = tweak_data[category] and tweak_data[category].hipfire_moving_spread_mult or 1
 				hipfire_moving_spread_mult = hipfire_moving_spread_mult * hms_mult
 			end
@@ -392,16 +390,16 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 		spread_area = spread_area + moving_spread
 	end
 
-	if current_state:_is_using_bipod() then
+	if is_bipod then
 		spread_area = spread_area / 2
 	end
 
 	--Apply skill and stance multipliers to overall spread area.
 	local multiplier = tweak_data.weapon.stat_info.stance_spread_mults[current_state:get_movement_state()] * self:conditional_accuracy_multiplier(current_state)
 
-	if not current_state:full_steelsight() or (current_state:full_steelsight() and ( self:weapon_tweak_data().always_hipfire or self:second_sight_spread_mult() ) ) then
+	if not is_steelsight or (is_steelsight and ( self:weapon_tweak_data().always_hipfire or is_tacstance ) ) then
 		local hipfire_spread_mult = 1
-		for _, category in ipairs(self:categories()) do
+		for _, category in ipairs(self._tweak_categories) do
 			local hip_mult = tweak_data[category] and tweak_data[category].hipfire_spread_mult or 1
 			hipfire_spread_mult = hipfire_spread_mult * hip_mult
 		end
@@ -412,7 +410,7 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 	end
 
 	if self:in_burst_mode() then
-		if self._burst_fire_ads_spread_multiplier and current_state:full_steelsight() then
+		if self._burst_fire_ads_spread_multiplier and is_steelsight then
 			multiplier = multiplier * self._burst_fire_ads_spread_multiplier
 		else
 			multiplier = multiplier * (self._burst_fire_spread_multiplier or 1)
@@ -424,7 +422,7 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 	end
 	
 	local spread_multiplier = 1
-	for _, category in ipairs(self:categories()) do
+	for _, category in ipairs(self._tweak_categories) do
 		local spread_mult = tweak_data[category] and tweak_data[category].spread_mult or 1
 		spread_multiplier = spread_multiplier * spread_mult
 	end
@@ -441,6 +439,13 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 		spread_y = spread_y * self._spread_multiplier[2]
 	end
 
+	local min_spread = is_hipfire and 1 or 0
+	for _, category in ipairs(self._tweak_categories) do
+		local min_spread_mult = tweak_data[category] and tweak_data[category].min_spread_mult or 1
+		min_spread = min_spread * min_spread_mult
+	end
+	spread_x = math.max(min_spread, spread_x)
+	spread_y = math.max(min_spread, spread_y)
 
 	return spread_x, spread_y
 end
@@ -565,7 +570,7 @@ function NewRaycastWeaponBase:recoil_multiplier(...)
 				mult = mult / zoom_mult
 			end
 			if is_moving then
-				for _, category in ipairs(self:categories()) do
+				for _, category in ipairs(self._tweak_categories) do
 					local ads_moving_recoil = tweak_data[category] and tweak_data[category].ads_moving_recoil or 1
 					mult = mult * ads_moving_recoil
 				end
@@ -1031,6 +1036,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 		self._single_fire_ap_add = self:weapon_tweak_data().SINGLE_FIRE_AP_ADD or 0
 	
+		self._object_damage_mult = self._object_damage_mult or self:weapon_tweak_data().object_damage_mult or 1
+		self._object_damage_mult_single_ray = self._object_damage_mult_single_ray or self:weapon_tweak_data().object_damage_mult_single_ray or 1
+		self._object_damage_mult_volley = self._object_damage_mult_volley or self:weapon_tweak_data().object_damage_mult_volley or 1
 		self._fire_rate_init_count = self._fire_rate_init_count or self:weapon_tweak_data().fire_rate_init_count or nil
 		self._fire_rate_init_count_mag = self._fire_rate_init_count_mag or self:weapon_tweak_data().fire_rate_init_count_mag or nil
 		self._fire_rate_init_mult = self._fire_rate_init_mult or self:weapon_tweak_data().fire_rate_init_mult and self:weapon_tweak_data().fire_rate_init_mult * 1.01 or 1
@@ -1039,6 +1047,8 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 		self._fire_rate_init_ramp_up_add = 0
 
 		self._tactical_reload = self._tactical_reload or self:weapon_tweak_data().tactical_reload
+
+		self._tweak_categories = self._tweak_categories or self:weapon_tweak_data().categories --exclusively for the use of category based movement, spread and recoil modifiers set in "tweakdata.lua"; zero plans of expanding this to change weapon categories for skill purposes so don't fucking ask
 	else	
 		self._has_burst_fire = false
 		self._can_shoot_through_titan_shield = false --to prevent npc abuse
@@ -1178,6 +1188,10 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			end
 			if stats.block_burst then
 				self._block_burst = true
+			end
+			
+			if stats.tweak_categories then
+				self._tweak_categories = stats.tweak_categories
 			end
 
 			if stats.init_rof then	
@@ -1567,7 +1581,7 @@ function NewRaycastWeaponBase:should_reload_immediately()
 end
 
 function NewRaycastWeaponBase:tweak_data_anim_play(anim, speed_multiplier, set_offset, set_offset2)
-	if self._starwars and not self._starwars.can_reload then return end
+	if anim ~= "deploy" and anim ~= "undeploy" and self._starwars and not self._starwars.can_reload then return end
 
 	local active_burst = self:in_burst_mode() and self._burst_rounds_remaining and self._burst_rounds_remaining > 0
 	local no_burst_anims = active_burst and self._burst_no_anim
@@ -1702,6 +1716,10 @@ function NewRaycastWeaponBase:precalculate_ammo_pickup()
 
 		for _, category in ipairs(self:categories()) do
 			pickup_multiplier = pickup_multiplier + managers.player:upgrade_value(category, "pick_up_multiplier", 1) - 1
+		end
+
+		if managers.player:has_category_upgrade("player", "armor_pickup_mul") then
+			pickup_multiplier = pickup_multiplier * managers.player:body_armor_value("skill_ammo_mul", nil, 1)
 		end
 
 		--Sharpeyed Team AI bonus, since now Enduring is a base thing

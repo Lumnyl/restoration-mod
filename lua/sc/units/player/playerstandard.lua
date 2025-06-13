@@ -1118,6 +1118,12 @@ function PlayerStandard:_check_action_primary_attack(t, input, params)
 							dmg_mul = dmg_mul * (1 + upgrade * damage_health_ratio)
 						end
 
+						if weap_base:is_category("smg") and managers.player:has_category_upgrade("smg", "automatic_kills_to_damage") then
+							local merciless_dmg = 1 + (managers.player:upgrade_value("smg", "automatic_kills_to_damage", 1)[2] * (managers.player._merciless_stacks or 0))
+							dmg_mul = dmg_mul * merciless_dmg
+						end
+						
+
 						dmg_mul = dmg_mul * managers.player:temporary_upgrade_value("temporary", "berserker_damage_multiplier", 1)
 						dmg_mul = dmg_mul * managers.player:get_property("trigger_happy", 1)
 					end
@@ -1224,8 +1230,12 @@ function PlayerStandard:_check_action_primary_attack(t, input, params)
 						local shots_fired = srm and math.max(weap_base._shot_recoil_magnitude_count - 1 - (srm[3] or 0), 0)  or 0
 						local shots_fired_mult = srm and math.round(100000 * math.clamp( 1 - (shots_fired * srm[1]) , srm[2][1], srm[2][2])) / 100000
 						local recoil_multiplier = (weap_base:recoil() + weap_base:recoil_addend()) * weap_base:recoil_multiplier() * (shots_fired_mult or 1)
+						local recoil_index = tweak_data.weapon.stats.recoil
+						local recoil_multiplier_h = (recoil_index and ((recoil_index[weap_base._current_stats_indices.spread] + weap_base:recoil_addend()) * weap_base:recoil_multiplier() * (shots_fired_mult or 1))) or recoil_multiplier
 						local stance_mults = weap_tweak_data.stance_multipliers or nil
 						recoil_multiplier = recoil_multiplier * ((stance_mults and (self._state_data.in_steelsight and stance_mults.steelsight or self._state_data.ducking and stance_mults.crouching or stance_mults.standing)) or 1)
+						recoil_multiplier_h = recoil_multiplier_h * ((stance_mults and (self._state_data.in_steelsight and stance_mults.steelsight or self._state_data.ducking and stance_mults.crouching or stance_mults.standing)) or 1)
+						recoil_multiplier_h = (recoil_multiplier_h + (recoil_multiplier * 3)) / 4
 						local recoil_count = weap_base._shot_recoil_pattern_count or 0
 						local recoil_stage = nil
 						if weap_tweak_data.kick_pattern then
@@ -1251,7 +1261,12 @@ function PlayerStandard:_check_action_primary_attack(t, input, params)
 						local always_standing = weap_tweak_data.always_use_standing
 						local up, down, left, right = unpack(kick_tweak_data[always_standing and "standing" or self._state_data.in_steelsight and "steelsight" or self._state_data.ducking and "crouching" or "standing"])
 						local min_h_recoil = kick_tweak_data.min_h_recoil
-						local recoil_v, recoil_h = self._camera_unit:base():recoil_kick(up * recoil_multiplier, down * recoil_multiplier, left * recoil_multiplier, right * recoil_multiplier, min_h_recoil)
+						local recoil_v, recoil_h = self._camera_unit:base():recoil_kick(
+							up * recoil_multiplier, 
+							down * recoil_multiplier, 
+							left * recoil_multiplier_h, 
+							right * recoil_multiplier_h,
+						min_h_recoil)
 
 						if not params or not params.no_shake then
 							local shake_tweak_data = weap_tweak_data.shake[fire_mode] or weap_tweak_data.shake
@@ -1776,7 +1791,7 @@ function PlayerStandard:_get_max_walk_speed(t, force_run)
 			local base_speed = ( (self:on_ladder() and speed_tweak.CLIMBING_MAX ) or (self._state_data.ducking and speed_tweak.CROUCHING_MAX) or (self._state_data.in_air and speed_tweak.INAIR_MAX) or speed_tweak.STANDARD_MAX )
 			local speed_mult = 1
 			local has_ads_move_speed_mult = nil
-			for _, category in ipairs(weapon_tweak.categories) do
+			for _, category in ipairs(weapon._tweak_categories) do
 				if tweak_data[category] and tweak_data[category].ads_move_speed_mult then
 					speed_mult = speed_mult * tweak_data[category].ads_move_speed_mult
 					has_ads_move_speed_mult = true
@@ -2162,6 +2177,15 @@ function PlayerStandard:_do_chainsaw_damage(t)
 				end
 			end
 
+			if character_unit:character_damage().dead and not character_unit:character_damage():dead() then
+				if managers.player:has_category_upgrade("player", "buildup_meter") and managers.player:has_category_upgrade("player", "buildup_meter_refresh") and managers.player._buildup_meter and managers.player._buildup_meter > 0 then
+					local combo_t_mod = (managers.player:has_category_upgrade("player", "buildup_meter_zack") and managers.player:upgrade_value("player", "buildup_meter_zack", 0).combo_t_mod) or 0
+					local combo_t = managers.player:upgrade_value("player", "buildup_meter", 0).combo_t + combo_t_mod
+					managers.player._buildup_meter_t = combo_t
+					managers.hud:start_buff("sociopath", managers.player._buildup_meter_t)
+				end
+			end
+
 			local defense_data = character_unit:character_damage():damage_melee(action_data)
 
 			self:_perform_sync_melee_damage(hit_unit, col_ray, action_data.damage)
@@ -2277,7 +2301,8 @@ function PlayerStandard:_update_melee_timers(t, input)
 		(melee_weapon.stats.raycasts)
 
 		if num_casts and num_casts > 1 then
-			--Originally by Hoxi and Offyerrocker; butchered into whatever you wanna call this by DMC
+			--Originally by Hoxi and Offyerrocker; butchered into whatever you wanna call mess this by DMC
+			--TODO: Make hit prioritization a thing, similar to how vanilla shotguns do it (head > breakable head protection > everything else)
 			local from = self._unit:movement():m_head_pos()
 			local rotation = self._unit:movement():m_head_rot()
 			local base_direction = rotation:y()
@@ -2296,7 +2321,7 @@ function PlayerStandard:_update_melee_timers(t, input)
 				local direction = new_rotation:y()
 				local to = from + direction --* range
 
-				local col_ray = self:_calc_melee_hit_ray(t, 10, from, direction)
+				local col_ray = self:_calc_melee_hit_ray(t, 12, from, direction)
 				local ignore_hit = nil
 				if col_ray then
 					local hit_unit = col_ray.unit
@@ -2312,8 +2337,8 @@ function PlayerStandard:_update_melee_timers(t, input)
 								self:_do_melee_damage(t, nil, nil, nil, nil, hit_unit, col_ray, num_casts, true, true, true)
 							end
 						else
-							unique_hits[u_key] = hit_unit
 							use_cleave = is_enemy and unit_damage and true
+							unique_hits[u_key] = hit_unit
 							self:_do_melee_damage(t, nil, nil, nil, nil, hit_unit, col_ray, nil, true, true)
 						end
 					end
@@ -2691,7 +2716,6 @@ Hooks:PreHook(PlayerStandard, "update", "ResWeaponUpdate", function(self, t, dt)
 		self:_update_burst_fire(t)
 		self:_update_slide_locks()
 		self:_shooting_move_speed_timer(t, dt)
-		self:_last_shot_t(t, dt)
 		self:_last_shot_recoil_t(t, dt)
 	end
 	self:_update_js_t(t, dt)
@@ -2839,29 +2863,6 @@ function PlayerStandard:_update_drain_stamina(t, dt)
 	if self._state_data._drain_stamina then
 		self._unit:movement()._regenerate_timer = 1
 		self._unit:movement():subtract_stamina((self._unit:movement():_max_stamina() * 0.0181818) * dt)
-	end
-end
-
-function PlayerStandard:_last_shot_t(t, dt)
-	local weapon = alive(self._equipped_unit) and self._equipped_unit:base()
-	local fire_mode = weapon and weapon:fire_mode()
-	local reset_delay_t = tweak_data.upgrades.automatic_kills_to_damage_reset_t or 1
-	if weapon and weapon._no_cheevo_kills_without_releasing_trigger then
-		if self._shooting and fire_mode == "auto" then
-			self._last_shooting_t = reset_delay_t
-		else
-			if self._last_shooting_t then
-				self._last_shooting_t = self._last_shooting_t - dt
-				if self._last_shooting_t < 0 then
-					self._last_shooting_t = reset_delay_t
-					if weapon._no_cheevo_kills_without_releasing_trigger > 0 then
-						weapon._no_cheevo_kills_without_releasing_trigger = weapon._no_cheevo_kills_without_releasing_trigger - 1
-					end
-					managers.hud:start_buff("body_expertise", reset_delay_t)
-					managers.hud:set_stacks("body_expertise", weapon._no_cheevo_kills_without_releasing_trigger)
-				end
-			end
-		end
 	end
 end
 
@@ -3276,8 +3277,11 @@ end
 --Recoil used at the end of burst fire.
 function PlayerStandard:force_recoil_kick(weap_base, shots_fired)
 	local recoil_multiplier = (weap_base:recoil() + weap_base:recoil_addend()) * weap_base:recoil_multiplier() * (shots_fired or 1)
+	local recoil_index = tweak_data.weapon.stats.recoil
+	local recoil_multiplier_h = (recoil_index and ((recoil_index[weap_base._current_stats_indices.spread] + weap_base:recoil_addend()) * weap_base:recoil_multiplier() * (shots_fired or 1))) or recoil_multiplier
+	recoil_multiplier_h = (recoil_multiplier_h + (recoil_multiplier * 3)) / 4
 	local up, down, left, right = unpack(weap_base:weapon_tweak_data().kick[self._state_data.in_steelsight and "steelsight" or self._state_data.ducking and "crouching" or "standing"])
-	self._camera_unit:base():recoil_kick(up * recoil_multiplier, down * recoil_multiplier, left * recoil_multiplier, right * recoil_multiplier)
+	self._camera_unit:base():recoil_kick(up * recoil_multiplier, down * recoil_multiplier, left * ((recoil_multiplier + recoil_multiplier_h) / 2), right * ((recoil_multiplier + recoil_multiplier_h) / 2))
 end
 
 function PlayerStandard:_check_action_deploy_bipod(t, input, autodeploy)
@@ -3819,9 +3823,21 @@ function PlayerStandard:_do_melee_damage(t, bayonet_melee, melee_hit_ray, melee_
 
 			dmg_multiplier = dmg_multiplier * managers.player:upgrade_value("player", "melee_damage_multiplier", 1)
 
-			if character_unit:base() and character_unit:base().char_tweak and character_unit:base():char_tweak().priority_shout then
-				dmg_multiplier = dmg_multiplier * (tweak_data.blackmarket.melee_weapons[melee_entry].stats.special_damage_multiplier or 1)
+			local type_multiplier = managers.player:upgrade_value("player", "melee_" .. tostring(tweak_data.blackmarket.melee_weapons[melee_entry].stats.weapon_type) .. "_damage_multiplier", 1)
+			
+			if character_unit:base() then
+				if character_unit:base().char_tweak then
+					if character_unit:base():char_tweak().player_health_scaling_mul then
+						type_multiplier = math.max(1, type_multiplier * 0.25)
+					end
+					if character_unit:base():char_tweak().priority_shout then
+						dmg_multiplier = dmg_multiplier * (tweak_data.blackmarket.melee_weapons[melee_entry].stats.special_damage_multiplier or 1)
+					end
+				end
 			end
+
+			dmg_multiplier = dmg_multiplier * type_multiplier
+			damage_effect = damage_effect * type_multiplier
 
 			if managers.player:has_category_upgrade("melee", "stacking_hit_damage_multiplier") then
 				self._state_data.stacking_dmg_mul = self._state_data.stacking_dmg_mul or {}
@@ -3924,6 +3940,16 @@ function PlayerStandard:_do_melee_damage(t, bayonet_melee, melee_hit_ray, melee_
 					stack[2] = 0
 				end
 			end
+
+			if character_unit:character_damage().dead and not character_unit:character_damage():dead() and managers.enemy:is_enemy(character_unit) then
+				if managers.player:has_category_upgrade("player", "buildup_meter") and managers.player:has_category_upgrade("player", "buildup_meter_refresh") and managers.player._buildup_meter and managers.player._buildup_meter > 0 then
+					local combo_t_mod = (managers.player:has_category_upgrade("player", "buildup_meter_zack") and managers.player:upgrade_value("player", "buildup_meter_zack", 0).combo_t_mod) or 0
+					local combo_t = managers.player:upgrade_value("player", "buildup_meter", 0).combo_t + combo_t_mod
+					managers.player._buildup_meter_t = combo_t
+					managers.hud:start_buff("sociopath", managers.player._buildup_meter_t)
+				end
+			end
+
 			local defense_data = character_unit:character_damage():damage_melee(action_data)
 			self:_check_melee_special_damage(col_ray, character_unit, defense_data, melee_entry)
 			self:_perform_sync_melee_damage(hit_unit, col_ray, action_data.damage, action_data.damage_effect)
@@ -4803,7 +4829,7 @@ function PlayerStandard:_check_step(t)
 end
 
 
-if AdvMov then --Everything here was originally from Solo Queue Pixy and none of this will function without the "Advanced Movement Standalone" mod
+if AdvMov and AdvMov.settings then --Everything here was originally from Solo Queue Pixy and none of this will function without the "Advanced Movement Standalone" mod
 --Sorry for butchering your code :> -DMC
 
 	local AdvMovWallKick = PlayerStandard._check_wallkick
