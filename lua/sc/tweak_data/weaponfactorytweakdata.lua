@@ -32365,16 +32365,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				rotation = Rotation(-0.02, 0.04, -45)
 			}
 
-			for i, part_id in pairs(self.wpn_fps_ass_ngsierra.uses_parts) do
-				attachment_list = {
-					"wpn_fps_ass_ngsierra_am_bootleg_fury"
-				}
-				for _, remove_id in ipairs(attachment_list) do
-					if part_id == remove_id then
-						self.wpn_fps_ass_ngsierra.uses_parts[i] = "resmod_dummy"
-					end
-				end
-			end
+			self.parts.wpn_fps_ass_ngsierra_am_bootleg_fury.pcs = nil
 		end
 
 		if self.parts.wpn_fps_lmg_pkilo_stock_medium then
@@ -39419,26 +39410,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_smg_smg45_s_custom.stats.value = 0
 			self.parts.wpn_fps_smg_smg45_s_custom.custom_stats = deep_clone(stocks.fold_folder_stats)
 
-			for i, part_id in pairs(self.wpn_fps_smg_smg45.uses_parts) do
-				attachment_list = {
-					"wpn_fps_upg_vg_ass_smg_verticalgrip"
-				}
-				for _, remove_id in ipairs(attachment_list) do
-					if part_id == remove_id then
-						self.wpn_fps_smg_smg45.uses_parts[i] = "wpn_fps_upg_vg_ass_smg_verticalgrip"
-					end
-				end
-			end
-			for i, part_id in pairs(self.wpn_fps_smg_smg45.default_blueprint) do
-				attachment_list = {
-					"wpn_fps_upg_vg_ass_smg_verticalgrip"
-				}
-				for _, remove_id in ipairs(attachment_list) do
-					if part_id == remove_id then
-						self.wpn_fps_smg_smg45.default_blueprint[i] = "wpn_fps_upg_vg_ass_smg_verticalgrip"
-					end
-				end
-			end
 		end
 
 		if self.parts.wpn_fps_smg_fang45_s_folded then --Mira's MW:R Fang-45
@@ -44072,7 +44043,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			}
 		end
 
-		--Tranq Rounds
 		if self.parts.wpn_fps_pis_curve_body then
 			self.parts.wpn_fps_pis_curve_body.adds = {
 				"wpn_fps_pis_curve_a_tranq"
@@ -51999,9 +51969,6 @@ end
 	--end
 
 end)
-
---VMP Sight Positioning override from Gambyt
-Hooks:PostHook(WeaponFactoryTweakData, "init", "cqbSightInit", function(self)
 
 --VMP Sight Positioning override from Gambyt
 Hooks:PostHook(WeaponFactoryTweakData, "init", "cqbSightInit", function(self)
