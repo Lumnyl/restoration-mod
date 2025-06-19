@@ -28369,6 +28369,51 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			end
 
 		--[[     TANGERINE'S MODS     ]]--
+			if self.s556 then
+				self.s556.recategorize = { "heavy_ar" }
+				self.s556.damage_type = "assault_rifle"
+				self.s556.AMMO_MAX = 120
+				self.s556.tactical_reload = 1
+				self.s556.CLIP_AMMO_MAX = 30
+				self.s556.fire_mode_data.fire_rate = 0.125
+				self.s556.FIRE_MODE = "single"
+				self.s556.CAN_TOGGLE_FIREMODE = false
+				self.s556.BURST_FIRE = {
+					count = 3,
+					delay = 0.18,
+					recoil_mult = 0.8,
+					last_recoil_mult = 1.05,
+					rof_mult = 1.9375,
+					burst_default = true
+				}
+				self.s556.kick = self.stat_info.kick_tables.moderate_right_kick
+				self.s556.supported = true
+				self.s556.ads_speed = 0.280
+				self.s556.damage_falloff = {
+					start_dist = 2600,
+					end_dist = 6500,
+					min_mult = 0.4
+				}
+				self.s556.stats = {
+					damage = 30,
+					spread = 86,
+					recoil = 75,
+					spread_moving = 6,
+					zoom = 1,
+					concealment = 23,
+					suppression = 10,
+					alert_size = 2,
+					extra_ammo = 101,
+					total_ammo_mod = 400,
+					value = 1,
+					reload = 20
+				}
+				self.s556.panic_suppression_chance = 0.05
+				self.s556.stats_modifiers = nil
+				self.s556.reload_speed_multiplier = 0.95
+				self.s556.timers = deep_clone(self.ak5.timers)
+			end
+
 			if self.ar47 then --Tangerine's AR-47
 				self.ar47.recategorize = { "heavy_ar" }
 				self.ar47.damage_type = "assault_rifle"
@@ -29775,6 +29820,61 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.sta52.sounds.use_fix = nil
 				self.sta52.reload_speed_multiplier = 0.9
 				self.sta52.timers = deep_clone(self.rota.timers)
+			end
+
+			if self.r2 then --R2 PLACEHOLDER
+				self.r2.categories = {
+					"assault_rifle",
+					"dmr_h",
+					"sweet_liberty"
+				}
+				self.r2.recategorize = {"dmr_ar"}
+				self.r2.damage_type = "sniper"
+				self.r2.CLIP_AMMO_MAX = 20
+				self.r2.AMMO_MAX = self.r2.CLIP_AMMO_MAX * 9
+				self.r2.ammo_ratio = 2
+				self.r2.fire_mode_data.fire_rate = 0.125
+				self.r2.fire_mode_data.toggable = nil
+				self.r2.sms = 0.5
+				self.r2.tactical_reload = 1
+				self.r2.keep_ammo = 0
+				self.r2.BURST_FIRE = {
+					count = 3,
+					delay = 0.18,
+					recoil_mult = 0.9
+				}
+				self.r2.CAN_TOGGLE_FIREMODE = false
+				self.r2.FIRE_MODE = "single"
+				self.r2.kick = self.stat_info.kick_tables.even_recoil
+				self.r2.supported = true
+				self.r2.ads_speed = 0.300
+				self.r2.damage_falloff = {
+					start_dist = 2200,
+					end_dist = 8200,
+					min_mult = 0.2666
+				}
+				self.r2.stats = {
+					damage = 90,
+					spread = 93,
+					recoil = 45,
+					spread_moving = 7,
+					zoom = 1,
+					concealment = 20,
+					suppression = 7,
+					alert_size = 2,
+					extra_ammo = 101,
+					total_ammo_mod = 400,
+					value = 4,
+					reload = 20
+				}
+				self.r2.stats_modifiers = nil
+				self.r2.panic_suppression_chance = 0.05
+				self.r2.sounds.use_fix = nil
+				self.r2.armor_piercing_chance = nil
+				self.r2.timers.reload_empty = 2.8
+				self.r2.timers.reload_exit_empty = 0.92
+				self.r2.timers.reload_not_empty = 1.93
+				self.r2.timers.reload_exit_not_empty = 0.85
 			end
 
 			if self.br14 then
