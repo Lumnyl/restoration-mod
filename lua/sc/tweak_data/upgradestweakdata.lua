@@ -1305,8 +1305,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		--Combat Engineer--
 			--Sharpshooter
 				--Basic
-					self.values.snp.recoil_index_addend = {2}
-					self.values.assault_rifle.recoil_index_addend = {2}
+					self.values.snp.recoil_index_addend = {2, 4}
+					self.values.assault_rifle.recoil_index_addend = {2, 4}
 				--Ace
 					self.values.temporary.headshot_fire_rate_mult = {{1.2, 10}}
 					
@@ -1334,16 +1334,17 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 			--Rifleman
 				--Basic/Aced
-					self.values.assault_rifle.steelsight_accuracy_inc = {0.875, 0.75}
-					self.values.snp.steelsight_accuracy_inc = {0.875, 0.75}
-					self.values.assault_rifle.steelsight_range_inc = {1.125, 1.25}
-					self.values.snp.steelsight_range_inc = {1.125, 1.25}
+					self.values.assault_rifle.steelsight_accuracy_inc = {0.90, 0.75}
+					self.values.snp.steelsight_accuracy_inc = {0.90, 0.75}
+					self.values.assault_rifle.steelsight_range_inc = {1.10, 1.25}
+					self.values.snp.steelsight_range_inc = {1.10, 1.25}
 
 					self.values.assault_rifle.enter_steelsight_speed_multiplier = {1.075}
 					self.values.snp.enter_steelsight_speed_multiplier = {1.075}
 					
 					self.skill_descs.fire_control = {
 						skill_value_b1 = tostring(self.values.snp.steelsight_range_inc[1] % 1 * 100).."%", -- Accuracy and range buff
+						skill_value_b2 = tostring(self.values.snp.recoil_index_addend[1]), --++Stabilty
 						skill_value_p1 = tostring((self.values.snp.steelsight_range_inc[2] - self.values.snp.steelsight_range_inc[1]) * 100).."%",
 						skill_value_p2 = tostring(self.values.snp.enter_steelsight_speed_multiplier[1] % 1 * 100).."%" --ADS speed buff
 					}
@@ -1399,7 +1400,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						range_increment = 800
 					}
 				}
-				self.headshot_graze_proc_cd = 0.5
+				self.headshot_graze_proc_cd = 0.4
 				self.values.player.headshot_no_falloff = {true}
 				self.headshot_no_falloff_cd = 0.0
 				
@@ -2353,7 +2354,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			combo_ene_mult = { --Point multiplier based on enemy killed; top-down priority
 				{captain = 10},
 				{tank = 5},
-				{special = 2},
+				{spooc_titan = 3},
+				{spooc = 2.75},
+				{taser_titan = 2.25},
+				{taser = 2.75},
+				{medic = 2.25},
+				{shield_titan = 2.25},
+				{sniper_titan = 2},
+				{sniper = 1.75},
+				{shield = 1.75},
+				{special = 1.75},
 			},
 			combo_t = 5, --Combo decay timer
 			combo_decay = 10, --Points lost when combo decay timer expires
@@ -2367,7 +2377,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			combo_ene_mult = {
 				{captain = 10},
 				{tank = 5},
-				{special = 2},
+				{spooc_titan = 3},
+				{spooc = 2.75},
+				{taser_titan = 2.25},
+				{taser = 2.75},
+				{medic = 2.25},
+				{shield_titan = 2.25},
+				{sniper_titan = 2},
+				{sniper = 1.75},
+				{shield = 1.75},
+				{special = 1.75},
 			},
 			combo_t = 5,
 			combo_decay = 5,
@@ -2381,7 +2400,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			combo_ene_mult = { --Point multiplier based on enemy killed
 				{captain = 10},
 				{tank = 5},
-				{special = 2},
+				{spooc_titan = 3},
+				{spooc = 2.75},
+				{taser_titan = 2.25},
+				{taser = 2.75},
+				{medic = 2.25},
+				{shield_titan = 2.25},
+				{sniper_titan = 2},
+				{sniper = 1.75},
+				{shield = 1.75},
+				{special = 1.75},
 			},
 			combo_t = 5, --Combo decay timer
 			combo_decay = 10, --Points lost when combo decay timer expires
@@ -2505,7 +2533,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			{ combo_add_mod = 0, combo_max_mod = -40 } --Tony R
 		}
 		self.values.player.buildup_meter_swan = {{
-			combo_add = 4
+			combo_add = 2
 		}}
 		self.values.player.buildup_meter_mark = {{ --armor regen speed
 			combo_steps = 5,
@@ -4056,6 +4084,24 @@ function UpgradesTweakData:_player_definitions()
 	sc_definitions (self, tweak_data)
 
 	--New Definitions, calling em here to play it safe--
+	self.definitions.assault_rifle_recoil_index_addend_2 = {
+		name_id = "menu_assualt_rifle_recoil_index_addend",
+		category = "feature",
+		upgrade = {
+			category = "assault_rifle",
+			upgrade = "recoil_index_addend",
+			value = 2
+		}
+	}
+	self.definitions.snp_recoil_index_addend_2 = {
+		name_id = "menu_snp_recoil_index_addend",
+		category = "feature",
+		upgrade = {
+			category = "snp",
+			upgrade = "recoil_index_addend",
+			value = 2
+		}
+	}
 	self.definitions.player_armor_pickup_mul = {
 		name_id = "menu_player_armor_pickup_mul",
 		category = "feature",

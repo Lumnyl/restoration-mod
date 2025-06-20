@@ -77,7 +77,6 @@ function RaycastWeaponBase:setup(setup_data, damage_multiplier)
 		end
 	end
 	self._shots_without_releasing_trigger = 0
-	self._no_cheevo_kills_without_releasing_trigger = 0
 	self._shot_recoil_pattern_count = 0
 	self._shot_recoil_magnitude_count = 0
 end
@@ -199,15 +198,22 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data, weapon_unit)
 				enemies_hit[u_key] = unit
 				hit_enemy = true
 			end
-
 			if (setup_data.has_hit_enemy or not can_shoot_through_enemy and is_enemy) or (armour[hit.body:name():key()] and armor_piercing_chance <= 0 ) then
 				break
 			elseif setup_data.has_hit_wall or (not can_shoot_through_wall and in_slot_func(unit, wall_mask) and (has_ray_type_func(hit.body, ai_vision_ids) or has_ray_type_func(hit.body, bulletproof_ids))) then
 				break
 			elseif hit.unit:in_slot(shield_mask) and (not can_shoot_through_shield or (is_semi_snp and distance > near_falloff_distance)) then
 				break
-			elseif hit.unit:in_slot(shield_mask) and (hit.unit:name():key() == 'af254947f0288a6c' or hit.unit:name():key() == '15cbabccf0841ff8'  --Titan shields
-			or hit.unit:name():key() == '5deefee472c1903d' or hit.unit:name():key() == 'e26c602b7a43d7bb') and not can_shoot_through_titan_shield then --Marshall shields
+			elseif hit.unit:in_slot(shield_mask) and (
+				 --Titan shields
+				hit.unit:name():key() == 'af254947f0288a6c' or 
+				hit.unit:name():key() == '15cbabccf0841ff8' or 
+				hit.unit:name():key() == '1da6c7ac7ded3f9b' or
+				-- Marshall shields
+				hit.unit:name():key() == '5deefee472c1903d' or
+				hit.unit:name():key() == 'e26c602b7a43d7bb' or
+				hit.unit:name():key() == 'bd383b20175461fe'
+			) and not can_shoot_through_titan_shield then 
 				break
 			elseif hit.unit:in_slot(shield_mask) and hit.unit:name():key() == '4a4a5e0034dd5340' then --Winters being a shit.
 				break						
@@ -232,13 +238,11 @@ end
 local ids_volley = Idstring("volley")
 function RaycastWeaponBase:get_object_damage_mult()
 	if self._fire_mode and self._fire_mode == ids_volley then
-		local fire_mode_data = self:weapon_tweak_data().fire_mode_data
-		local volley_fire_mode = fire_mode_data and fire_mode_data.volley
-		return volley_fire_mode and volley_fire_mode.object_damage_mult or 0.75
-	elseif self._rays and self._rays == 1 and self:weapon_tweak_data().object_damage_mult_single_ray then
-		return self:weapon_tweak_data().object_damage_mult_single_ray
+		return self._object_damage_mult_volley
+	elseif self._rays and self._rays == 1 and self._object_damage_mult_single_ray then
+		return self._object_damage_mult_single_ray
 	else
-		return self:weapon_tweak_data().object_damage_mult or 1
+		return self._object_damage_mult
 	end
 end
 
@@ -441,24 +445,11 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 	local is_civ_f = CopDamage.is_civilian
 	local damage = self:_get_current_damage(dmg_mul)
 
-	if self:fire_mode() == "auto" and self._no_cheevo_kills_without_releasing_trigger > 0 then
-		managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
-	end
-
 	for _, hit in ipairs(ray_hits) do
 		local dmg = self:get_damage_falloff(damage, hit, user_unit)
 
 		local hit_unit = hit and hit.unit
 		local is_alive = hit_unit and hit_unit:character_damage() and not hit_unit:character_damage():dead()
-		local track_body_expert = nil
-		local stacks = (self._automatic_kills_to_damage_max_stacks and math.min(self._no_cheevo_kills_without_releasing_trigger, self._automatic_kills_to_damage_max_stacks)) or 0
-		
-		if is_alive and self:fire_mode() == "auto" and self._automatic_kills_to_damage_max_stacks then
-			track_body_expert = true
-			if self._no_cheevo_kills_without_releasing_trigger > 0 then
-				dmg = dmg * (1 + (self._automatic_kills_to_damage_dmg_mult * stacks))
-			end
-		end
 		
 		--[[
 		if self:fire_mode() == "auto" and self._shoot_through_enemy_max_stacks and hit_count <= self._shoot_through_enemy_max_stacks then
@@ -498,12 +489,6 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 						kill_data.civilian_kills = kill_data.civilian_kills + 1
 					else
 						cop_kill_count = cop_kill_count + 1
-					end
-
-					if track_body_expert then
-						self._no_cheevo_kills_without_releasing_trigger = math.min(self._no_cheevo_kills_without_releasing_trigger + 1, self._automatic_kills_to_damage_max_stacks)
-						managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
-						managers.hud:set_stacks("body_expertise", (stacks == 0 and 1) or math.min(stacks + 1, self._automatic_kills_to_damage_max_stacks))
 					end
 
 					self:_check_kill_achievements(cop_kill_count, unit_base, unit_type, is_civilian, hit_through_wall, hit_through_shield)
@@ -1199,6 +1184,22 @@ function InstantBulletBase:on_collision(col_ray, weapon_unit, user_unit, damage,
 
 			result = self:give_impact_damage(col_ray, weapon_unit, user_unit, damage, armor_piercing, false, knock_down, stagger, variant)
 
+			--[[
+			if (weap_base._natascha and col_ray.distance and col_ray.distance <= weap_base._natascha) and 
+				result and result.attack_data and result.attack_data.damage and result.attack_data.damage > 0 then
+				hit_dmg_ext:stun_hit({
+					variant = "stun",
+					damage = 0,
+					attacker_unit = user_unit,
+					weapon_unit = weapon_unit,
+					col_ray = col_ray or {
+						position = hit_unit:position(),
+						ray = Vector3(0, 0, 1)
+					}
+				})
+			end
+			--]]
+			
 			if result ~= "friendly_fire" then
 				local has_died = hit_dmg_ext:dead()
 				do_push = true
