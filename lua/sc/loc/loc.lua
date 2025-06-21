@@ -99,17 +99,19 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", fun
 				["RestorationModInfo_bloodthirst_reload_speedDescID"] = "Enables or disables tracking of this specific skill.",
 
 				["RestorationModperk_buffsTitleID"] = "===Perks===",
-				["RestorationModperk_buffsDescID"] = "Buff trackers for perk deck skills.",
+				["RestorationModperk_buffsDescID"] = "Buff trackers for perk deck perks.",
 				["RestorationModInfo_rogueTitleID"] = "Killer Instinct (Rogue)",
-				["RestorationModInfo_rogueDescID"] = "Enables or disables tracking of this specific skill.",
+				["RestorationModInfo_rogueDescID"] = "Enables or disables tracking of this specific perk.",
+				["RestorationModInfo_crookTitleID"] = "Composure and Release (Crook)",
+				["RestorationModInfo_crookDescID"] = "Enables or disables tracking of these specific perks.",
 				["RestorationModInfo_grinderTitleID"] = "Histamine (Grinder)",
-				["RestorationModInfo_grinderDescID"] = "Enables or disables tracking of this specific skill.",
+				["RestorationModInfo_grinderDescID"] = "Enables or disables tracking of this specific perk.",
 				["RestorationModInfo_infiltratorTitleID"] = "Life Drain (Infiltrator)",
-				["RestorationModInfo_infiltratorDescID"] = "Enables or disables tracking of this specific skill.",
-				["RestorationModInfo_sociopathTitleID"] = "Tension and Co. (Sociopath)",
-				["RestorationModInfo_sociopathDescID"] = "Enables or disables tracking the cooldowns these specific skills.",
+				["RestorationModInfo_infiltratorDescID"] = "Enables or disables tracking of this specific perk.",
+				["RestorationModInfo_sociopathTitleID"] = "Combo Meter (Sociopath)",
+				["RestorationModInfo_sociopathDescID"] = "Enables or disables tracking of this perk deck.",
 				["RestorationModInfo_survive_one_hitTitleID"] = "Oni Irezumi (Yakuza)",
-				["RestorationModInfo_survive_one_hitDescID"] = "Enables or disables tracking the active state this specific skill.",
+				["RestorationModInfo_survive_one_hitDescID"] = "Enables or disables tracking the active state this specific perk.",
 
 				["RestorationModother_buffsTitleID"] = "===Other===",
 				["RestorationModother_buffsDescID"] = "Buff trackers for aspects that don't have skills or perks directly linked to them.",
@@ -201,6 +203,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", fun
 				["resmod_no_nicknames"] = "Resmod Names (No Nicknames)",
 				["dmcwo_reelnames"] = "Real Weapon Names (DMCWO Port - WIP)",
 				["resmod_no_renames"] = "Vanilla Names (or use your own rename mods)",
+			["RestorationModGCGPYPMMSACCrewTitleID"] = "Super Cereal Crew AI Masks",
+			["RestorationModGCGPYPMMSACCrewDescID"] = "Disables mask based easter eggs on Crew AI from being rolled. Requires restart if changed mid-heist.",
 			["RestorationModGCGPYPMMSACTextTitleID"] = "Super Cereal Text",
 			["RestorationModGCGPYPMMSACTextDescID"] = "Disables text based easter eggs from being rolled. Requires restart.",
 			["RestorationModForceEggsOptionsButtonTitleID"] = "Force Easter Egg Text",
@@ -371,7 +375,9 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", fun
 		["RestorationModDisableMutatorColorsTitleID"] = "Disable Mutator Assault Banner Colors",
 		["RestorationModDisableMutatorColorsDescID"] = "Disable the color change to the Assault Banner when using mutators (Vanilla HUD only).",
 		["RestorationModDisableSoloBoonsTitleID"] = "Disable Solo Boons",
-		["RestorationModDisableSoloBoonsDescID"] = "Disable the additional boons the player receives in solo play (Crime.net offline).",		
+		["RestorationModDisableSoloBoonsDescID"] = "Disable the additional boons the player receives in solo play (Crime.net offline).",
+		["RestorationModEnemySpawnSoundsTitleID"] = "Enemy Spawn Sounds",
+		["RestorationModEnemySpawnSoundsDescID"] = "Enable the playback of spawn-in sounds of enemies. Enabled by default.",
 		["RestorationModRestoreHitFlashTitleID"] = "Restore Hit Flash",
 		["RestorationModRestoreHitFlashDescID"] = "Enable or disable the restored hit flash when taking damage.",
 		["RestorationModBotsNoDropTitleID"] = "Disable Bot Loot Bag Dropping",
@@ -798,6 +804,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", fun
 		["RestorationModMusicShuffleDescID"] = "Changes the music track after assault ends.",
 		["RestorationModOldEconomyTitleID"] = "Old Economy (Beta)",
 		["RestorationModOldEconomyDescID"] = "Enables the old economy from pre update 11.",
+		["RestorationModNVGColorTitleID"] = "Night Vision Mask Color",
+		["RestorationModNVGColorDescID"] = "Select between the two night vision mask colors",
 		["RestorationModScaleTitleID"] = "HUD scaling",
 		["RestorationModScaleDescID"] = "Changes HUD scaling. May require a restart.",
 		["RestorationModSizeOnScreenTitleID"] = "HUD size on screen",
@@ -848,10 +856,14 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", fun
 		["RestorationModVoiceIconDescID"] = "Displays when a player is using voice chat in-game.",
 		["RestorationModNewsFeedStyleTitleID"] = "Alpha Newsfeed Style",
 		["RestorationModNewsFeedStyleDescID"] = "Allows you to choose to show both newsfeed and newheists box or just the newsfeed.",
+		["RestorationModHostagePONRActiveTitleID"] = "Hostage Counter And The Point Of No Return",
+		["RestorationModHostagePONRActiveDescID"] = "Shows both the hostage counter and the point of no return at the same time",
 		["alpha_assault"] = "Early Alpha Corner",
 		["beta_assault"] = "Alpha Tape",
 		["show_both"] = "Default",
 		["show_classic_newsfeed"] = "Classic",
+		["resmod_nvg_default"] = "Default",
+		["resmod_nvg_blue"] = "Blue",
 
 		["RestorationModDodgeDisplayTitleID"] = "Dodge Meter Readout",
 		["RestorationModDodgeDisplayDescID"] = "Change what the dodge meter's maximum value *displays*. Requires restart.",
@@ -1411,8 +1423,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 
 		--Flamethrowers--
 		["bm_wp_fla_mk2_mag_rare_sc"] = "Rare",
-		["bm_wp_fla_mk2_mag_rare_desc_sc"] = "Doubles the burn duration on ignited enemies, but halves damage over time.",
-		["bm_wp_fla_mk2_mag_well_desc_sc"] = "Halves the burn duration on ignited enemies, but doubles damage over time.",
+		["bm_wp_fla_mk2_mag_rare_desc_sc"] = "Doubles the burn duration on ignited enemies, but halves damage-over-time.",
+		["bm_wp_fla_mk2_mag_well_desc_sc"] = "Halves the burn duration on ignited enemies, but doubles damage-over-time.",
 		["bm_ap_flamethrower_sc_desc"] = "Thousands of degrees of pure pain. How did it come to this?\n#{heat_warm_color}#Burns through body armor.##",
 		["bm_ap_money_sc_desc"] = "Thousands of dollars of pure bliss. Turn the valve, and unleash the cash.\n#{competitive_color}#Bribes through body armor.##", --used by both flamethrowers, decouple later?--
 
@@ -1602,7 +1614,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 		--Fists
 		["bm_melee_fists_info"] = "You're no boxer, but you can still throw a pretty good punch.\nAll it takes is some strength, speed and timing and you'll land a striking blow in no time.",
 		--& Knuckles
-		["bm_melee_brass_knuckles_info"] = "Knuckle style weapons have been used all over the world for hundreds of years.\nBrass knuckles concentrate the punch's force by directing it towards a harder and smaller area, increasing the chanecs of tissue disruption. Hit hard enough and you'll even fracture some bones.",
+		["bm_melee_brass_knuckles_info"] = "Knuckle style weapons have been used all over the world for hundreds of years.\nBrass knuckles concentrate the punch's force by directing it towards a harder and smaller area, increasing the chances of tissue disruption. Hit hard enough and you'll even fracture some bones.",
 
 		--Lucille
 		["bm_melee_barbedwire_info"] = "There's no afterlife waiting for my sorry ass... and I'm just here... talking to a fucking baseball bat!\n\nDeals #{skill_color}#120## bleed damage over #{skill_color}#3## seconds.",
@@ -2196,11 +2208,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 		["menu_reticle_dmc_dot_4x4"] = "Small Dot",
 		["menu_reticle_dmc_dot_2x2"] = "Tiny Dot",
 		["menu_reticle_dmc_cross_holotherm"] = "SZ Holotherm",
-		["menu_reticle_dmc_okp7"] = "OKP-7",
 
 
 
 		--Blackmarket gui per-armor skill descriptions.
+		["bm_menu_armor_pickup_1"] = "You pick up ammo at #{skill_color}#$armor_pickup## of the normal rate.",
+
 		["bm_menu_append_milliseconds"] = "ms",
 		["bm_menu_dodge_grace"] = "ADDITIONAL GRACE PERIOD ON DODGE: #{skill_color}#$grace_bonus##",
 		["bm_menu_dodge_grace_cap"] = "Grace period on dodge is capped to #{important_1}#$grace_bonus_cap## due to the current job's ",
@@ -2214,8 +2227,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Eng", function(loc)
 		["bm_menu_armor_grinding_1"] = "Armor regenerated every tick: #{skill_color}#$passive_armor_regen##",
 		["bm_menu_armor_grinding_2"] = "Armor regenerated every tick: #{skill_color}#$passive_armor_regen## \nArmor regenerated when damaging enemies: #{skill_color}#$active_armor_regen##",
 
-		["bm_menu_armor_max_health_store_1"] = "Max health stored: #{skill_color}#$health_stored##",
-		["bm_menu_armor_max_health_store_2"] = "Max health stored: #{skill_color}#$health_stored## \nArmor regen bonus on kill: #{skill_color}#$regen_bonus%##",
+		["bm_menu_armor_max_health_store_1"] = "Max health stored: #{skill_color}#$health_stored## ",
+		["bm_menu_armor_max_health_store_2"] = "Max health stored: #{skill_color}#$health_stored## \nArmor regen bonus on kill: #{skill_color}#$regen_bonus%## ",
 	})
 
 
@@ -2689,6 +2702,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 				["bm_wp_90_body_boxy_desc"] = "Recovered from the desolated remains of an old OMNIA warehouse, this frame makes no difference to the weapon's handling or its functionality whatsoever, but its block-like aesthetic surely makes it a nice thing to have.",
 				--Spec Ops
 				["bm_mp7_sc_desc"] = "A lightweight SMG and competitor to the Project-90 SMG. Doesn't have an undermounted grenade launcher as some sources may lead you to believe.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
+				--T3K Urban
+				["bm_tec9_sc_desc"] = "A classic, cheap high-firerate SMG thats reliability has been demonstrated by various gangbangers and cartels all across the southeastern United States.",
+
 				--Heather
 				["bm_sr2_sc_desc"] = "Utilizing a specialized 9×21mm round, the Heather SMG is the Russian answer to the Project-90 and SpecOps-7 SMGs.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
 				--Compact-5/MP5
@@ -3009,14 +3025,14 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 					["bm_w_sierra458_sc_desc"] = "Chains being the weapon-smith of the gang began development of a heavy-hitting yet high rate of fire alternative to the Tecci Tactical rifle.\n\n#{skill_color}#Deals 50% of its damage through body armor and can pierce enemies.##",
 					["bm_w_sierra458_beo_desc"] = "Chains being the weapon-smith of the gang began development of a heavy-hitting yet high rate of fire alternative to the Tecci Tactical rifle.\n\n#{skill_color}#Can pierce body armor, enemies, shields within max damage range and thin walls.##",
 					["bm_wp_wpn_fps_snp_sierra458_m_bush_desc"] = "Switches .458 SOCOM rounds for #{stats_positive}#poison-laced .450 Bushmaster## rounds that #{stats_positive}#deal 30 damage/sec over 4 seconds and can stun enemies.##\n\n#{important_1}#Can no longer pierce multiple enemies.##",
-					["bm_w_sierra458_ivy_desc"] = "Chains being the weapon-smith of the gang began development of a heavy-hitting yet high rate of fire alternative to the Tecci Tactical rifle.\n\n#{skill_color}#Deals 50% of its damage through body armor, can pierce thin walls## and #{stats_positive}#deals damage over time with poison rounds.##",
+					["bm_w_sierra458_ivy_desc"] = "Chains being the weapon-smith of the gang began development of a heavy-hitting yet high rate of fire alternative to the Tecci Tactical rifle.\n\n#{skill_color}#Deals 50% of its damage through body armor, can pierce thin walls## and #{stats_positive}#deals damage-over-time with poison rounds.##",
 					["bm_w_bulldog_desc"] = "Some kind of happiness is measured out in taking down enemies with the Bulldog.\n\n#{risk}#This weapon shoots in full-auto when fired from the hip and shoots in bursts when fired while aiming down the sights.##",
 					--RMC2
 					["bm_w_rmary2"] = "Goblin Mk2",
 					["bm_wp_chf_50_desc"] = "#{skill_color}#Headshots ignore damage falloff.##",
 					["bm_w_rmary2_desc"] = "Proof of concept prototype designed by a Royal Military College Duntroon cadet.\n\n#{skill_color}#Deals 75% of its damage through body armor and can pierce multiple enemies.##",
 					--Madsen LAR
-					["bm_w_madsen_lar"] = "Post WW2 Danish battle rifle chambered in 7.62x51mm to seek a market in NATO militaries.\n\n#{skill_color}#Deals 50% of its damage through body armor and can pierce enemies.##",
+					["bm_w_madsen_lar_desc"] = "Post WW2 Danish battle rifle chambered in 7.62x51mm to seek a market in NATO militaries.\n\n#{skill_color}#Deals 50% of its damage through body armor and can pierce enemies.##",
 
 			--[[ SNIPERS ]]
 				--MSR
@@ -3055,7 +3071,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 				["bm_mosin_sc_desc"] = "When food is a luxury but you're still in need of a gun comes this cheap, classic bolt-action rifle.\n\nThis weapon reloads in clips of 5 bullets at a time and #{skill_color}#can pierce body armor, multiple enemies, shields and thin walls.##",
 				["bm_wp_upg_a_tranq_mosin"] = "Tranquilizer Rounds",
 				["bm_wp_upg_a_tranq_mosin_desc"] = "For true oblivion, #{item_stage_2}#The End.##\n\nFire #{stats_positive}#tranquilizer## rounds that #{skill_color}#deal 30 damage/sec over 6 seconds and can stun enemies.##\n\n#{important_1}#Can no longer pierce through enemies.##",
-				["bm_mosin_tranq_desc"] = "When food is a luxury but you're still in need of a gun comes this cheap, classic bolt-action rifle.\n\nThis weapon reloads in clips of 5 bullets at a time,\n\n#{stats_positive}#deals damage over time with tranquilizer rounds## and #{skill_color}#can pierce body armor, shields and thin walls.##",
+				["bm_mosin_tranq_desc"] = "When food is a luxury but you're still in need of a gun comes this cheap, classic bolt-action rifle.\n\nThis weapon reloads in clips of 5 bullets at a time,\n\n#{stats_positive}#deals damage-over-time with tranquilizer rounds## and #{skill_color}#can pierce body armor, shields and thin walls.##",
 				--Desert Fox
 				["bm_desertfox_sc_desc"] = "A compact bullpup sniper platform, used by Wick during his assault on a Russian mob safehouse.\n\n#{skill_color}#Can pierce body armor, multiple enemies, shields and thin walls.##",
 				--R93
@@ -3113,7 +3129,6 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 				-- Toy weapons
 				["bm_w_toym16_sc_desc"] = "\"No full-auto in buildings.\"",
 				["bm_w_toy1911_sc_desc"] = "\"No full-auto in buildings.\"",
-
 
 	})
 
@@ -4979,8 +4994,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 		["bm_equipment_first_aid_kit_desc"] = "To use a First Aid Kit, you need to place it by holding #{skill_color}#$BTN_USE_ITEM##. Once placed it cannot be moved, but it can be used by you and your crew by holding #{skill_color}#$BTN_INTERACT## to regain #{skill_color}#150## health.\n\nFirst Aid Kits can only be used #{skill_color}#1## time.\n\nThe First Aid Kit is a collection of supplies and equipment for use in rapidly giving first aid in emergency situations.",
 		["bm_equipment_first_aid_kit_desc_short"] = "To use a First Aid Kit, you need to place it by holding #{skill_color}#$BTN_USE_ITEM##. Once placed it cannot be moved, but it can be used by you and your crew by holding #{skill_color}#$BTN_INTERACT## to regain #{skill_color}#150## health.\n\nFirst Aid Kits can only be used #{skill_color}#1## time.",
 		--AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-		["bm_equipment_doctor_bag_desc"] = "To use the Doctor Bag, you need to place it by holding #{skill_color}#$BTN_USE_ITEM##. Once placed it cannot be moved, but it can be used by you and your crew by holding #{skill_color}#$BTN_INTERACT## to regain #{skill_color}#20%## of their maximum health and #{skill_color}#4%## maximum health every #{skill_color}#5## seconds for #{skill_color}#3## minutes.\n\nDoctor bags can be used #{skill_color}#$deployable_uses## times; you can see how many uses are left by looking in the bag.\n\nThe Doctor Bag is a portable bag, usually used by a physician or other medical professional to transport medical supplies and medicine.",
-		["bm_equipment_doctor_bag_desc_short"] = "To use the Doctor Bag, you need to place it by holding #{skill_color}#$BTN_USE_ITEM##. Once placed it cannot be moved, but it can be used by you and your crew by holding #{skill_color}#$BTN_INTERACT## to regain #{skill_color}#20%## of their maximum health and #{skill_color}#4%## maximum health every #{skill_color}#5## seconds for #{skill_color}#3## minutes.\n\nDoctor bags can be used #{skill_color}#$deployable_uses## times; you can see how many uses are left by looking in the bag.",
+		["bm_equipment_doctor_bag_desc"] = "To use the Doctor Bag, you need to place it by holding #{skill_color}#$BTN_USE_ITEM##. Once placed it cannot be moved, but it can be used by you and your crew by holding #{skill_color}#$BTN_INTERACT## to regain for #{skill_color}#20%## of their maximum health and, for #{skill_color}#3## minutes, heal #{skill_color}#4%## of their maximum health every #{skill_color}#5## seconds and gain #{skill_color}#10## points of deflection.\n\nDoctor bags can be used #{skill_color}#$deployable_uses## times; you can see how many uses are left by looking in the bag.\n\nThe Doctor Bag is a portable bag, usually used by a physician or other medical professional to transport medical supplies and medicine.",
+		["bm_equipment_doctor_bag_desc_short"] = "To use the Doctor Bag, you need to place it by holding #{skill_color}#$BTN_USE_ITEM##. Once placed it cannot be moved, but it can be used by you and your crew by holding #{skill_color}#$BTN_INTERACT## to r regain for #{skill_color}#20%## of their maximum health and, for #{skill_color}#3## minutes, heal #{skill_color}#4%## of their maximum health every #{skill_color}#5## seconds and gain #{skill_color}#10## points of deflection.\n\nDoctor bags can be used #{skill_color}#$deployable_uses## times; you can see how many uses are left by looking in the bag.",
 		--Sentry
 		["bm_equipment_sentry_gun_desc"] = "To use the Sentry Gun, you need to place it by holding #{skill_color}#$BTN_USE_ITEM.## Upon deployment it will use #{skill_color}#$deployable_uses## of your maximum ammo.\n\nYou can pick up your Sentry Gun by holding #{skill_color}#$BTN_INTERACT## while near it; picking it up will refund you for the remaining ammo in it and repair it.\n\nUpon taking too much damage, it will shut off. While in this state, interacting with it will place it into an automatic repair mode.\n\nSentry Guns terrify civilians, forcing them to the ground.\n\nThe Sentry Gun automatically aims and fires at targets that are detected by its sensors. It's commonly used as a distraction, drawing attention away from you and your team.",
 		["bm_equipment_sentry_gun_desc_short"] = "To use the Sentry Gun, you need to place it by holding #{skill_color}#$BTN_USE_ITEM.## Upon deployment it will use #{skill_color}#$deployable_uses## of your maximum ammo.\n\nYou can pick up your Sentry Gun by holding #{skill_color}#$BTN_INTERACT## while near it; picking it up will refund you for the remaining ammo in it and repair it.\n\nUpon taking too much damage, it will shut off. While in this state, interacting with it will place it into an automatic repair mode.",
@@ -5044,11 +5059,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 		["loading_gameplay_res_26"] = "Pro Jobs offer a test of one's ability by only allowing one shot at the prize, and allows the spawning of the dreaded Bravo units.",
 		["loading_gameplay_res_27"] = "Restoration Mod provides different factions, such as Murkywater mercenaries and law enforcers from other states.",
 		["loading_gameplay_res_28"] = "Cloakers will make use of smoke grenades when performing take-downs on higher difficulties.",
+		["loading_gameplay_res_29"] = "Taser and Grenadiers have weakpoints, signified by bags on the right side of their body. While being difficult targets, destroying these bags will tase or stun cops respectively.",
 		--New Units Hints
 		["loading_new_units_res_title"] = "Restoration Unit Tips",
 		["loading_new_units_res_1"] = "OMNIA ASUs will provide damage bonuses to nearby allies marked by giving them Yellow laser attachments.",
 		["loading_new_units_res_2"] = "LPFs are weak to melee.",
-		["loading_new_units_res_3"] = "Lighter units will be overhealed by the LPF. Enemies are outlined in purple during overhealing process.",
+		["loading_new_units_res_3"] = "Weaker units will be overhealed by the LPF, signified by their eyes having a purple glow. Shooting the LPF's backpack will disable this, so place your shots wisely.",
 		["loading_new_units_res_4"] = "Titan Cloakers have advanced cloaking gear that renders them nearly invisible, but it still has the ambient hum of older models of standard Cloaker gear.",
 		["loading_new_units_res_5"] = "Titan Dozers prefer putting distance between them and their target to unleash the full potential of their railguns undisturbed.",
 		["loading_new_units_res_6"] = "Titan Snipers trade damage-per-shot and armor-piercing from their standard counterparts for a higher rate of fire and being able to shoot while moving.",
@@ -5572,11 +5588,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 
 				--MG Specialist
 				["menu_sharpshooter_sc"] = "MG Specialist",
-				["menu_sharpshooter_desc_sc"] = "BASIC: #{owned}#$basic##\nThe movement penalty to accuracy is reduced by #{skill_color}#$skill_value_b1## for #{skill_color}#machine guns.##\n\nThe movement penalty to accuracy is determined by stability.\n\nACE: #{owned}#$pro##\n#{skill_color}#Machine guns## fire #{skill_color}#$skill_value_p1## faster.\n\nEvery #{skill_color}#5th## bullet fired by a #{skill_color}#machine gun## without releasing the trigger consumes no ammo.",
+				["menu_sharpshooter_desc_sc"] = "BASIC: #{owned}#$basic##\nThe movement penalty to accuracy is reduced by #{skill_color}#$skill_value_b1## for #{skill_color}#machine guns.##\n\nThe movement penalty to accuracy is influenced by stability.\n\nACE: #{owned}#$pro##\n#{skill_color}#Machine guns## fire #{skill_color}#$skill_value_p1## faster.\n\nEvery #{skill_color}#5th## bullet fired by a #{skill_color}#machine gun## without releasing the trigger consumes no ammo.",
 
 				--Shock and Awe
 				["menu_spotter_teamwork_beta_sc"] = "Shock and Awe",
-				["menu_spotter_teamwork_beta_desc_sc"] = "BASIC: #{owned}#$basic##\n#{skill_color}#All weapon## magazine sizes are increased by #{skill_color}#$skill_value_b1.##\n\n#{risk}#NOTE: Does not apply to## #{important_1}#bows or launchers.##\n\nACE: #{owned}#$pro##\nThe magazine size increase is raised by an additional #{skill_color}#$skill_value_p1.##\n\n#{skill_color}#All weapons## can be hipfired while sprinting and their sprint-to-fire delay is removed.",
+				["menu_spotter_teamwork_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nWeapon magazine sizes are increased by #{skill_color}#$skill_value_b1.##\n\n#{risk}#NOTE: Does not apply to## #{important_1}#bows or launchers.##\n\nACE: #{owned}#$pro##\nThe magazine size increase is raised by an additional #{skill_color}#$skill_value_p1.##\n\n#{skill_color}#All weapons## can be hipfired while sprinting and their sprint-to-fire delay is removed.",
 
 				--Heavy Impact
 				["menu_speedy_reload_sc"] = "Heavy Impact",
@@ -5584,7 +5600,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 
 				--Body Expertise
 				["menu_body_expertise_beta_sc"] = "Spray n' Pray",
-				["menu_body_expertise_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nYour weapons deal #{skill_color}#$skill_value_b1## of their damage through body armor; effect is increased to #{skill_color}#$skill_value_b2## for #{skill_color}#machine guns.##\n\nThis is in addition to any armor piercing capabilites your weapon(s) may already have, to a maximum of #{skill_color}#100%.##\n\nACE: #{owned}#$pro##\nKills using #{skill_color}#machine guns## on #{risk}#full-auto## without releasing the trigger for more than #{risk}#$skill_value_p1## seconds will grant them an additional #{skill_color}#$skill_value_p2## more damage; stacks up to #{skill_color}#$skill_value_p3## times.",
+				["menu_body_expertise_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nYour weapons deal #{skill_color}#$skill_value_b1## of their damage through body armor; effect is increased to #{skill_color}#$skill_value_b2## for #{skill_color}#machine guns.##\n\nThis is in addition to any armor piercing capabilites your weapon(s) may already have, to a maximum of #{skill_color}#100%.##\n\nACE: #{owned}#$pro##\nKills using #{skill_color}#machine guns## on #{risk}#full-auto## will grant them a stack of #{skill_color}#$skill_value_p2## more damage; stacks up to #{skill_color}#$skill_value_p3## times. Stacks decay one at a time every #{risk}#$skill_value_p1## seconds.",
 
 
 		--[[   ENFORCER   ]]--
@@ -5619,7 +5635,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 			--[[   JUGGERNAUT SUBTREE   ]]--
 				--Stun Resistance--
 				["menu_oppressor_beta_sc"] = "Stun Resistance",
-				["menu_oppressor_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nEnemy melee attacks push you back #{skill_color}#$skill_value_b1## less for every point of armor you have.\n\nACE: #{owned}#$pro##\nReduces the visual effect duration of flashbangs by #{skill_color}#$skill_value_p1.##",
+				["menu_oppressor_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nEnemy melee attacks push you back #{skill_color}#$skill_value_b1## less for every point of armor you have.\n\nACE: #{owned}#$pro##\nReduces the visual effect duration of flashbangs by #{skill_color}#$skill_value_p1.##\n\nKnockback from enemy gunfire is reduced by #{skill_color}#$skill_value_p2## for every point of armor you have.",
 
 				--Die Hard
 				["menu_show_of_force_sc"] = "Die Hard",
@@ -5664,7 +5680,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 
 				--Fully Loaded--
 				["menu_bandoliers_beta_sc"] = "Fully Loaded",
-				["menu_bandoliers_desc_sc"] = "BASIC: #{owned}#$basic##\nYour total ammo capacity is increased by #{skill_color}#$skill_value_b1.##\n\nACE: #{owned}#$pro##\nYou pick up #{skill_color}#$skill_value_p1## more ammo from ammo boxes.\n\nYour base chance to pick up a throwable is raised to #{skill_color}#$skill_value_p2##; chance is increased by an additional #{skill_color}#$skill_value_p3## each time you don't find one and will reset to base when you do.\n\n#{risk}#NOTE: You cannot pick up regenerative or cooldown-based throwables.##",
+				["menu_bandoliers_desc_sc"] = "BASIC: #{owned}#$basic##\nYou pick up #{skill_color}#$skill_value_p1## more ammo from ammo boxes.\n\nACE: #{owned}#$pro##\nYour total ammo capacity is increased by #{skill_color}#$skill_value_b1.##\n\nYour base chance to pick up a throwable is raised to #{skill_color}#$skill_value_p2##; chance is increased by an additional #{skill_color}#$skill_value_p3## each time you don't find one and will reset to base when you do.\n\n#{risk}#NOTE: You cannot pick up regenerative or cooldown-based throwables.##",
 
 		--[[   TECHNICIAN   ]]--
 
@@ -5729,7 +5745,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 
 				--Kilmer--
 				["menu_heavy_impact_beta_sc"] = "Kilmer",
-				["menu_heavy_impact_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nThe movement penalty to accuracy is reduced by #{skill_color}#$skill_value_b1## for #{skill_color}#rifles.##\n\nThe movement penalty to accuracy is influenced by stability.\n\nACE: #{owned}#$pro##\n#{skill_color}#Rifles## reload #{skill_color}#$skill_value_p1## faster.\n\n#{skill_color}#Rifles## will deal at least #{skill_color}#$skill_value_p2## of their damage through armor.\n\n#{risk}#NOTE: This does not stack with any armor piercing capabilites your## #{skill_color}#rifle(s)## #{risk}#may already have.##",
+				["menu_heavy_impact_beta_desc_sc"] = "BASIC: #{owned}#$basic##\n#{skill_color}#Rifles## reload #{skill_color}#$skill_value_b2## faster.\n\nThe movement penalty to accuracy is reduced by #{skill_color}#$skill_value_b1## for #{skill_color}#rifles.##\n\nThe movement penalty to accuracy is influenced by stability.\n\nACE: #{owned}#$pro##\n#{skill_color}#Rifles## reload an additonal #{skill_color}#$skill_value_p1## faster.\n\n#{skill_color}#Rifles## will deal at least #{skill_color}#$skill_value_p2## of their damage through armor.\n\n#{risk}#NOTE: This does not stack with any armor piercing capabilites your## #{skill_color}#rifle(s)## #{risk}#may already have.##",
 
 				--Ammo Efficiency--
 				["menu_single_shot_ammo_return_sc"] = "Ammo Efficiency",
@@ -5810,7 +5826,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 
 				--Unseen Strike, formally Dire Need--
 				["menu_backstab_beta_sc"] = "Unseen Strike",
-				["menu_backstab_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nIf you do not take damage for #{skill_color}#$skill_value_b1## seconds, you gain a #{skill_color}#$skill_value_b2## critical hit chance for . The critical hit chance persists for #{skill_color}#$skill_value_b3## seconds after taking damage.\n\nCritical hits deal #{skill_color}#100%## additional damage.\n\n#{risk}#NOTE: Explosives and damage-over-time effects## #{important_1}#cannot deal critical hits.##\n\nACE: #{owned}#$pro##\nUnseen Strike's critical hit chance persists for #{skill_color}#$skill_value_p1## seconds after taking damage.",
+				["menu_backstab_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nIf you do not take damage for #{skill_color}#$skill_value_b1## seconds, you gain a #{skill_color}#$skill_value_b2## critical hit chance. The critical hit chance persists for #{skill_color}#$skill_value_b3## seconds after taking damage.\n\nCritical hits deal #{skill_color}#100%## additional damage.\n\n#{risk}#NOTE: Explosives and damage-over-time effects## #{important_1}#cannot deal critical hits.##\n\nACE: #{owned}#$pro##\nUnseen Strike's critical hit chance persists for #{skill_color}#$skill_value_p1## seconds after taking damage.",
 
 				--Cleaner--
 				["menu_hitman_beta_sc"] = "Cleaner",
@@ -5878,7 +5894,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_Eng", function(
 
 				--Counter-Strike--
 				["menu_drop_soap_beta_sc"] = "Counter Strike",
-				["menu_drop_soap_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nYou can now parry Cloaker jump kicks while you have your melee weapon drawn, knocking them down.\n\nYou take #{skill_color}#20%## less damage from Cloaker kicks and Taser shocks.\n\nACE: #{owned}#$pro##\nYou can now parry Cloaker sprint kicks and the melee strikes of Shields while you have your melee weapon drawn, knocking them down.\n\n#{risk}#NOTE: Titan Shields and Captain Winters cannot be parried.##\n\nRanged damage against you is reduced by #{skill_color}#10%## while charging your melee weapon.\n\nYou take an additional #{skill_color}#30%## less damage from Cloaker kicks and Taser shocks.\n\n ", --the extra newlines and space is to trigger the auto scaling text to make some room
+				["menu_drop_soap_beta_desc_sc"] = "BASIC: #{owned}#$basic##\nYou can now parry Cloaker jump kicks while you have your melee weapon drawn, knocking them down.\n\nYou take #{skill_color}#20%## less damage from Cloaker kicks and Taser shocks.\n\nACE: #{owned}#$pro##\nYou can now parry Cloaker sprint kicks and the melee strikes of Shields while you have your melee weapon drawn, knocking them down.\n\n#{risk}#NOTE:## #{important_1}#Titan Shields and Captain Winters## #{risk}#cannot be parried.##\n\nRanged damage against you is reduced by #{skill_color}#10%## while charging your melee weapon.\n\nYou take an additional #{skill_color}#30%## less damage from Cloaker kicks and Taser shocks.\n\n ", --the extra newlines and space is to trigger the auto scaling text to make some room
 
 				--Pumping Iron--
 				["menu_steroids_beta_sc"] = "Pumping Iron",
@@ -5932,11 +5948,26 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_Eng", funct
 		["menu_deckall_8_desc_sc"] = "Increases your Doctor Bag interaction speed by #{skill_color}#$perk_value_1.##\n\nYou do #{skill_color}#$perk_value_2## more damage.\n\n#{risk}#NOTE: Damage increase does not apply to## #{important_1}#Throwables or Launchers.##",
 
 		--Crook--
-		["menu_deck6_1_desc_sc"] = "Your dodge is increased by ##$perk_value_1## points.\n\nYour armor is increased by ##$perk_value_2## for ballistic vests.",
-		["menu_deck6_3_desc_sc"] = "Your dodge is increased by an additional ##$perk_value_1## points for ballistic vests.",
-		["menu_deck6_5_desc_sc"] = "Your armor is increased by an additional ##$perk_value_1## for ballistic vests.\n\nYou pick locks ##$perk_value_2## faster.",
-		["menu_deck6_7_desc_sc"] = "Your dodge is increased by an additional ##$perk_value_1## points for ballistic vests.",
-		["menu_deck6_9_desc_sc"] = "Your armor is increased by an additional ##$perk_value_1## for ballistic vests.\n\nDeck completion Bonus: Your chance of getting a higher quality item during PAYDAY is increased by ##10%.##",
+		--["menu_deck6_1_desc_sc"] = "Your dodge is increased by ##$perk_value_1## points.\n\nYour armor is increased by ##$perk_value_2## for ballistic vests.",
+		--["menu_deck6_3_desc_sc"] = "Your dodge is increased by an additional ##$perk_value_1## points for ballistic vests.",
+		--["menu_deck6_5_desc_sc"] = "Your armor is increased by an additional ##$perk_value_1## for ballistic vests.\n\nYou pick locks ##$perk_value_2## faster.",
+		--["menu_deck6_7_desc_sc"] = "Your dodge is increased by an additional ##$perk_value_1## points for ballistic vests.",
+		--["menu_deck6_9_desc_sc"] = "Your armor is increased by an additional ##$perk_value_1## for ballistic vests.\n\nDeck completion Bonus: Your chance of getting a higher quality item during PAYDAY is increased by ##10%.##",
+
+		["menu_deck6_1"] = "Caught",
+		["menu_deck6_1_desc_sc"] = "When you are within ##$perk_value_1## meters of an enemy, you receive ##$perk_value_2## less damage from enemies.\n\nYour dodge is increased by ##$perk_value_3## points.",
+
+		["menu_deck6_3_desc_sc"] = "Killing an enemy regenerates #{skill_color}#$perk_value_1## armor.\n\nThis cannot occur more than once every #{important_1}#$perk_value_2## seconds. Each kill during cooldown reduces it by #{skill_color}#$perk_value_3## seconds; melee kills reduce it by #{skill_color}#$perk_value_4## seconds.\n\nIf a kill clears an active cooldown it will trigger the applicable perks and restart the cooldown.",
+
+		["menu_deck6_5_desc_sc"] = "Killing an enemy with a melee weapon regenerates ##$perk_value_1## health and ##$perk_value_2## of your stamina.\n\nThis perk shares its cooldown with Basic Composure (Card 3) even if this perk was not triggered.\n\nYou pick locks ##$perk_value_3## faster.",
+		["menu_deck6_5_short_sc"] = "Killing an enemy with a melee weapon regenerates ##$perk_value_1## health and ##$perk_value_2## of your stamina.\n\nYou pick locks ##$perk_value_3## faster.",
+
+		["menu_deck6_7_desc_sc"] = "Killing an enemy within ##$perk_value_1## meters regenerates ##$perk_value_2## armor; melee kills double the amount.\n\nThis perk shares its cooldown with Basic Composure (Card 3) even if this perk was not triggered.\n\nYour dodge is increased by an additional #{skill_color}#$perk_value_3## points.",
+		["menu_deck6_7_short_sc"] = "Killing an enemy within ##$perk_value_1## meters regenerates ##$perk_value_2## armor; melee kills double the amount.\n\nYour dodge is increased by an additional #{skill_color}#$perk_value_3## points.",
+
+		["menu_deck6_9"] = "Release",
+		["menu_deck6_9_desc_sc"] = "Killing an enemy within ##$perk_value_1## meters has a ##$perk_value_2## chance to spread panic among your enemies in a ##$perk_value_3## meter radius around you; melee kills double the chance.\n\nPanic will make enemies go into short bursts of uncontrollable fear.\n\nThis perk shares its cooldown with Basic Composure (Card 3) even if this perk was not triggered.\n\nDeck completion Bonus: Your chance of getting a higher quality item during PAYDAY is increased by ##10%.##",
+		["menu_deck6_9_short_sc"] = "Killing an enemy within ##$perk_value_1## meters has a ##$perk_value_2## chance to spread panic among your enemies in a ##$perk_value_3## meter radius around you; melee kills double the chance.\n\nPanic will make enemies go into short bursts of uncontrollable fear.\n\nDeck completion Bonus: Your chance of getting a higher quality item during PAYDAY is increased by ##10%.##",
 
 		--Rogue
 		["menu_deck4_1_desc_sc"] = "Your dodge is increased by ##$perk_value_1## points.\n\nYou swap between your weapons ##$perk_value_2## faster.",
@@ -5966,16 +5997,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_Eng", funct
 
 		--Crew Chief
 		["menu_deck1_3_desc_sc"] = "You and your crew's stamina is increased by #{skill_color}#$perk_value_1.##\n\n#{risk}#NOTE: Crew perks do not stack.##\n\nIncreases your shout distance by #{skill_color}#$perk_value_2.##\n\nYour dodge is increased by #{skill_color}#5## points.",
-		["menu_deck1_5_desc_sc"] = "You gain an additional ##$perk_value_1## more health.\n\nYour crew gain ##$perk_value_2## more health.\n\nNOTE: Crew perks do not stack.\n\nYou answer pagers ##$perk_value_3## faster.",
+		["menu_deck1_5_desc_sc"] = "You gain an additional #{skill_color}#$perk_value_1## more health.\n\nYour crew gain #{skill_color}#$perk_value_2## more health.\n\n#{risk}#NOTE: Crew perks do not stack.##\n\nYou answer pagers #{skill_color}#$perk_value_3## faster.",
 		["menu_deck1_7_desc_sc"] = "You gain ##$perk_value_1## more armor.\n\nYour dodge is increased by an additional ##$perk_value_2## points.",
-		["menu_deck1_9_desc_sc"] = "You and your crew gains ##$perk_value_1## max health and ##$perk_value_2## stamina for each hostage up to ##$perk_value_3## times.\n\nNOTE: Crew perks do not stack.\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%.##",
+		["menu_deck1_9_desc_sc"] = "You and your crew gains #{skill_color}#$perk_value_1## max health and #{skill_color}#$perk_value_2## stamina for each hostage up to #{skill_color}#$perk_value_3## times.\n\n#{risk}#NOTE: Crew perks do not stack.##\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by #{skill_color}#10%.##",
 		--I only had to put these in to fix Overkill's shitty rebalance attempt--
 		--Armorer--
-		["menu_deck3_1_desc_sc"] = "You gain ##$perk_value_1## more armor.",
-		["menu_deck3_3_desc_sc"] = "You gain an additional ##$perk_value_1## more armor.",
-		["menu_deck3_5_desc_sc"] = "You gain an additional ##$perk_value_1## more armor.\n\nYou gain the ability to place ##$perk_value_2## body bag cases.",
-		["menu_deck3_7_desc_sc"] = "Your armor recovery rate is increased by ##$perk_value_1.##",
-		["menu_deck3_9_desc_sc"] = "Your armor recovery rate is increased by an additional ##$perk_value_1.##\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%.##",
+		["menu_deck3_1_desc_sc"] = "You gain ##$perk_value_1## more armor.\n\nBallistic vests gain an additional ##$perk_value_2## more armor.",
+		["menu_deck3_3_desc_sc"] = "You gain an additional ##$perk_value_1## more armor.\n\nYour dodge is increased by ##$perk_value_2## points.",
+		["menu_deck3_5_desc_sc"] = "You gain an additional ##$perk_value_1## more armor.\n\nYour dodge is increased by ##$perk_value_3## points for ballistic vests.\n\nYou gain the ability to place ##$perk_value_2## body bag cases.",
+		["menu_deck3_7_desc_sc"] = "Your armor recovery rate is increased by ##$perk_value_1.##\n\nYour dodge is increased by ##$perk_value_2## points for ballistic vests.",
+		["menu_deck3_9_desc_sc"] = "Your armor recovery rate is increased by an additional ##$perk_value_1.##\n\nBallistic vests gain an additional ##$perk_value_2## more armor.\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%.##",
 
 		--Burglar--
 		["menu_deck7_1_desc_sc"] = "Your dodge is increased by ##$perk_value_1## points.\n\nYour dodge meter fills up by ##$perk_value_2## of your dodge every second while crouching.",
@@ -6002,14 +6033,49 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_Eng", funct
 
 		--Sociopath--
 		["menu_deck9_1_sc"] = "No Talk",
-		["menu_deck9_1_desc_sc"] = "When you are surrounded by three or more enemies within ##$perk_value_1## meters, you take ##$perk_value_2## less damage from enemies.",
-		["menu_deck9_3_desc_sc"] = "Killing an enemy regenerates #{skill_color}#$perk_value_1## armor.\n\nThis cannot occur more than once every #{important_1}#$perk_value_2## seconds. Each kill during cooldown reduces it by #{skill_color}#$perk_value_3## seconds; melee kills reduce it by an additional #{skill_color}#$perk_value_4## seconds.\n\nIf a kill clears an active cooldown it will trigger the applicable perks and restart the cooldown.\n\nYou gain #{skill_color}#$perk_value_5## dodge points.",
-		["menu_deck9_5_desc_sc"] = "Killing an enemy with a melee weapon regenerates ##$perk_value_1## health and ##$perk_value_3## of your stamina.\n\nThis perk shares its cooldown with Tension (Card 3) even if this perk was not triggered.\n\nYou carry ##$perk_value_2## additional body bag in your inventory.",
-		["menu_deck9_7_desc_sc"] = "Killing an enemy within ##$perk_value_1## meters regenerates ##$perk_value_2## armor; melee kills double the amount.\n\nThis perk shares its cooldown with Tension (Card 3) even if this perk was not triggered.\n\nYour dodge is increased by an additional ##$perk_value_3## points.",
-		["menu_deck9_9_desc_sc"] = "Killing an enemy within ##$perk_value_1## meters has a ##$perk_value_2## chance to spread panic among your enemies in a ##$perk_value_3## meter radius around you; melee kills double the chance.\n\nPanic will make enemies go into short bursts of uncontrollable fear.\n\nThis perk shares its cooldown with Tension (Card 3) even if this perk was not triggered.\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%.##",
+		--["menu_deck9_1_desc_sc"] = "When you are surrounded by three or more enemies within ##$perk_value_1## meters, you take ##$perk_value_2## less damage from enemies.",
+		--["menu_deck9_3_desc_sc"] = "Killing an enemy regenerates #{skill_color}#$perk_value_1## armor.\n\nThis cannot occur more than once every #{important_1}#$perk_value_2## seconds. Each kill during cooldown reduces it by #{skill_color}#$perk_value_3## seconds; melee kills reduce it by an additional #{skill_color}#$perk_value_4## seconds.\n\nIf a kill clears an active cooldown it will trigger the applicable perks and restart the cooldown.\n\nYou gain #{skill_color}#$perk_value_5## dodge points.",
+		--["menu_deck9_5_desc_sc"] = "Killing an enemy with a melee weapon regenerates ##$perk_value_1## health and ##$perk_value_3## of your stamina.\n\nThis perk shares its cooldown with Tension (Card 3) even if this perk was not triggered.\n\nYou carry ##$perk_value_2## additional body bag in your inventory.",
+		--["menu_deck9_7_desc_sc"] = "Killing an enemy within ##$perk_value_1## meters regenerates ##$perk_value_2## armor; melee kills double the amount.\n\nThis perk shares its cooldown with Tension (Card 3) even if this perk was not triggered.\n\nYour dodge is increased by an additional ##$perk_value_3## points.",
+		--["menu_deck9_9_desc_sc"] = "Killing an enemy within ##$perk_value_1## meters has a ##$perk_value_2## chance to spread panic among your enemies in a ##$perk_value_3## meter radius around you; melee kills double the chance.\n\nPanic will make enemies go into short bursts of uncontrollable fear.\n\nThis perk shares its cooldown with Tension (Card 3) even if this perk was not triggered.\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by ##10%.## ",
+
+		["menu_deck9_1_desc_sc"] = "You gain a combo meter.\n\nKilling enemies with melee weapons builds up your combo meter by a base value of #{skill_color}#$perk_value_1## points; you can have a maximum combo of #{skill_color}#$perk_value_2## points. Killing elite and special enemies will multiply the amount of combo points you get, with Bulldozers and Captains providing even more points.\n\nYour combo meter decays at a rate of #{important_1}#$perk_value_3## points every #{risk}#$perk_value_4## seconds.\n\nYou lose #{important_1}#$perk_value_5## points of combo when taking health damage; this cannot occur more than once every #{skill_color}#$perk_value_6## seconds.\nYou lose #{important_1}#$perk_value_7## points of combo when going into bleedout.\n\nEvery #{risk}#$perk_value_8## points of combo you have grants you #{skill_color}#$perk_value_9## damage resistance, to a maximum of #{skill_color}#$perk_value_10.##",
+
+		["menu_deck9_3_desc_sc"] = "Non-lethal melee strikes and non-melee kills will refresh your combo decay timer.\n\nEvery #{risk}#$perk_value_1## points of combo you have grants you #{skill_color}#$perk_value_2## faster movement speed, to a maximum of #{skill_color}#$perk_value_3.##\n\nYou gain #{skill_color}#$perk_value_4## dodge points.",
+
+		["menu_deck9_5_desc_sc"] = "Killing enemies with melee weapons regenerates #{skill_color}#$perk_value_1## of your stamina.\n\nFor every #{risk}#$perk_value_2## points of combo you have, killing enemies with melee weapons regenerates #{skill_color}#$perk_value_3## health, to a maximum of #{skill_color}#$perk_value_4.##\n\nYou carry #{skill_color}#$perk_value_5## additional body bag in your inventory.",
+
+		["menu_deck9_7_desc_sc"] = "Your base combo value is increased by #{skill_color}#$perk_value_1## for every #{skill_color}#$perk_value_2## points of armor you have.\n\nFor every #{risk}#$perk_value_3## points of combo you have, killing enemies fills your dodge meter by #{skill_color}#$perk_value_4## of your dodge rating, to a maximum of #{skill_color}#$perk_value_5.##\nMelee kills double the amount.\n\nYour dodge is increased by an additional #{skill_color}#$perk_value_6## points.",
+
+		["menu_deck9_9_desc_sc"] = "Your combo instead decays at a rate of #{skill_color}#$perk_value_1## points per tick.\n\nFor every #{risk}#$perk_value_2## points of combo you have, killing enemies using direct damage has a #{skill_color}#$perk_value_3## chance to spread panic among your enemies in a #{skill_color}#$perk_value_4## meter radius around you, to a maximum of #{skill_color}#$perk_value_5.##\nMelee kills triple the amount.\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by #{skill_color}#10%.## ",
+
+		["menu_deck9_richard"] = "Richard",
+		["menu_deck9_richard_desc_sc"] = "No additional effects.",
+		["menu_deck9_tony"] = "Tony",
+		["menu_deck9_tony_desc_sc"] = "Your #{skill_color}#Fists## deal #{skill_color}#$perk_value_1## more damage.\n\n#{risk}#Captains and VIP targets## take #{important_1}#75%## less damage from your #{risk}#Fists.##\n#{risk}#Overdose's dodge-on-kill and Showdown's panic-on-kill## have their effects reduced by #{important_1}#33%.##\nYour maximum combo is reduced by #{important_1}#$perk_value_6.##\nYour combo decay timer is reduced by #{important_1}#$perk_value_7## seconds.\nYou lose an additional #{important_1}#$perk_value_5## points of combo when taking health damage.\nYour total ammo is reduced by #{important_1}#$perk_value_2## and your ammo pickup rates are reduced by #{important_1}#$perk_value_3.##",
+		["menu_deck9_aubrey"] = "Aubrey",
+		["menu_deck9_aubrey_desc_sc"] = "Non-melee kills using direct damage will build up your combo by a base value of #{skill_color}#$perk_value_1## point.\n\nNon-melee kills using direct damage will only add #{skill_color}#$perk_value_2## seconds to the decay timer of an active combo.\nKills using #{risk}#explosives or damage-over-time effects## will #{important_1}#no longer refresh your combo decay timer.##",
+		["menu_deck9_rufus"] = "Rufus",
+		["menu_deck9_rufus_desc_sc"] = "Instead gain #{skill_color}#$perk_value_1## damage resistance for every #{risk}#$perk_value_2## points of combo you have, to a maximum of #{skill_color}#$perk_value_3.##\n\nYou lose an additional #{important_1}#$perk_value_4## points of combo when taking health damage.",
+		["menu_deck9_zack"] = "Zack",
+		["menu_deck9_zack_desc_sc"] = "Your combo decay timer is extended by #{skill_color}#$perk_value_1## seconds; your combo decay rate is increased by #{important_1}#$perk_value_2## points.",
+		["menu_deck9_rick"] = "Rick",
+		["menu_deck9_rick_desc_sc"] = "Melee kills now instead build up your combo by a base value of #{skill_color}#$perk_value_1## points; your maximum combo is reduced by #{important_1}#$perk_value_2.##",
+		["menu_deck9_brandon"] = "Brandon",
+		["menu_deck9_brandon_desc_sc"] = "Instead gain #{skill_color}#$perk_value_1## speed for every #{risk}#$perk_value_2## points of combo you have, to a maximum of #{skill_color}#$perk_value_3.##\n\nYour combo decay timer is reduced by #{important_1}#$perk_value_4## second.",
+		["menu_deck9_earl"] = "Earl",
+		["menu_deck9_earl_desc_sc"] = "You lose #{skill_color}#0## points of combo when taking health damage.\n\n#{risk}#Clean Hit's healing## is reduced by #{important_1}#50%.##\nGoing into bleedout will reduce your combo to #{important_1}#0## points.",
+		["menu_deck9_tonyr"] = "Tony's Revenge",
+		["menu_deck9_tonyr_desc_sc"] = "Your #{skill_color}#Brass Knuckles## deal #{skill_color}#$perk_value_1## more damage.\n\n#{risk}#Captains and VIP targets## take #{important_1}#75%## less damage from your #{risk}#Brass Knuckles.##\n#{risk}#Overdose's dodge-on-kill and Showdown's panic-on-kill## have their effects reduced by #{important_1}#66%.##\nYour maximum combo is reduced by #{important_1}#$perk_value_6.##\nYour combo decay timer is reduced by #{important_1}#$perk_value_7## seconds and its decay rate increased by #{important_1}#$perk_value_8## points.\nYou lose an additional #{important_1}#$perk_value_5## points of combo when taking health damage.\nYour total ammo is reduced by #{important_1}#$perk_value_2## and your ammo pickup rates are reduced by #{important_1}#$perk_value_3.##",
+		["menu_deck9_mark"] = "Mark",
+		["menu_deck9_mark_desc_sc"] = "#{risk}#Instead of dodge-on-kill, gain armor recovery speed.##\n\nFor every #{risk}#$perk_value_1## points of combo you have, speed up armor recovery by #{skill_color}#$perk_value_2,## to a maximum of #{skill_color}#$perk_value_3.##",
+		["menu_deck9_swan"] = "Alex & Ash",
+		["menu_deck9_swan_desc_sc"] = "Instead build your combo by a base value of #{skill_color}#$perk_value_1## points when alternating between melee and non-melee kills; #{risk}#Kills through repetitive means will only refresh your combo decay timer.##",
+		["menu_deck9_corey"] = "Corey",
+		["menu_deck9_corey_desc_sc"] = "Your kills will instead fill your dodge meter by #{skill_color}#$perk_value_1## of your dodge rating for every #{risk}#$perk_value_2## points of combo you have, to a maximum of #{skill_color}#$perk_value_3.##\n\nYou lose an additional #{important_1}#$perk_value_4## points of combo when taking health damage.",
 
 		--Grinder--
-		["menu_deck11_1_desc_sc"] = "Damaging an enemy heals #{skill_color}#$perk_value_1## health every second for #{skill_color}#$perk_value_2## seconds; stacks up to #{skill_color}#$perk_value_3## times.\nYou can only gain a stack every #{important_1}#$perk_value_4## seconds and only while wearing the #{risk}#Flak Jacket.##\nYour Flak Jacket loses #{important_1}#$perk_value_5## armor but gains #{skill_color}#$perk_value_6## mobility.\n\n#{risk}#NOTE: Damaging enemies with sentries or damage over time effects will not grant stacks.##",
+		["menu_deck11_1_desc_sc"] = "Damaging an enemy heals #{skill_color}#$perk_value_1## health every second for #{skill_color}#$perk_value_2## seconds; stacks up to #{skill_color}#$perk_value_3## times.\nYou can only gain a stack every #{important_1}#$perk_value_4## seconds and only while wearing the #{risk}#Flak Jacket.##\nYour Flak Jacket loses #{important_1}#$perk_value_5## armor but gains #{skill_color}#$perk_value_6## mobility.\n\n#{risk}#NOTE: Damaging enemies with sentries or damage-over-time effects will not grant stacks.##",
 		["menu_deck11_3_desc_sc"] = "Stacks heal an additional ##$perk_value_1## health every second.",
 		["menu_deck11_5_desc_sc"] = "Stacks last an additional ##$perk_value_1## seconds.\n\nYou gain the ability to place ##$perk_value_2## body bag cases.",
 		["menu_deck11_7_desc_sc"] = "Stacks heal an additional ##$perk_value_1## health every second.",
@@ -6036,7 +6102,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_Eng", funct
 		["menu_deck15_5_desc_sc"] = "#{risk}#$perk_value_1 of your health## is converted into #{skill_color}#$perk_value_2 armor.##\n\nCivilians intimidated by you and your crew remain intimidated ##$perk_value_3## longer.",
 		["menu_deck15_7_desc_sc"] = "#{risk}#$perk_value_1 of your health## is converted into #{skill_color}#$perk_value_2 armor.##",
 		["menu_deck15_9_desc_sc"] = "#{skill_color}#Dealing damage will grant you armor,## with heavier armor being granted more armor.\nThis can only occur once every #{important_1}#$perk_value_1## seconds.\n\nDeck Completion Bonus: Your chance of getting a higher quality item during a PAYDAY is increased by #{skill_color}#10%.##",
-		["menu_anarc_disable"] = "#{important_1}#(Disabled by Anarchist)##",
+		["menu_anarc_disable"] = "#{important_1}#(This effect is disabled by Anarchist)##",
 
 		--Scarface--
 		["menu_deck17_1_desc_sc"] = "Unlocks the #{skill_color}#Injector## for use in place of a throwable.\n\nActivating the Injector will heal you for #{skill_color}#$perk_value_1## of all damage taken for #{skill_color}#$perk_value_2## seconds; you can still take damage during the effect.\n\nThe Injector can only be used once every #{important_1}#$perk_value_3## seconds; each kill you perform will shorten the cooldown timer by #{skill_color}#$perk_value_4## seconds.",
@@ -6146,23 +6212,25 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_Eng", funct
 			--Muscle
 			["menu_deck2_mrwi_desc"] = "Every shot you fire with your guns has a ##$perk_value_1## chance to spread panic among your enemies.\n\nPanic will make enemies go into short bursts of uncontrollable fear.\n\nYou bag corpses and interact with hostages ##$perk_value_2## faster.",
 			--Armorer
-			["menu_deck3_mrwi_desc"] = "Your armor recovery rate is increased by ##$perk_value_1.##\n\nYou gain the ability to place ##$perk_value_2## body bag cases.",
+			["menu_deck3_mrwi_desc"] = "Your armor recovery rate is increased by ##$perk_value_1.##\n\nBallistic vests gain an additional ##$perk_value_3## more armor.\n\nYou gain the ability to place ##$perk_value_2## body bag cases.",
 			--Rogue
 			["menu_deck4_mrwi_desc"] = "Your dodge is increased by an additonal ##$perk_value_1## points.\n\nYou swap between your weapons an additional ##$perk_value_2## faster.\n\nYour camera loop duration is increased by ##$perk_value_3## seconds.",
 			--Hitman
 			["menu_deck5_mrwi_desc"] = "Killing an enemy outside of melee stores #{skill_color}#$perk_value_1## health. You can store up to #{risk}#$perk_value_2## health.\n\nKilling an enemy in melee turns that stored health into temporary health that decays at a rate of #{important_1}#$perk_value_3## per second.\n\nTemporary health can exceed your normal maximum health, but you can only have up to #{risk}#$perk_value_4## temporary health at once.\n\nYou carry #{skill_color}#$perk_value_5## additional body bag in your inventory.",
 			--Crook
-			["menu_deck6_mrwi_desc"] = "Your dodge is increased by an additonal ##$perk_value_1## points for ballistic vests.\n\nYour armor is increased by an additional ##$perk_value_2## for ballistic vests.\n\nYou pick locks ##$perk_value_3## faster.",
+			--["menu_deck6_mrwi_desc"] = "Your dodge is increased by an additonal ##$perk_value_1## points for ballistic vests.\n\nYour armor is increased by an additional ##$perk_value_2## for ballistic vests.\n\nYou pick locks ##$perk_value_3## faster.",
+			["menu_deck6_mrwi_desc"] = "Killing an enemy regenerates #{skill_color}#$perk_value_1## armor.\n\nThis cannot occur more than once every #{important_1}#$perk_value_2## seconds. Each kill during cooldown reduces it by #{skill_color}#$perk_value_3## seconds; melee kills reduce it by an additional #{skill_color}#$perk_value_4## seconds.\n\nIf a kill clears an active cooldown it will trigger the applicable perks and restart the cooldown.\n\nYou pick locks ##$perk_value_5## faster.",
 			--Burglar
 			["menu_deck7_mrwi_desc"] = "Your dodge is increased by an additonal ##$perk_value_1## points.\n\nYour dodge meter fills up by ##$perk_value_2## of your dodge every second while crouching.\n\nYou gain a ##$perk_value_3## boost in your movement speed when crouching.",
 			--Infiltrator
 			["menu_deck8_mrwi_desc"] = "When you are within ##$perk_value_1## meters of an enemy, you recieve ##$perk_value_2## less damage from enemies.\n\nEach successful melee hit grants an additional ##$perk_value_3## melee damage boost for ##$perk_value_4## seconds or until you miss; stacks up to ##$perk_value_5## times.\n\nYour camera loop duration is increased by ##$perk_value_6## seconds.",
 			--Sociopath
-			["menu_deck9_mrwi_desc"] = "Killing an enemy regenerates #{skill_color}#$perk_value_1## armor.\n\nKilling an enemy within #{skill_color}#$perk_value_2## meters regenerates an additional #{skill_color}#$perk_value_3## armor; melee kills double the amount.\n\nThis cannot occur more than once every #{important_1}#$perk_value_4## seconds. Each kill during cooldown reduces it by #{skill_color}#$perk_value_5## seconds; melee kills reduce it by an additional #{skill_color}#$perk_value_6## seconds.\n\nIf a kill clears an active cooldown it will trigger the applicable perks and restart the cooldown.\n\nYou carry #{skill_color}#$perk_value_7## additional body bag in your inventory.",
+			--["menu_deck9_mrwi_desc"] = "Killing an enemy regenerates #{skill_color}#$perk_value_1## armor.\n\nKilling an enemy within #{skill_color}#$perk_value_2## meters regenerates an additional #{skill_color}#$perk_value_3## armor; melee kills double the amount.\n\nThis cannot occur more than once every #{important_1}#$perk_value_4## seconds. Each kill during cooldown reduces it by #{skill_color}#$perk_value_5## seconds; melee kills reduce it by an additional #{skill_color}#$perk_value_6## seconds.\n\nIf a kill clears an active cooldown it will trigger the applicable perks and restart the cooldown.\n\nYou carry #{skill_color}#$perk_value_7## additional body bag in your inventory.",
+			["menu_deck9_mrwi_desc"] = "You gain a combo meter.\nKilling enemies with melee weapons builds up your combo meter by a base value of #{skill_color}#$perk_value_1## points, to a maximum of #{skill_color}#$perk_value_2## points.\n\nYour combo meter decays at a rate of #{important_1}#$perk_value_3## points every #{risk}#$perk_value_4## seconds.\nYou lose #{important_1}#$perk_value_5## points of combo when taking health damage; this cannot occur more than once every #{skill_color}#$perk_value_6## seconds.\nYou lose #{important_1}#$perk_value_7## points of combo when going into bleedout.\n\nEvery #{risk}#$perk_value_8## points of combo you have grants you #{skill_color}#$perk_value_9## damage resistance, to a maximum of #{skill_color}#$perk_value_10.##\n\nEvery #{risk}#$perk_value_13## points of combo you have grants you #{skill_color}#$perk_value_14## movement speed, to a maximum of #{skill_color}#$perk_value_15.##\nKilling enemies with melee weapons regenerates #{skill_color}#$perk_value_11## of your stamina.\n\nYou carry #{skill_color}#$perk_value_12## additional body bag in your inventory.",
 			--Gambler
 			["menu_deck10_mrwi_desc"] = "Ammo boxes you pick up also yield medical supplies that heal you for ##$perk_value_1 to $perk_value_2## health.\n\nHealing has a ##$perk_value_3## second cooldown, but every ammo box you pick up reduces it by ##$perk_value_4 to $perk_value_5## seconds.\n\nWhen you pick up ammo, you trigger an ammo pickup for ##$perk_value_6## of normal rate to other crew members.\n\nYou answer pagers ##$perk_value_7## faster.",
 			--Grinder
-			["menu_deck11_mrwi_desc"] = "Damaging an enemy heals #{skill_color}#$perk_value_1## health every second for #{skill_color}#$perk_value_2## seconds; stacks up to #{skill_color}#$perk_value_3## times.\nYou can only gain a stack every #{important_1}#$perk_value_4## seconds and only while wearing the #{risk}#Flak Jacket.##\nYour Flak Jacket loses #{important_1}#$perk_value_5## armor but gains #{skill_color}#$perk_value_6## mobility.\n\n#{risk}#NOTE: Damaging enemies with sentries or damage over time effects will not grant stacks.##\n\nYou gain the ability to place #{skill_color}#$perk_value_7## body bag cases.",
+			["menu_deck11_mrwi_desc"] = "Damaging an enemy heals #{skill_color}#$perk_value_1## health every second for #{skill_color}#$perk_value_2## seconds; stacks up to #{skill_color}#$perk_value_3## times.\nYou can only gain a stack every #{important_1}#$perk_value_4## seconds and only while wearing the #{risk}#Flak Jacket.##\nYour Flak Jacket loses #{important_1}#$perk_value_5## armor but gains #{skill_color}#$perk_value_6## mobility.\n\n#{risk}#NOTE: Damaging enemies with sentries or damage-over-time effects will not grant stacks.##\n\nYou gain the ability to place #{skill_color}#$perk_value_7## body bag cases.",
 			--Yakuza
 			["menu_deck12_mrwi_desc"] = "The lower your health, the more your dodge meter is filled when you kill an enemy.\n\nWhen your health is below ##100%##, your meter fills by up to ##$perk_value_1## of your dodge.\n\nYou bag corpses and interact with hostages ##$perk_value_2## faster.",
 			--Ex-Pres

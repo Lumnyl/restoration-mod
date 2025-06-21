@@ -4439,6 +4439,9 @@ end)
 						extra_ammo = 3,
 						reload = -3
 					}
+					self.parts.wpn_fps_pis_m1911_m_extended.custom_stats = {
+						ads_speed_mult = 0.975
+					}
 
 					--Crosskill Platinum Bull Slide
 					self.parts.wpn_fps_pis_m1911_sl_match.pcs = {
@@ -10135,7 +10138,6 @@ end)
 						stats = deep_clone(stocks.folder_to_hvy_acc2_stats),
 						custom_stats = deep_clone(stocks.folder_to_hvy_acc2_stats)
 					}
-
 					self.wpn_fps_ass_s552.override.wpn_fps_upg_i_krieg = {
 						custom_stats = {
 							falloff_start_mult = 0.846153,
@@ -10149,6 +10151,7 @@ end)
 							spread = -2,
 						}
 					}
+			
 
 					table.insert(self.wpn_fps_ass_s552.uses_parts, "wpn_fps_upg_o_northtac")
 					table.insert(self.wpn_fps_ass_s552.uses_parts, "wpn_fps_upg_o_northtac_reddot")
@@ -19481,9 +19484,26 @@ end)
 						translation = Vector3(-0.02, 4.3, -3.48)
 					}
 					self.parts.wpn_fps_upg_o_specter.stance_mod.wpn_fps_ass_ar32 = {
-						translation = Vector3(1.825, -8.5, -4.63),
-						rotation = Rotation(-0.02, -0.02, 0)
+						translation = Vector3(0.01, -8.5, -1.96),
+						rotation = Rotation(-0.04, 0.02, 0)
 					}
+					self.parts.wpn_fps_upg_o_specter.stance_mod.wpn_fps_ass_bromeo805 = {
+						translation = Vector3(0, 9.6, -0.562),
+						rotation = Rotation(0, 0.02, 0)
+					}
+						self.parts.wpn_fps_upg_o_specter.stance_mod.wpn_fps_ass_bromeo2m = {
+							translation = Vector3(-0.005, 9.6, -0.55),
+							rotation = Rotation(0, 0.02, 0)
+						}
+						self.parts.wpn_fps_upg_o_specter.stance_mod.wpn_fps_ass_bromeo2 = {
+							translation = Vector3(-0.005, 9.6, -0.55),
+							rotation = Rotation(0, 0.02, 0)
+						}
+						self.parts.wpn_fps_upg_o_specter.stance_mod.wpn_fps_snp_bromeop = {
+							translation = Vector3(-0.005, 9.6, -4.06),
+							rotation = Rotation(0, 0.02, 0)
+						}
+
 
 					self.parts.wpn_fps_upg_o_specter.stance_mod.wpn_fps_ass_s556 = {
 						translation = Vector3(-0.065, 9.6, -2.1),
@@ -25358,23 +25378,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					value = 3,
 					zoom = 1
 				}
-
-				self.parts.wpn_fps_upg_o_okp7.stance_mod = deep_clone(self.parts.wpn_fps_upg_o_specter.stance_mod)
-				for i, weap in pairs(self.parts.wpn_fps_upg_o_okp7.stance_mod) do
-					if weap and weap.translation then
-						weap.translation = weap.translation + Vector3(0.6, 0, 0.93)
-					end
-				end
-				for part_id, i in pairs(self.parts) do
-					if self.parts[part_id].override and self.parts[part_id].override.wpn_fps_upg_o_specter and self.parts[part_id].override.wpn_fps_upg_o_specter.stance_mod then
-						self.parts[part_id].override.wpn_fps_upg_o_okp7 = deep_clone(self.parts[part_id].override.wpn_fps_upg_o_specter)
-						for i, weap in pairs(self.parts[part_id].override.wpn_fps_upg_o_okp7.stance_mod) do
-							if weap and weap.translation then
-								weap.translation = weap.translation + Vector3(5.6, 0, 0.93)
-							end
-						end
-					end
-				end
 			end
 
 			if self.parts.wpn_fps_upg_fl_anpeq2 then --Pawcio's Lost Gadgets
@@ -29224,7 +29227,534 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_upg_sigke7_bipod.perks = {"bipod"}
 			end
 
+
 	--[[ RJC9000'S MODS ]]
+		if self.parts.wpn_fps_ass_bromeo2_magazine then
+			--no soup for you
+				self.parts.wpn_fps_ass_bromeo805_flash_hider.stats = { value = 0 }
+				self.parts.wpn_fps_ass_bromeo805_flash_hider.custom_stats = nil
+				self.parts.wpn_fps_ass_bromeo805_flash_hider.perks = nil
+				self.parts.wpn_fps_ass_bromeo2_flash_hider.stats = { value = 0 }
+				self.parts.wpn_fps_ass_bromeo2_flash_hider.custom_stats = nil
+				self.parts.wpn_fps_ass_bromeo2_flash_hider.perks = nil
+				self.parts.wpn_fps_ass_bromeo805_magazine.stats = { value = 0 }
+				self.parts.wpn_fps_ass_bromeo805_magazine.custom_stats = nil
+				self.parts.wpn_fps_ass_bromeo2m_magazine.stats = { value = 0 }
+				self.parts.wpn_fps_ass_bromeo2m_magazine.custom_stats = nil
+
+			--SHARED PARTS (Base stats are for the MTZ-556)
+				--BARRELS
+					--Clinch Pro
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_long.supported = true
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_long.stats = deep_clone(barrels.long_b1_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_long.stats.recoil = 2
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_long.stats.concealment = -2
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_long.custom_stats = deep_clone(barrels.long_b1_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_long.custom_stats.ads_speed_mult = 1.05
+					--Natter Heavy
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_short.supported = true
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_short.stats = deep_clone(barrels.short_b1_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_short.stats.recoil = 2
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_short.stats.concealment = 0
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_short.custom_stats = deep_clone(barrels.short_b1_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_short.custom_stats.ads_speed_mult = nil
+					--VLDL-3568
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_xshort.supported = true
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_xshort.stats = deep_clone(barrels.short_b2_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_xshort.stats.recoil = -4
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_xshort.stats.concealment = 3
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_xshort.custom_stats = deep_clone(barrels.short_b2_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_heavy_xshort.custom_stats.ads_speed_mult = 0.925
+					--Para Long
+					self.parts.wpn_fps_ass_bromeo805_barrel_long.supported = true
+					self.parts.wpn_fps_ass_bromeo805_barrel_long.stats = deep_clone(barrels.long_b2_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_long.custom_stats = deep_clone(barrels.long_b2_stats)
+					--Precision Blackthorn Barrel
+					self.parts.wpn_fps_ass_bromeo805_barrel_precision.supported = true
+					self.parts.wpn_fps_ass_bromeo805_barrel_precision.stats = deep_clone(barrels.long_b3_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_precision.stats.recoil = 4
+					self.parts.wpn_fps_ass_bromeo805_barrel_precision.stats.concealment = -6
+					self.parts.wpn_fps_ass_bromeo805_barrel_precision.custom_stats = deep_clone(barrels.long_b3_stats)
+					self.parts.wpn_fps_ass_bromeo805_barrel_precision.custom_stats.ads_speed_mult = 1.15
+
+					--Drifter
+					self.parts.wpn_fps_ass_bromeo2_barrel.supported = true
+					self.parts.wpn_fps_ass_bromeo2_barrel.stats = deep_clone(barrels.long_b3_stats)
+					self.parts.wpn_fps_ass_bromeo2_barrel.custom_stats = deep_clone(barrels.long_b3_stats)
+					--ROWAN XL-356
+					self.parts.wpn_fps_ass_bromeo2m_barrel.supported = true
+					self.parts.wpn_fps_ass_bromeo2m_barrel.stats = deep_clone(barrels.long_b1_stats)
+					self.parts.wpn_fps_ass_bromeo2m_barrel.stats.recoil = 4
+					self.parts.wpn_fps_ass_bromeo2m_barrel.stats.concealment = -3
+					self.parts.wpn_fps_ass_bromeo2m_barrel.custom_stats = deep_clone(barrels.long_b1_stats)
+					self.parts.wpn_fps_ass_bromeo2m_barrel.custom_stats.ads_speed_mult = 1.075
+				--GRIPS
+					--Factory
+					self.parts.wpn_fps_ass_bromeo805_grip.supported = true
+					self.parts.wpn_fps_ass_bromeo805_grip.stats = deep_clone(grips.acc_1)
+					self.parts.wpn_fps_ass_bromeo805_grip.custom_stats = deep_clone(grips.acc_1)
+					--RIVAL Ace
+					self.parts.wpn_fps_ass_bromeo805_grip_smg.supported = true
+					self.parts.wpn_fps_ass_bromeo805_grip_smg.stats = deep_clone(grips.quickdraw_1)
+					self.parts.wpn_fps_ass_bromeo805_grip_smg.custom_stats = deep_clone(grips.quickdraw_1)
+					--Aggressor
+					self.parts.wpn_fps_ass_bromeo2m_grip.supported = true
+					self.parts.wpn_fps_ass_bromeo2m_grip.stats = deep_clone(grips.recoil_1)
+					self.parts.wpn_fps_ass_bromeo2m_grip.custom_stats = deep_clone(grips.recoil_1)
+					--TR-24
+					self.parts.wpn_fps_ass_bromeo2_grip.supported = true
+					self.parts.wpn_fps_ass_bromeo2_grip.stats = deep_clone(grips.recoil_2_dual)
+					self.parts.wpn_fps_ass_bromeo2_grip.custom_stats = deep_clone(grips.recoil_2_dual)
+					--Palmrest
+					self.parts.wpn_fps_snp_bromeop_grip.supported = true
+					self.parts.wpn_fps_snp_bromeop_grip.stats = deep_clone(grips.dual_stat_1)
+					self.parts.wpn_fps_snp_bromeop_grip.custom_stats = deep_clone(grips.dual_stat_1)
+				--STOCKS
+					--No Stock
+					self.parts.wpn_fps_ass_bromeo805_stock_no.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_no.stats = deep_clone(stocks.remove_adj_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_no.custom_stats = deep_clone(stocks.remove_adj_stats)
+					--JAK Cutthroat
+					self.parts.wpn_fps_ass_bromeo805_stock_amp.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_amp.stats = deep_clone(stocks.adj_to_folded_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_amp.custom_stats = deep_clone(stocks.adj_to_folded_stats)
+					--MTZ LiteStrike Telescopic
+					self.parts.wpn_fps_ass_bromeo805_stock_tacheavy.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_tacheavy.stats = deep_clone(stocks.adj_to_nocheeks_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_tacheavy.custom_stats = deep_clone(stocks.adj_to_nocheeks_stats)
+					--BRUEN Thunder V9
+					self.parts.wpn_fps_ass_bromeo805_stock_light.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_light.stats = deep_clone(stocks.adj_to_fold_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_light.custom_stats = deep_clone(stocks.adj_to_fold_stats)
+					--RIVAL DMH IV
+					self.parts.wpn_fps_ass_bromeo805_stock_skeltac.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_skeltac.stats = deep_clone(stocks.adj_acc_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_skeltac.custom_stats = deep_clone(stocks.adj_acc_stats)
+					--Marauader
+					self.parts.wpn_fps_ass_bromeo805_stock_taclight.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_taclight.stats = deep_clone(stocks.adj_rec_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_taclight.custom_stats = deep_clone(stocks.adj_rec_stats)
+					--EXF Close Quarters Assault
+					self.parts.wpn_fps_ass_bromeo805_stock_assault.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_assault.stats = deep_clone(stocks.adj_hvy_rec_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_assault.custom_stats = deep_clone(stocks.adj_hvy_rec_stats)
+					--BRUEN Archangel MK2
+					self.parts.wpn_fps_ass_bromeo805_stock_heavyskel.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_heavyskel.stats = deep_clone(stocks.adj_hvy_acc_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_heavyskel.custom_stats = deep_clone(stocks.adj_hvy_acc_stats)
+					--FTAC Heavy Hunter
+					self.parts.wpn_fps_ass_bromeo805_stock_heavy.supported = true
+					self.parts.wpn_fps_ass_bromeo805_stock_heavy.stats = deep_clone(stocks.adj_to_fixed_rec_stats)
+					self.parts.wpn_fps_ass_bromeo805_stock_heavy.custom_stats = deep_clone(stocks.adj_to_fixed_rec_stats)
+
+					--Bren 2
+					self.parts.wpn_fps_ass_bromeo2_stock.supported = true
+					self.parts.wpn_fps_ass_bromeo2_stock.stats = deep_clone(stocks.adj_to_fixed_rec_stats)
+					self.parts.wpn_fps_ass_bromeo2_stock.custom_stats = deep_clone(stocks.adj_to_fixed_rec_stats)
+					--Bren PPS
+					self.parts.wpn_fps_snp_bromeop_stock.supported = true
+					self.parts.wpn_fps_snp_bromeop_stock.stats = deep_clone(stocks.adj_to_fixed_acc_stats)
+					self.parts.wpn_fps_snp_bromeop_stock.custom_stats = deep_clone(stocks.adj_to_fixed_acc_stats)
+
+			--MTZ-556
+				--MAGAZINES
+					--20 Rounds
+					self.parts.wpn_fps_ass_bromeo805_magazine_small.supported = true
+					self.parts.wpn_fps_ass_bromeo805_magazine_small.stats = {
+						value = 3,
+						extra_ammo = -10,
+						concealment = 2,
+						reload = 5
+					}
+					self.parts.wpn_fps_ass_bromeo805_magazine_small.custom_stats = { ads_speed_mult = 0.95 }
+					--60 Rounds
+					self.parts.wpn_fps_ass_bromeo805_magazine_casket.supported = true
+					self.parts.wpn_fps_ass_bromeo805_magazine_casket.stats = {
+						value = 8,
+						concealment = -4,
+						extra_ammo = 30,
+						reload = -6
+					}
+					self.parts.wpn_fps_ass_bromeo805_magazine_casket.custom_stats = { ads_speed_mult = 0.95 }
+
+				attachment_list = {}
+				for i, part_id in pairs(self.wpn_fps_ass_bromeo805.default_blueprint) do
+					if self.parts[part_id].pcs then
+						self.parts[part_id .. "_vanilla"] = deep_clone(self.parts[part_id])
+						self.parts[part_id .. "_vanilla"].pcs = nil
+						self.parts[part_id .. "_vanilla"].stats = { value = 1 }
+						self.parts[part_id .. "_vanilla"].custom_stats = {}
+						table.insert(attachment_list, part_id)
+					end
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_ass_bromeo805.default_blueprint[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+				for i, part_id in pairs(self.wpn_fps_ass_bromeo805.uses_parts) do
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_ass_bromeo805.uses_parts[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+					if self.parts[part_id] and self.parts[part_id].type then
+						if self.parts[part_id].pcs then
+							if ((self.parts[part_id].global_value and self.parts[part_id].global_value ~= "bromeo805mod" 
+								and self.parts[part_id].global_value ~= "bromeo805mememod") 
+								or not self.parts[part_id].global_value) and
+								(self.parts[part_id].type == "magazine") then
+
+								self.wpn_fps_ass_bromeo805.uses_parts[i] = "resmod_dummy"
+							end
+						end
+					end
+				end
+
+				table.insert(self.wpn_fps_ass_bromeo805.uses_parts, "wpn_fps_upg_o_northtac")
+
+				self.wpn_fps_ass_bromeo805_npc.default_blueprint = deep_clone(self.wpn_fps_ass_bromeo805.default_blueprint)
+				self.wpn_fps_ass_bromeo805_npc.uses_parts = deep_clone(self.wpn_fps_ass_bromeo805.uses_parts)
+
+			--MTZ JAK
+				self.wpn_fps_ass_bromeo2m.override = self.wpn_fps_ass_bromeo2m.override or {}
+
+				--STOCKS
+					--No Stock
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_no = {
+						stats = deep_clone(stocks.remove_fixed_stats),
+						custom_stats = deep_clone(stocks.remove_fixed_stats)
+					}
+					--JAK Cutthroat
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_amp = {
+						stats = deep_clone(stocks.fixed_to_folded_stats),
+						custom_stats = deep_clone(stocks.fixed_to_folded_stats)
+					}
+					--MTZ LiteStrike Telescopic
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_tacheavy = {
+						stats = deep_clone(stocks.fixed_to_nocheeks_stats),
+						custom_stats = deep_clone(stocks.fixed_to_nocheeks_stats)
+					}
+					--BRUEN Thunder V9
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_light = {
+						stats = deep_clone(stocks.fixed_to_folder_stats),
+						custom_stats = deep_clone(stocks.fixed_to_folder_stats)
+					}
+					--RIVAL DMH IV
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_skeltac = {
+						stats = deep_clone(stocks.fixed_to_adj_acc_stats),
+						custom_stats = deep_clone(stocks.fixed_to_adj_acc_stats)
+					}
+					--Marauader
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_taclight = {
+						stats = deep_clone(stocks.fixed_to_adj_rec_stats),
+						custom_stats = deep_clone(stocks.fixed_to_adj_rec_stats)
+					}
+					--EXF Close Quarters Assault
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_assault = {
+						stats = deep_clone(stocks.fixed_to_hvy_rec_stats),
+						custom_stats = deep_clone(stocks.fixed_to_hvy_rec_stats)
+					}
+					--BRUEN Archangel MK2
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_heavyskel = {
+						stats = deep_clone(stocks.fixed_to_hvy_acc_stats),
+						custom_stats = deep_clone(stocks.fixed_to_hvy_acc_stats)
+					}
+					--FTAC Heavy Hunter
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_ass_bromeo805_stock_heavy = {
+						stats = deep_clone(stocks.adj_rec_stats),
+						custom_stats = deep_clone(stocks.adj_rec_stats)
+					}
+
+					--Bren PPS
+					self.wpn_fps_ass_bromeo2m.override.wpn_fps_snp_bromeop_stock = {
+						stats = deep_clone(stocks.adj_acc_stats),
+						custom_stats = deep_clone(stocks.adj_acc_stats)
+					}
+
+				--MAGAZINES
+					--40 Rounds
+					self.parts.wpn_fps_ass_bromeo2m_magazine_40.supported = true
+					self.parts.wpn_fps_ass_bromeo2m_magazine_40.stats = {
+						value = 6,
+						extra_ammo = 10,
+						concealment = -1,
+						reload = -3
+					}
+					self.parts.wpn_fps_ass_bromeo2m_magazine_40.custom_stats = { ads_speed_mult = 1.025 }
+					--20 Rounds
+					self.parts.wpn_fps_ass_bromeo2m_magazine_20.supported = true
+					self.parts.wpn_fps_ass_bromeo2m_magazine_20.stats = {
+						value = 3,
+						extra_ammo = -10,
+						concealment = 2,
+						reload = 5
+					}
+					self.parts.wpn_fps_ass_bromeo2m_magazine_20.custom_stats = { ads_speed_mult = 0.95 }
+
+				attachment_list = {}
+				for i, part_id in pairs(self.wpn_fps_ass_bromeo2m.default_blueprint) do
+					if self.parts[part_id].pcs then
+						self.parts[part_id .. "_vanilla"] = deep_clone(self.parts[part_id])
+						self.parts[part_id .. "_vanilla"].pcs = nil
+						self.parts[part_id .. "_vanilla"].stats = { value = 1 }
+						self.parts[part_id .. "_vanilla"].custom_stats = {}
+						table.insert(attachment_list, part_id)
+					end
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_ass_bromeo2m.default_blueprint[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+				for i, part_id in pairs(self.wpn_fps_ass_bromeo2m.uses_parts) do
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_ass_bromeo2m.uses_parts[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+
+				table.insert(self.wpn_fps_ass_bromeo2m.uses_parts, "wpn_fps_upg_o_northtac")
+
+				self.wpn_fps_ass_bromeo2m_npc.default_blueprint = deep_clone(self.wpn_fps_ass_bromeo2m.default_blueprint)
+				self.wpn_fps_ass_bromeo2m_npc.uses_parts = deep_clone(self.wpn_fps_ass_bromeo2m.uses_parts)
+
+			--MTZ-762
+				self.wpn_fps_ass_bromeo2.override = self.wpn_fps_ass_bromeo2.override or {}
+
+				--STOCKS
+					--No Stock
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_no = {
+						stats = deep_clone(stocks.remove_fixed_stats),
+						custom_stats = deep_clone(stocks.remove_fixed_stats)
+					}
+					--JAK Cutthroat
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_amp = {
+						stats = deep_clone(stocks.fixed_to_folded_stats),
+						custom_stats = deep_clone(stocks.fixed_to_folded_stats)
+					}
+					--MTZ LiteStrike Telescopic
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_tacheavy = {
+						stats = deep_clone(stocks.fixed_to_nocheeks_stats),
+						custom_stats = deep_clone(stocks.fixed_to_nocheeks_stats)
+					}
+					--BRUEN Thunder V9
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_light = {
+						stats = deep_clone(stocks.fixed_to_folder_stats),
+						custom_stats = deep_clone(stocks.fixed_to_folder_stats)
+					}
+					--RIVAL DMH IV
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_skeltac = {
+						stats = deep_clone(stocks.fixed_to_adj_acc_stats),
+						custom_stats = deep_clone(stocks.fixed_to_adj_acc_stats)
+					}
+					--Marauader
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_taclight = {
+						stats = deep_clone(stocks.fixed_to_adj_rec_stats),
+						custom_stats = deep_clone(stocks.fixed_to_adj_rec_stats)
+					}
+					--EXF Close Quarters Assault
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_assault = {
+						stats = deep_clone(stocks.fixed_to_hvy_rec_stats),
+						custom_stats = deep_clone(stocks.fixed_to_hvy_rec_stats)
+					}
+					--BRUEN Archangel MK2
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_heavyskel = {
+						stats = deep_clone(stocks.fixed_to_hvy_acc_stats),
+						custom_stats = deep_clone(stocks.fixed_to_hvy_acc_stats)
+					}
+					--FTAC Heavy Hunter
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_ass_bromeo805_stock_heavy = {
+						stats = deep_clone(stocks.adj_rec_stats),
+						custom_stats = deep_clone(stocks.adj_rec_stats)
+					}
+
+					--Bren PPS
+					self.wpn_fps_ass_bromeo2.override.wpn_fps_snp_bromeop_stock = {
+						stats = deep_clone(stocks.adj_acc_stats),
+						custom_stats = deep_clone(stocks.adj_acc_stats)
+					}
+
+				--MAGAZINES
+					--30 Rounds
+					self.parts.wpn_fps_ass_bromeo2_xmag.supported = true
+					self.parts.wpn_fps_ass_bromeo2_xmag.stats = {
+						value = 6,
+						extra_ammo = 10,
+						concealment = -1,
+						reload = -3
+					}
+					self.parts.wpn_fps_ass_bromeo2_xmag.custom_stats = { ads_speed_mult = 1.025 }
+					--10 Rounds
+					self.parts.wpn_fps_snp_bromeop_magazine.supported = true
+					self.parts.wpn_fps_snp_bromeop_magazine.stats = {
+						value = 2,
+						extra_ammo = -10,
+						concealment = 2,
+						reload = 5
+					}
+					self.parts.wpn_fps_snp_bromeop_magazine.custom_stats = { ads_speed_mult = 0.95 }
+
+				attachment_list = {}
+				for i, part_id in pairs(self.wpn_fps_ass_bromeo2.default_blueprint) do
+					if self.parts[part_id].pcs then
+						self.parts[part_id .. "_vanilla"] = deep_clone(self.parts[part_id])
+						self.parts[part_id .. "_vanilla"].pcs = nil
+						self.parts[part_id .. "_vanilla"].stats = { value = 1 }
+						self.parts[part_id .. "_vanilla"].custom_stats = {}
+						table.insert(attachment_list, part_id)
+					end
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_ass_bromeo2.default_blueprint[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+				for i, part_id in pairs(self.wpn_fps_ass_bromeo2.uses_parts) do
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_ass_bromeo2.uses_parts[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+
+				table.insert(self.wpn_fps_ass_bromeo2.uses_parts, "wpn_fps_upg_o_northtac")
+
+				self.wpn_fps_ass_bromeo2_npc.default_blueprint = deep_clone(self.wpn_fps_ass_bromeo2.default_blueprint)
+				self.wpn_fps_ass_bromeo2_npc.uses_parts = deep_clone(self.wpn_fps_ass_bromeo2.uses_parts)
+
+			--MTZ Interceptor
+				self.wpn_fps_snp_bromeop.override = self.wpn_fps_snp_bromeop.override or {}
+				--STOCKS
+					--No Stock
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_no = {
+						stats = deep_clone(stocks.remove_fixed_stats),
+						custom_stats = deep_clone(stocks.remove_fixed_stats)
+					}
+					--JAK Cutthroat
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_amp = {
+						stats = deep_clone(stocks.fixed_to_folded_stats),
+						custom_stats = deep_clone(stocks.fixed_to_folded_stats)
+					}
+					--MTZ LiteStrike Telescopic
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_tacheavy = {
+						stats = deep_clone(stocks.fixed_to_nocheeks_stats),
+						custom_stats = deep_clone(stocks.fixed_to_nocheeks_stats)
+					}
+					--BRUEN Thunder V9
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_light = {
+						stats = deep_clone(stocks.fixed_to_folder_stats),
+						custom_stats = deep_clone(stocks.fixed_to_folder_stats)
+					}
+					--RIVAL DMH IV
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_skeltac = {
+						stats = deep_clone(stocks.fixed_to_adj_acc_stats),
+						custom_stats = deep_clone(stocks.fixed_to_adj_acc_stats)
+					}
+					--Marauader
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_taclight = {
+						stats = deep_clone(stocks.fixed_to_adj_rec_stats),
+						custom_stats = deep_clone(stocks.fixed_to_adj_rec_stats)
+					}
+					--EXF Close Quarters Assault
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_assault = {
+						stats = deep_clone(stocks.fixed_to_hvy_rec_stats),
+						custom_stats = deep_clone(stocks.fixed_to_hvy_rec_stats)
+					}
+					--BRUEN Archangel MK2
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_heavyskel = {
+						stats = deep_clone(stocks.fixed_to_hvy_acc_stats),
+						custom_stats = deep_clone(stocks.fixed_to_hvy_acc_stats)
+					}
+					--FTAC Heavy Hunter
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo805_stock_heavy = {
+						stats = deep_clone(stocks.adj_rec_stats),
+						custom_stats = deep_clone(stocks.adj_rec_stats)
+					}
+
+					--Bren 2
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo2_stock = {
+						stats = deep_clone(stocks.adj_acc_stats),
+						custom_stats = deep_clone(stocks.adj_acc_stats)
+					}
+
+				--BARRELS
+					self.parts.wpn_fps_snp_bromeop_barrel_xlong.supported = true
+					self.parts.wpn_fps_snp_bromeop_barrel_xlong.stats = deep_clone(barrels.short_b1_stats)
+					self.parts.wpn_fps_snp_bromeop_barrel_xlong.custom_stats = deep_clone(barrels.short_b1_stats)
+
+					self.parts.wpn_fps_snp_bromeop_barrel_long.supported = true
+					self.parts.wpn_fps_snp_bromeop_barrel_long.stats = deep_clone(barrels.short_b2_stats)
+					self.parts.wpn_fps_snp_bromeop_barrel_long.custom_stats = deep_clone(barrels.short_b2_stats)
+
+				--MAGAZINES
+					--20 Rounds
+					self.parts.wpn_fps_ass_bromeo2_magazine.supported = true
+					self.parts.wpn_fps_ass_bromeo2_magazine.stats = {
+						value = 6,
+						extra_ammo = 10,
+						concealment = -2,
+						reload = -4
+					}
+					self.parts.wpn_fps_ass_bromeo2_magazine.custom_stats = { ads_speed_mult = 1.05 }
+					--30 Rounds
+					self.wpn_fps_snp_bromeop.override.wpn_fps_ass_bromeo2_xmag = {
+						stats = {
+							value = 6,
+							extra_ammo = 20,
+							concealment = -4,
+							reload = -6
+						},
+						custom_stats = {
+							ads_speed_mult = 1.1
+						}
+					}
+
+				attachment_list = {}
+				for i, part_id in pairs(self.wpn_fps_snp_bromeop.default_blueprint) do
+					if self.parts[part_id].pcs then
+						self.parts[part_id .. "_vanilla"] = deep_clone(self.parts[part_id])
+						self.parts[part_id .. "_vanilla"].pcs = nil
+						self.parts[part_id .. "_vanilla"].stats = { value = 1 }
+						self.parts[part_id .. "_vanilla"].custom_stats = {}
+						table.insert(attachment_list, part_id)
+					end
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_snp_bromeop.default_blueprint[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+				for i, part_id in pairs(self.wpn_fps_snp_bromeop.uses_parts) do
+					for _, modify_id in ipairs(attachment_list) do
+						if part_id == modify_id then
+							self.wpn_fps_snp_bromeop.uses_parts[i] = tostring(part_id) .. "_vanilla"
+						end
+					end
+				end
+
+				for i, part_id in pairs(self.wpn_fps_snp_bromeop.uses_parts) do
+					attachment_list = {
+						"wpn_fps_upg_i_autofire",
+						"wpn_fps_upg_i_singlefire"
+					}
+					for _, remove_id in ipairs(attachment_list) do
+						if part_id == remove_id then
+							self.wpn_fps_snp_bromeop.uses_parts[i] = "resmod_dummy"
+						end
+					end
+				end
+
+				table.insert(self.wpn_fps_snp_bromeop.uses_parts, "wpn_fps_upg_o_shortdot_dmc")
+				table.insert(self.wpn_fps_snp_bromeop.uses_parts, "wpn_fps_upg_o_leupold")
+				--table.insert(self.wpn_fps_snp_bromeop.uses_parts, "wpn_fps_upg_o_box")
+				table.insert(self.wpn_fps_snp_bromeop.uses_parts, "wpn_fps_upg_o_northtac")
+
+				self.wpn_fps_snp_bromeop_npc.default_blueprint = deep_clone(self.wpn_fps_snp_bromeop.default_blueprint)
+				self.wpn_fps_snp_bromeop_npc.uses_parts = deep_clone(self.wpn_fps_snp_bromeop.uses_parts)
+
+		end
 
 		if self.parts.wpn_fps_bow_stampede_ecs_bolt then
 			self.parts.wpn_fps_bow_stampede_ecs_ammo_poison.no_cull = true
@@ -32364,8 +32894,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				translation = Vector3(-1.8, 4, -11.3),
 				rotation = Rotation(-0.02, 0.04, -45)
 			}
-
-			self.parts.wpn_fps_ass_ngsierra_am_bootleg_fury.pcs = nil
 		end
 
 		if self.parts.wpn_fps_lmg_pkilo_stock_medium then
@@ -35490,6 +36018,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					reload_exit_not_empty = 0.7
 				}
 			}
+
 			table.insert(self.parts.wpn_fps_pis_zip22_irons.forbids, "wpn_fps_upg_fl_pis_perst")
 			table.insert(self.parts.wpn_fps_pis_zip22_underbarrel_rail.forbids, "wpn_fps_upg_fl_pis_perst")
 			table.insert(self.parts.wpn_fps_pis_zip22_optic_uwu.forbids, "wpn_fps_upg_fl_pis_perst")
@@ -40013,6 +40542,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				}
 			end
 
+
 	--[[ CARL'S MODS ]]
 
 		if self.parts.wpn_fps_ass_l1a1_mag_big then
@@ -40653,7 +41183,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 	--[[ TANGERINE'S MODS ]]
 
 		if self.parts.wpn_fps_ass_s556_b_short then
-
 			self.parts.wpn_fps_ass_s556_b_short.supported = true
 			self.parts.wpn_fps_ass_s556_b_short.stats = deep_clone(barrels.short_b3_stats)
 			self.parts.wpn_fps_ass_s556_b_short.custom_stats = deep_clone(barrels.short_b3_stats)
@@ -40706,7 +41235,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				stats = deep_clone(stocks.folder_to_hvy_acc2_stats),
 				custom_stats = deep_clone(stocks.folder_to_hvy_acc2_stats)
 			}
-
 			self.wpn_fps_ass_s556.override.wpn_fps_ass_s552_o_flipup = {
 				stance_mod = {
 					wpn_fps_ass_s556 = {
@@ -40745,6 +41273,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			table.insert(self.wpn_fps_ass_s556.uses_parts, "wpn_fps_upg_i_krieg")
 
 			self.wpn_fps_ass_s556_npc.uses_parts = deep_clone(self.wpn_fps_ass_s556.uses_parts)
+
 		end
 
 		if self.parts.wpn_fps_ass_dd5_fg_standard then --DDR5
@@ -43617,11 +44146,11 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			}
 		end
 
-		if self.parts.wpn_fps_ass_ar32_ammo_concussion then
+		if self.parts.wpn_fps_ass_ar32_ammo_concussion then --AR-32 (v2)
 			self.parts.wpn_fps_ass_ar32_optic.stance_mod = deep_clone(self.parts.wpn_fps_upg_o_specter.stance_mod)
 			for i, weap in pairs(self.parts.wpn_fps_ass_ar32_optic.stance_mod) do
 				if weap and weap.translation then
-					weap.translation = weap.translation + Vector3(0, -2, -0.8)
+					weap.translation = weap.translation + Vector3(-0.09, -2, -0.8)
 				end
 			end
 
@@ -43685,7 +44214,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_ass_ar23_o_carbine.stance_mod = deep_clone(self.parts.wpn_fps_upg_o_specter.stance_mod)
 			for i, weap in pairs(self.parts.wpn_fps_ass_ar23_o_carbine.stance_mod) do
 				if weap and weap.translation then
-					weap.translation = weap.translation + Vector3(0, -1, 0.75)
+					weap.translation = weap.translation + Vector3(0, -10, 0.75)
 				end
 			end
 			self.parts.wpn_fps_ass_ar23_o_carbine.stats = {
@@ -43700,7 +44229,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_ass_ar23_optic.stance_mod = deep_clone(self.parts.wpn_fps_upg_o_specter.stance_mod)
 			for i, weap in pairs(self.parts.wpn_fps_ass_ar23_optic.stance_mod) do
 				if weap and weap.translation then
-					weap.translation = weap.translation + Vector3(-0.017, -5, 0.945)
+					weap.translation = weap.translation + Vector3(0.0052, 2, 0.96)
 				end
 			end
 			self.parts.wpn_fps_ass_ar23_optic.stats = {
@@ -43806,8 +44335,6 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					end
 				end
 			end
-			table.insert(self.wpn_fps_ass_ar23.uses_parts, "wpn_fps_upg_o_specter")
-			table.insert(self.wpn_fps_ass_ar23.uses_parts, "wpn_fps_upg_o_eotech")
 			self.wpn_fps_ass_ar23_npc.uses_parts = deep_clone(self.wpn_fps_ass_ar23.uses_parts)
 		end
 
@@ -43832,8 +44359,8 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_ass_br14_optic.supported = true
 			self.parts.wpn_fps_ass_br14_optic.stats = {
 				value = 0,
-				zoom = 5,
-				base_zoom_off = 2
+				zoom = 10,
+				base_zoom_off = 1
 			}
 			self.parts.wpn_fps_ass_br14_optic.stance_mod = deep_clone(self.parts.wpn_fps_upg_o_specter.stance_mod)
 			for i, weap in pairs(self.parts.wpn_fps_ass_br14_optic.stance_mod) do
@@ -44069,6 +44596,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				}
 			}
 		end
+
 
 	--[[ SILENT ENFORCER'S MODS ]]
 
@@ -44504,6 +45032,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.wpn_fps_shot_mossberg590.override.wpn_fps_upg_a_rip = deep_clone(shot_ammo.a_rip_pump_override)
 			self.wpn_fps_shot_mossberg590.override.wpn_fps_upg_a_piercing = deep_clone(shot_ammo.a_piercing_pump_override)
 			self.wpn_fps_shot_mossberg590.override.wpn_fps_upg_a_dragons_breath = deep_clone(shot_ammo.a_dragons_breath_pump_override)
+		
 		end
 
 		if self.parts.wpn_fps_shot_qbs_barrel_long then
@@ -44695,6 +45224,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.wpn_fps_shot_candy.override.wpn_fps_upg_a_piercing = deep_clone(shot_ammo.a_piercing_pump_override)
 			self.wpn_fps_shot_candy.override.wpn_fps_upg_a_dragons_breath = deep_clone(shot_ammo.a_dragons_breath_pump_override)
 		end
+
 
 	--Akimbo Mosconi 12G
 	if self.wpn_fps_shot_x_huntsman then
@@ -46506,6 +47036,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 		self.parts.wpn_fps_iso_stock_full.custom_stats = deep_clone(stocks.nocheeks_to_adj_acc_stats)
 	end
 
+
 	if self.parts.wpn_fps_upg_m_quad100 then
 		self.parts.wpn_fps_upg_m_quad100.supported = true
 		self.parts.wpn_fps_upg_m_quad100.stats = deep_clone(self.parts.wpn_fps_upg_m4_m_drum.stats)
@@ -47138,6 +47669,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 		self.parts.wpn_fps_pis_degle_gr_wood.forbids = nil
 	end
 
+
 	if self.parts.wpn_fps_pis_mp443_m_extended then
 		self.parts.wpn_fps_pis_mp443_m_extended.supported = true
 		self.parts.wpn_fps_pis_mp443_m_extended.stats = {
@@ -47400,6 +47932,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 		self.wpn_fps_sho_dp12.override.wpn_fps_upg_a_rip = deep_clone(shot_ammo.a_rip_pump_override)
 		self.wpn_fps_sho_dp12.override.wpn_fps_upg_a_piercing = deep_clone(shot_ammo.a_piercing_pump_override)
 		self.wpn_fps_sho_dp12.override.wpn_fps_upg_a_dragons_breath = deep_clone(shot_ammo.a_dragons_breath_pump_override)
+	
 	end
 
 	if self.parts.wpn_fps_snp_iuhTTIPlus_gl then --iuhggiuhhgbnr's SR-25
@@ -52267,7 +52800,6 @@ Hooks:PostHook(WeaponFactoryTweakData, "init", "cqbSightInit", function(self)
 		}
 	end
 end)
-
 Hooks:PostHook(WeaponFactoryTweakData, "init", "vmplegacyInit", function(self)
 	if self.wpn_fps_ass_aknato then
 	end
@@ -52700,7 +53232,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "init", "amtInit", function(self)
 			a_obj = "a_quite"
 		}
 	end
-end )
+end)
 
 Hooks:PostHook(WeaponFactoryTweakData, "init", "STF12ModInit", function(self)
 	if self.parts.wpn_fps_shot_stf12_sights then
