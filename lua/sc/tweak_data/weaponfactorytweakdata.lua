@@ -27389,16 +27389,9 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				}
 				self.parts.wpn_fps_upg_m60e4_stock_e6.custom_stats = nil
 
-				for i, part_id in pairs(self.wpn_fps_lmg_m60e4.uses_parts) do
-					attachment_list = {
-						"wpn_fps_upg_fl_dbal_laser"
-					}
-					for _, remove_id in ipairs(attachment_list) do
-						if part_id == remove_id then
-							self.wpn_fps_lmg_m60e4.uses_parts[i] = "resmod_dummy"
-						end
-					end
-				end
+				self.wpn_fps_lmg_m60e4.override.wpn_fps_upg_fl_dbal_laser = {
+					parent="foregrip"
+				}
 			end
 
 			if self.parts.wpn_fps_lmg_m1919a6_mag then
@@ -32894,6 +32887,8 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				translation = Vector3(-1.8, 4, -11.3),
 				rotation = Rotation(-0.02, 0.04, -45)
 			}
+
+			self.parts.wpn_fps_ass_ngsierra_am_bootleg_fury.pcs = nil
 		end
 
 		if self.parts.wpn_fps_lmg_pkilo_stock_medium then
@@ -40832,6 +40827,9 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_ass_virtus_g_standard.supported = true
 			self.parts.wpn_fps_ass_virtus_g_standard.stats = { value = 0 }
 			self.parts.wpn_fps_ass_virtus_g_standard.custom_stats = nil
+			self.parts.wpn_fps_upg_virtus_g_tape.supported = true
+			self.parts.wpn_fps_upg_virtus_g_tape.stats = deep_clone(grips.acc_recoil)
+			self.parts.wpn_fps_upg_virtus_g_tape.custom_stats = deep_clone(grips.acc_recoil)
 
 			self.parts.wpn_fps_upg_virtus_ns_pointy.supported = true
 			self.parts.wpn_fps_upg_virtus_ns_pointy.desc_id = "bm_wp_upg_flash_hider"
