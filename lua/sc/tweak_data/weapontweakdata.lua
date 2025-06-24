@@ -5985,6 +5985,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						if self.x_lemming then
 							self.x_lemming.use_data.selection_index = 2
 							self.x_lemming.recategorize = {"light_pis"}
+							self.x_lemming.desc_id = "bm_sr1_sc_desc"
 							self.x_lemming.categories = {
 								"akimbo",
 								"pistol",
@@ -9998,13 +9999,14 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m249.kick = self.stat_info.kick_tables.random_left_recoil
 					self.m249.kick_pattern = {
 						{0, self.stat_info.kick_tables.random_left_recoil},
-						{13, self.stat_info.kick_tables.horizontal_recoil},
-						{21, self.stat_info.kick_tables.left_recoil},
-						{25, self.stat_info.kick_tables.even_recoil},
+						{8, self.stat_info.kick_tables.random_right_recoil},
+						{13, self.stat_info.kick_tables.left_recoil},
+						{21, self.stat_info.kick_tables.horizontal_recoil},
+						{25, self.stat_info.kick_tables.right_recoil},
 						{28, self.stat_info.kick_tables.moderate_right_kick},
-						{29, self.stat_info.kick_tables.right_recoil},
+						{29, self.stat_info.kick_tables.even_recoil},
 						{34, self.stat_info.kick_tables.horizontal_right_recoil},
-						{48, self.stat_info.kick_tables.horizontal_left_recoil}
+						{48, self.stat_info.kick_tables.left_recoil}
 					}
 					self.m249.always_use_standing = true
 					self.m249.muzzleflash = "_dmc/effects/heavy_muzzle"
@@ -10101,6 +10103,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.kacchainsaw.timers.reload_exit_not_empty = 1.1
 					self.kacchainsaw.timers.reload_empty = 6.4
 					self.kacchainsaw.timers.reload_exit_empty = 0.5
+					self.kacchainsaw.ign_ts = true
 				--Flamethrower
 					self.kacchainsaw_flamethrower.categories = {
 						"flamethrower",
@@ -10151,6 +10154,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.kacchainsaw_flamethrower.timers.reload_exit_not_empty = 0.8
 					self.kacchainsaw_flamethrower.weapon_movement_penalty = sms_preset.lmg_48
 					self.kacchainsaw_flamethrower.shake.bypass_global_shake = true
+					self.kacchainsaw_flamethrower.ign_ts = true
 
 				--RPK
 					self.rpk.desc_id = "bm_rpk_sc_desc"
@@ -10645,6 +10649,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.shuno.sounds.no_fix = true
 					self.shuno.sounds.spin_start = "turret_spin_start"
 					self.shuno.sounds.spin_end = "turret_spin_stop"
+					self.shuno.ign_ts = true
 
 				--Minigun
 					self.m134.categories = {
@@ -10708,6 +10713,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m134.sounds.no_fix = true
 					self.m134.sounds.spin_start = "swatturret_spin_start"
 					self.m134.sounds.spin_end = "swatturret_spin_stop"
+					self.m134.ign_ts = true
 
 		--[[     RIFLES     ]]--
 
@@ -11930,8 +11936,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.asval.can_shoot_through_enemy = false
 						self.asval.panic_suppression_chance = 0.05
 						self.asval.timers.reload_exit_empty = 0.65
-						self.asval.timers.reload_not_empty = 2.5
-						self.asval.timers.reload_exit_not_empty = 0.85
+						self.asval.timers.reload_not_empty = 2.4
+						self.asval.timers.reload_exit_not_empty = 0.95
 						self.asval.reload_speed_multiplier = 1.08
 
 					--Eagle Heavy
@@ -12204,7 +12210,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.shak12.can_shoot_through_enemy = true
 						self.shak12.can_shoot_through_wall = false
 						self.shak12.panic_suppression_chance = 0.05
-						self.shak12.timers = deep_clone(self.corgi.timers)
+						self.shak12.timers.reload_not_empty = 2.3
+						self.shak12.timers.reload_exit_empty = 0.6
+						self.shak12.timers.reload_exit_not_empty = 0.55
 
 					--M308 (M1A SOCOM/M14)
 						self.new_m14.CLIP_AMMO_MAX = 20
@@ -17135,6 +17143,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.sonny.recategorize = { "heavy_pis" }
 				self.sonny.damage_type = "heavy_pistol"
 				self.sonny.fire_mode_data.fire_rate = 0.1263157894
+				self.sonny.tactical_reload = 1
 				self.sonny.CLIP_AMMO_MAX = 10
 				self.sonny.AMMO_MAX = 40
 				self.sonny.kick = self.stat_info.kick_tables.right_recoil
@@ -24539,7 +24548,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.bootl1911.panic_suppression_chance = 0.05
 				self.bootl1911.timers = deep_clone(self.pl14.timers)
 
-					self.x_bootl1911.recategorize = {"light_pis"}
+					self.x_bootl1911.recategorize = {"heavy_pis"}
 					self.x_bootl1911.categories = {
 						"akimbo",
 						"pistol"
@@ -26440,7 +26449,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			end
 
 			if self.sbeta then
-				self.sbeta.recategorize = {"light_snp"}
+				self.sbeta.recategorize = {"heavy_snp"}
 				self.sbeta.damage_type = "sniper"
 				self.sbeta.always_play_anims = true
 				self.sbeta.tactical_reload = 1
@@ -27602,8 +27611,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.bromeop.animations.magazine_empty = nil
 				self.bromeop.reload_speed_multiplier = 0.75
 				self.bromeop.reload_not_empty_speed_multiplier = 1.15
-				self.bromeop.timers.reload_not_empty = 1.18
-				self.bromeop.timers.reload_exit_not_empty = 0.45
+				self.bromeop.timers.reload_not_empty = 1.16
+				self.bromeop.timers.reload_exit_not_empty = 0.48
 				self.bromeop.timers.reload_empty = 1.42
 				self.bromeop.timers.reload_exit_empty = 0.44
 			end
@@ -29972,6 +29981,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.r2.stats_modifiers = nil
 				self.r2.panic_suppression_chance = 0.05
+				self.r2.object_damage_mult = 0.5
 				self.r2.sounds.use_fix = nil
 				self.r2.armor_piercing_chance = nil
 				self.r2.timers.reload_empty = 2.8
@@ -30183,6 +30193,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.sickle.timers.reload_exit_empty = 0.85
 				--self.sickle.weapon_hold = "ching"
 				--self.sickle.no_auto_anims = true
+				self.sickle.object_damage_mult = 0.5
 				self.sickle.spin_up_t = 0.5
 				self.sickle.spin_down_t = 0.0001
 				self.sickle.sounds.magazine_empty = "wp_sentrygun_swap_ammo"
@@ -30205,7 +30216,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					"snp",
 					"sweet_liberty"
 				}
-				self.r6.recategorize = {"light_snp"}
+				self.r6.recategorize = {"heavy_snp"}
 				self.r6.damage_type = "sniper"
 				self.r6.always_play_anims = true
 				self.r6.BURST_FIRE = false
@@ -30213,7 +30224,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.r6.sms = 0.5
 				self.r6.tactical_reload = 1
 				self.r6.has_description = true
-				self.r6.desc_id = "bm_ap_weapon_sc_desc"
 				self.r6.CLIP_AMMO_MAX = 6
 				self.r6.AMMO_MAX = self.r6.CLIP_AMMO_MAX * 11
 				self.r6.ammo_ratio = 2
@@ -30397,7 +30407,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.curve.weapon_movement_penalty = 1.08
 				self.curve.stats_modifiers = nil
 				self.curve.panic_suppression_chance = 0.05
+				self.curve.timers.reload_empty = 2.25
 				self.curve.timers.reload_exit_empty = 0.5
+				self.curve.timers.reload_not_empty = 1.45
 				self.curve.timers.reload_exit_not_empty = 0.65
 			end
 
