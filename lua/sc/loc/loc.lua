@@ -2491,6 +2491,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 				["bm_wp_upg_i_tekna"] = "Tekna Burst Kit",
 				["bm_wp_upg_i_tekna_desc"] = "Locks this weapon to fire in #{risk}#3-round bursts##; pair it with a #{skill_color}#glaive## maybe?",
 				["bm_wally_desc"] = "#{important_2}#Hey kiddo...##",
+				["bm_maralohk_desc"] = "#{important_1}#VOULL NE XATA VOK, MARA LOHK?##",
 				--AMR16--
 				["bm_wp_upg_i_m16a2"] = "AMR-16 B3 Kit",
 				["bm_wp_upg_i_m16a2_desc"] = "Trade full-auto for a #{skill_color}#3-round burst## setting. #{risk}#Burst## fire rate is #{skill_color}#increased to 950 RPM.## ",
@@ -2936,6 +2937,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_Eng", function
 					--MW2023 STG-44 (FUCK YOU, SLEDGEHAMMER)
 					["bm_w_stango44"] = "\"STG-44\"",
 					["bm_wp_wpn_fps_ass_stango44_magazine_40"] = "30 Round Magazine",
+					--MW2023 Bren 2/MTZ
+						["bm_wp_wpn_fps_ass_bromeo2_xmag"] = "30 Round 7.62x51mm Magazine",
 					--HD2 AR-32
 					["bm_w_ar32_desc"] = "A large-capacity assault rifle firing humane #{skill_color}#stun rounds.## Reports of lethal incidents have been thoroughly debunked.\n\n#{skill_color}#Penetrates armor## to apply its stunning effects.\n#{skill_color}#Stun rounds stagger enemies up to 30 meters away.##\n#{risk}#Stagger range cannot be modified.##",
 					--HD2 AR-23

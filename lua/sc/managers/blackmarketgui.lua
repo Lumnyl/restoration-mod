@@ -4665,7 +4665,13 @@ function BlackMarketGui:update_info_text()
 
 			local crafted = managers.blackmarket:get_crafted_category_slot(slot_data.category, slot_data.slot)
 			local custom_stats = crafted and managers.weapon_factory:get_custom_stats_from_weapon(crafted.factory_id, crafted.blueprint)
+			local maralohk = nil
 			if custom_stats then --GROSS and UGLY garbage
+				for part_id, stats in pairs(custom_stats) do
+					if stats.hey_kiddo then
+						maralohk = true
+					end
+				end
 				for part_id, stats in pairs(custom_stats) do
 					if stats.info_lock_burst then
 						lock_burst = true
@@ -4872,6 +4878,8 @@ function BlackMarketGui:update_info_text()
 
 			local selection_index = tweak_data:get_raw_value("weapon", self._slot_data.name, "use_data", "selection_index") or 1
 			local category = (selection_index == 1 and "secondaries") or (selection_index == 2 and "primaries") or "disabled"
+			local roll_desc = nil
+
 			if category == slot_data.category then
 
 				-- Ugly as fuck but this is the only way I can think of to fix the movement penalty text being excluded from description scaling is to just make it a part of descriptions and making a giant fuck off 'resource_color' table
@@ -4888,6 +4896,7 @@ function BlackMarketGui:update_info_text()
 				local stat_sms = nil
 				local stat_move = nil
 				local stat_attachment_desc = nil
+				local stat_attachment_desc_2 = nil
 				local rays = (weapon_tweak and weapon_tweak.rays) or 1
 				local starwars = nil
 				local martyr = weapon_tweak and weapon_tweak.dispose_mag_desc
@@ -4905,6 +4914,9 @@ function BlackMarketGui:update_info_text()
 						end
 						if stats.alt_desc then
 							stat_attachment_desc = stats.alt_desc
+						end
+						if stats.alt_desc_2 then
+							stat_attachment_desc_2 = stats.alt_desc_2
 						end
 						if stats.ene_hs_mult_add then
 							ene_hs_mult = ene_hs_mult + stats.ene_hs_mult_add
@@ -4937,7 +4949,8 @@ function BlackMarketGui:update_info_text()
 
 					if weapon_tweak.has_description then
 						local has_pc_desc = managers.menu:is_pc_controller() and managers.localization:exists(tweak_data.weapon[slot_data.name].desc_id .. "_pc")
-						local desc_id = stat_attachment_desc or tweak_data.weapon[slot_data.name].desc_id
+						roll_desc = (stat_attachment_desc_2 and math.rand(1) <= stat_attachment_desc_2[2] and stat_attachment_desc_2[1]) or nil
+						local desc_id = roll_desc or stat_attachment_desc or tweak_data.weapon[slot_data.name].desc_id
 						description = has_pc_desc and managers.localization:text(desc_id .. "_pc", desc_macros) or managers.localization:text(desc_id, desc_macros)
 						for color_id in string.gmatch(description, "#%{(.-)%}#") do
 							table.insert(updated_texts[4].resource_color, tweak_data.screen_colors[color_id])
@@ -5096,6 +5109,23 @@ function BlackMarketGui:update_info_text()
 				})
 				table.insert(updated_texts[4].resource_color, tweak_data.screen_colors.important_1)
 				table.insert(updated_texts[4].resource_color, tweak_data.screen_colors.risk)
+			end
+
+			if maralohk and (roll_desc or (math.rand(1) <= 0.05)) then 
+				local rand = (roll_desc and 10) or math.random(1, 8)
+				if roll_desc then
+					updated_texts[1].text = "##" .. updated_texts[1].text:gsub("##", "") .. "##"
+					updated_texts[2].text = "##" .. updated_texts[2].text:gsub("##", "") .. "##"
+					updated_texts[3].text = "##" .. updated_texts[3].text:gsub("##", "") .. "##"
+					updated_texts[4].text = "##" .. updated_texts[4].text:gsub("##", "") .. "##"
+					updated_texts[1].resource_color = tweak_data.screen_colors.important_1
+					updated_texts[2].resource_color = updated_texts[1].resource_color
+					updated_texts[3].resource_color = updated_texts[1].resource_color
+					updated_texts[4].resource_color = updated_texts[1].resource_color
+					updated_texts[5].resource_color = updated_texts[1].resource_color
+				end
+				local sound_buffer = XAudio and blt.xaudio.setup() and XAudio.Buffer:new( BeardLib.Utils:FindMod("RestorationMod").ModPath .. "assets/oggs/voiceover/mitw/" .. tostring(rand) .. ".ogg")
+				XAudio.Source:new(sound_buffer)
 			end
 
 			updated_texts[4].below_stats = true
@@ -5304,6 +5334,8 @@ function BlackMarketGui:update_info_text()
 		local armor_name_text = self._armor_info_panel:child("armor_name_text")
 		local armor_image = self._armor_info_panel:child("armor_image")
 		local armor_equipped = self._armor_info_panel:child("armor_equipped")
+		local bm_armor_tweak = tweak_data.blackmarket.armors[slot_data.name]
+		local upgrade_level = bm_armor_tweak.upgrade_level
 
 		armor_name_text:set_text(self._slot_data.name_localized)
 		armor_name_text:set_w(self._armor_info_panel:w() - armor_image:right() - 20)
@@ -5324,9 +5356,19 @@ function BlackMarketGui:update_info_text()
 		elseif managers.player:has_category_upgrade("player", "damage_to_hot") and not table.contains(tweak_data:get_raw_value("upgrades", "damage_to_hot_data", "armors_allowed") or {}, self._slot_data.name) then
 			updated_texts[3].text = managers.localization:to_upper_text("bm_menu_disables_damage_to_hot")
 			updated_texts[3].below_stats = true
-		elseif managers.player:has_category_upgrade("player", "armor_health_store_amount") then --Add Ex-Pres per-kill armor regen bonus.
-			local bm_armor_tweak = tweak_data.blackmarket.armors[slot_data.name]
-			local upgrade_level = bm_armor_tweak.upgrade_level
+		end
+
+		if managers.player:has_category_upgrade("player", "armor_pickup_mul") then
+			local armor_pickup = managers.player:body_armor_value("skill_ammo_mul", upgrade_level, 1)
+			local description = managers.localization:text("bm_menu_armor_pickup_1", { armor_pickup = (armor_pickup * 100) .. "%" } )
+			for color_id in string.gmatch(description, "#%{(.-)%}#") do
+				table.insert(updated_texts[4].resource_color,  tweak_data.screen_colors[(armor_pickup < 1 and "stats_negative") or (armor_pickup > 1 and "stats_positive") or color_id])
+			end
+			description = description:gsub("#%{(.-)%}#", "##")
+			updated_texts[4].text = description .. "\n" .. updated_texts[4].text
+		end
+
+		if managers.player:has_category_upgrade("player", "armor_health_store_amount") then --Add Ex-Pres per-kill armor regen bonus.
 			local amount = managers.player:body_armor_value("skill_max_health_store", upgrade_level, 1)
 			local multiplier = managers.player:upgrade_value("player", "armor_max_health_store_multiplier", 1)
 			local regen_speed = format_round((managers.player:body_armor_value("skill_kill_change_regenerate_speed", upgrade_level, 1) - 1) * 100)
@@ -5336,10 +5378,10 @@ function BlackMarketGui:update_info_text()
 								managers.localization:to_upper_text("bm_menu_armor_max_health_store_1", {health_stored = format_round(amount * multiplier * tweak_data.gui.stats_present_multiplier)}))
 
 			for color_id in string.gmatch(description, "#%{(.-)%}#") do
-				table.insert(updated_texts[4].resource_color, tweak_data.screen_colors[color_id])
+				table.insert(updated_texts[4].resource_color, tweak_data.screen_colors["skill_color"]) --dunno why this breaks when the difficuly cap is in play but doing this is fine
 			end
 			description = description:gsub("#%{(.-)%}#", "##")
-			updated_texts[4].text = description .. "\n\n"
+			updated_texts[4].text = updated_texts[4].text .. description .. "\n\n"
 			updated_texts[4].below_stats = true
 		elseif managers.player:has_category_upgrade("player", "armor_grinding") then --Add Anarchist per-armor skill information.
 			local bm_armor_tweak = tweak_data.blackmarket.armors[slot_data.name]
@@ -5353,7 +5395,7 @@ function BlackMarketGui:update_info_text()
 				table.insert(updated_texts[4].resource_color, tweak_data.screen_colors[color_id])
 			end
 			description = description:gsub("#%{(.-)%}#", "##")
-			updated_texts[4].text = description .. "\n\n"
+			updated_texts[4].text = updated_texts[4].text .. description .. "\n\n"
 			updated_texts[4].below_stats = true
 		end
 		local bm_armor_tweak = tweak_data.blackmarket.armors[slot_data.name]
@@ -5367,7 +5409,7 @@ function BlackMarketGui:update_info_text()
 		local is_pro = Global.game_settings and Global.game_settings.one_down
 		local difficulty_id = math.max(0, (tweak_data:difficulty_to_index(current_diff) or 0) - 2)
 		local grace_cap = nil
-		dodge_rating = math.clamp((dodge_rating + mod_dodge + skill_dodge) * 1000, 0, 450)
+		dodge_rating = math.round(math.clamp((dodge_rating + mod_dodge + skill_dodge) * 1000, 0, 450))
 		if dodge_rating and dodge_rating > 0 then
 			local description = managers.localization:text("bm_menu_dodge_grace", { grace_bonus = dodge_rating .. managers.localization:text("bm_menu_append_milliseconds") } )
 			local diff_desc = ""
